@@ -14,8 +14,8 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
         setContentView(R.layout.activity_search);
-        ImageButton Return = (ImageButton) findViewById(R.id.imageButton);
-        TextView t=(TextView)findViewById(R.id.textView) ;
+        ImageButton Return = (ImageButton) findViewById(R.id.Return);
+        TextView t=(TextView)findViewById(R.id.title) ;
         t.setText("查询");
         Return.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
-//    private Context mContext;
-   private List<Information>itemList;
+public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
+    //    private Context mContext;
+    private List<MessageInformation>itemList;
 //
 //    private ViewHolder getViewHolderByViewType(int viewType) {
 //        View view1= View.inflate(mContext,R.layout.items,null);
@@ -32,17 +32,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-      View view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.items,viewGroup,false);
-      ViewHolder holder=new ViewHolder(view);
-
+        //加载消息通知的布局
+        View view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.messageitems,viewGroup,false);
+        ViewHolder holder=new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-     Information information=itemList.get(i);
-     viewHolder.bookName.setText(information.getBookName());
-     viewHolder.lentTime.setText(information.getLentTime());
+        //得到消息通知，显示出来
+        MessageInformation messageinformation =itemList.get(i);
+        viewHolder.message.setText(messageinformation.getMessage());
+        viewHolder.messageTime.setText(messageinformation.getMessageTime());
 //     viewHolder.message.setText(information.getMessage());
 //     viewHolder.messageTime.setText(information.getMessageTime());
     }
@@ -51,8 +52,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public int getItemCount() {
         return itemList.size();
     }
-    public ItemAdapter(List<Information>itemList){
-       this.itemList= itemList;
+    public MessageAdapter(List<MessageInformation>itemList){
+        this.itemList= itemList;
 
     }
 
@@ -69,16 +70,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 //    }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
-         TextView bookName;
-         TextView lentTime;
-//         TextView message;
-//         TextView messageTime;
+//        TextView bookName;
+//        TextView lentTime;
+                 TextView message;
+         TextView messageTime;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-           bookName=(TextView) itemView.findViewById(R.id.textView2);
-           lentTime=(TextView)itemView.findViewById(R.id.textView3);
-//           message=(TextView)itemView.findViewById(R.id.message);
-//           messageTime=(TextView)itemView.findViewById(R.id.messageTime);
+//            bookName=(TextView) itemView.findViewById(R.id.textView2);
+//            lentTime=(TextView)itemView.findViewById(R.id.textView3);
+           message=(TextView)itemView.findViewById(R.id.message);
+           messageTime=(TextView)itemView.findViewById(R.id.messageTime);
         }
     }
 }

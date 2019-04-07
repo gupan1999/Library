@@ -2,16 +2,10 @@ package com.example.version1;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CategoriesActivity extends AppCompatActivity {
 //    private List<String> itemList=new ArrayList<>();
@@ -23,9 +17,9 @@ public class CategoriesActivity extends AppCompatActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
         setContentView(R.layout.activity_categories);
 //        initItems();
-        ImageButton Return = (ImageButton) findViewById(R.id.imageButton);
-        TextView t=(TextView)findViewById(R.id.textView) ;
-        t.setText("分类");
+        ImageButton Return = (ImageButton) findViewById(R.id.Return);
+        TextView t=(TextView)findViewById(R.id.title) ;   //title控件注册
+        t.setText("分类");  //title名
 //         recyclerView=(RecyclerView)findViewById(R.id.recycler_view);
 //
 //        LinearLayoutManager layoutManager=new LinearLayoutManager(this);//线性布局管理Recyclerview

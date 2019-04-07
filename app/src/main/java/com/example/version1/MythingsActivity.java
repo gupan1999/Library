@@ -3,21 +3,11 @@ package com.example.version1;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.util.List;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class MythingsActivity extends AppCompatActivity {
 
@@ -26,8 +16,8 @@ public class MythingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
         setContentView(R.layout.activity_mythings);
-        ImageButton Return=(ImageButton)findViewById(R.id.imageButton); //返回按钮
-        TextView t=(TextView)findViewById(R.id.textView) ; //本页标题
+        ImageButton Return=(ImageButton)findViewById(R.id.Return); //返回按钮
+        TextView t=(TextView)findViewById(R.id.title) ; //本页标题
         t.setText("我的");
         Return.setOnClickListener(new View.OnClickListener() {
             @Override

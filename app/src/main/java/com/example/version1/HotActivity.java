@@ -14,9 +14,9 @@ public class HotActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
         setContentView(R.layout.activity_hot);
-        ImageButton Return = (ImageButton) findViewById(R.id.imageButton);
-        TextView t=(TextView)findViewById(R.id.textView) ;
-        t.setText("热门");
+        ImageButton Return = (ImageButton) findViewById(R.id.Return);  //返回按钮注册
+        TextView t=(TextView)findViewById(R.id.title) ;   //title控件注册
+        t.setText("热门"); //title名
         Return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

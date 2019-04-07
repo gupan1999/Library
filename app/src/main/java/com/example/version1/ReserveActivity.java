@@ -15,12 +15,12 @@ public class ReserveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
         setContentView(R.layout.activity_reserve);
 
-        Button button1=(Button)findViewById(R.id.imageButton10);
-        Button button2=(Button)findViewById(R.id.imageButton12);
-        Button button3=(Button)findViewById(R.id.imageButton14);
-        TextView t=(TextView)findViewById(R.id.textView) ;
+        Button button1=(Button)findViewById(R.id.discussroom);
+        Button button2=(Button)findViewById(R.id.seat);
+        Button button3=(Button)findViewById(R.id.readinghouse);
+        TextView t=(TextView)findViewById(R.id.title) ;
         t.setText("预约");
-        ImageButton Return=(ImageButton)findViewById(R.id.imageButton);
+        ImageButton Return=(ImageButton)findViewById(R.id.Return);
         Return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

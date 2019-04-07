@@ -98,10 +98,10 @@ public class MainActivity extends AppCompatActivity {
     private void parseWithGSON(String jsonData){
         Gson gson=new Gson();
          appList=gson.fromJson(jsonData,new TypeToken<List<Information>>(){}.getType());
-        for (Information information:appList){
-            Log.d("Information",information.bookName);
-            Log.d("Information",information.lentTime);
-        }
+//        for (Information information:appList){
+//            Log.d("Information",information.bookName);
+//            Log.d("Information",information.lentTime);
+//        }
 
     }
 
