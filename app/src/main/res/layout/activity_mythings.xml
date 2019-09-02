@@ -106,7 +106,7 @@
         app:layout_constraintTop_toBottomOf="@+id/reserve" />
 
     <com.example.version1.TitleLayout
-        android:id="@+id/titleLayout2"
+        android:id="@+id/titleLayout4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
