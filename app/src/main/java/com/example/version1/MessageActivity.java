@@ -1,6 +1,7 @@
 package com.example.version1;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,11 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Window;
 
+import com.example.version1.customed.TitleLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MessageActivity extends AppCompatActivity {
-
+    private RecyclerView recyclerView2;
+    private List<MessageInformation>mesList=new ArrayList<MessageInformation>();
+    private BaseRecyclerAdapter adapter;
     public List<MessageInformation>getMessageList(List<Information>inList){
         List<MessageInformation>mesList=new ArrayList<MessageInformation>();
         for(Information information:inList){
@@ -35,12 +40,20 @@ public class MessageActivity extends AppCompatActivity {
         TitleLayout titleLayout=findViewById(R.id.titleLayout2);
         titleLayout.setTitle("消息通知");
 
-        List<MessageInformation>mesList=getMessageList(HttpUtil.informationList);
-        RecyclerView recyclerView2=findViewById(R.id.recyclerview2);
+        mesList=getMessageList(HttpUtil.informationList);
+        recyclerView2=findViewById(R.id.recyclerview2);
+        adapter= new BaseRecyclerAdapter<MessageInformation>(this,R.layout.messageitems,mesList) {
+            @Override
+            public void convert(BaseViewHolder holder, MessageInformation messageInformation) {
+                holder.setText(R.id.message,messageInformation.message);
+                holder.setText(R.id.messageTime,messageInformation.messageTime);
+            }
+
+        };
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);//线性布局管理Recyclerview
         recyclerView2.setLayoutManager(layoutManager);
         recyclerView2.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-        MessageAdapter adapter=new MessageAdapter(mesList);
+        //MessageAdapter adapter=new MessageAdapter(mesList);
         recyclerView2.setAdapter(adapter);
 
 

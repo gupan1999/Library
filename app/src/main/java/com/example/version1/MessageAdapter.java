@@ -21,7 +21,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         View view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.messageitems,viewGroup,false);
         return new ViewHolder(view);
     }
-
+ 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         //得到消息通知，显示出来
