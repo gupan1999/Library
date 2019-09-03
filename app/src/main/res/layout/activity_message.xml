@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MessageActivity">
 
-    <com.example.version1.TitleLayout
+    <com.example.version1.customed.TitleLayout
         android:id="@+id/titleLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -15,7 +15,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"></com.example.version1.TitleLayout>
+        app:layout_constraintVertical_bias="0.0">
+
+    </com.example.version1.customed.TitleLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview2"

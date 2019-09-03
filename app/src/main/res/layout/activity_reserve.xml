@@ -51,7 +51,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/discussroom" />
 
-    <com.example.version1.TitleLayout
+    <com.example.version1.customed.TitleLayout
         android:id="@+id/titleLayout5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,5 +62,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
-    </com.example.version1.TitleLayout>
+    </com.example.version1.customed.TitleLayout>
 </android.support.constraint.ConstraintLayout>

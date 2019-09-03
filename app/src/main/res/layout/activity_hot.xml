@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".HotActivity">
 
-    <com.example.version1.TitleLayout
+    <com.example.version1.customed.TitleLayout
 
         android:id="@+id/titleLayout1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+    </com.example.version1.customed.TitleLayout>
 </android.support.constraint.ConstraintLayout>

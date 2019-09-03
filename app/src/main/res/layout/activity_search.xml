@@ -7,7 +7,7 @@
     tools:context=".SearchActivity">
 
 
-     <com.example.version1.ZoomImageView
+     <com.example.version1.customed.ZoomImageView
          android:id="@+id/imageView"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
          app:layout_constraintStart_toStartOf="parent"
          app:layout_constraintTop_toTopOf="parent" />
 
-    <com.example.version1.TitleLayout
+    <com.example.version1.customed.TitleLayout
 
         android:id="@+id/titleLayout6"
         android:layout_width="match_parent"
@@ -30,6 +30,6 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="16dp">
 
-    </com.example.version1.TitleLayout>
+    </com.example.version1.customed.TitleLayout>
 
 </android.support.constraint.ConstraintLayout>
