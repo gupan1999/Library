@@ -1,7 +1,8 @@
-package com.example.version1;
+package com.example.version1.Util;
 
 import android.util.Log;
 
+import com.example.version1.Information;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -13,7 +14,7 @@ import okhttp3.Response;
 
 public class HttpUtil {
 
-    static List<Information>informationList;
+    public static List<Information>informationList;
 
 
     public static void getInformation(){

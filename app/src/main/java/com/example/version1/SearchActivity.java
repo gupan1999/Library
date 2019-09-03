@@ -10,6 +10,8 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.version1.customed.TitleLayout;
+import com.example.version1.customed.ZoomImageView;
 
 import okhttp3.Call;
 import okhttp3.Callback;

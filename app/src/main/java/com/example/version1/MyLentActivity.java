@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Window;
 
+import com.example.version1.Util.BaseRecyclerAdapter;
+import com.example.version1.Util.BaseViewHolder;
+import com.example.version1.Util.HttpUtil;
 import com.example.version1.customed.TitleLayout;
 
 import java.util.ArrayList;

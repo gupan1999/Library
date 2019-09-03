@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import com.example.version1.customed.TitleLayout;
+
 public class MythingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -43,6 +45,10 @@ public class MythingsActivity extends AppCompatActivity implements View.OnClickL
             case R.id.reserve:
                 Intent intent = new Intent(MythingsActivity.this, ReserveActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.imageButton15:
+                Intent intent3 = new Intent(MythingsActivity.this,SettingActivity.class);
+                startActivity(intent3);
                 break;
             default:
                 Log.d("MythingsActivity", "Others");
