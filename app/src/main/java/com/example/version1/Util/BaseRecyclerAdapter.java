@@ -12,10 +12,14 @@ import java.util.List;
  * 普通类型的适配器
  */
 
-public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
+public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseViewHolder>{
     private Context mContext;
     private int mLayoutId;
     private List<T> mData;
+    private int position;
+    public int getPosition() { return position; }
+    public void setPosition(int position) { this.position = position; }
+
 
 
     public BaseRecyclerAdapter(Context mContext, int mLayoutId, List<T> mData) {
@@ -26,7 +30,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-       return BaseViewHolder.getRecyclerHolder(mContext, parent, mLayoutId);
+       BaseViewHolder holder=BaseViewHolder.getRecyclerHolder(mContext, parent, mLayoutId);
+
+       setting(holder);
+       return holder;
     }
 
     @Override
@@ -44,5 +51,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
      * 对外提供的方法
      */
     public abstract void convert(BaseViewHolder holder, T t);
+
+    public abstract  void setting(BaseViewHolder holder);
 
 }

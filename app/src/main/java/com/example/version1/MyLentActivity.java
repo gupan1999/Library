@@ -53,6 +53,11 @@ public List<LentInformation>getLentList(List<Information>inList){
             holder.setText(R.id.lentTime,lentInformation.lentTime);
             }
 
+            @Override
+            public void setting(BaseViewHolder holder) {
+
+            }
+
         };
         recyclerView.setAdapter(adapter);
     }

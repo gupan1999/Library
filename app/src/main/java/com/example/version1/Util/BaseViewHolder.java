@@ -3,18 +3,23 @@ package com.example.version1.Util;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.version1.MyApplication;
+import com.example.version1.R;
 
 /**
  * Created by Administrator on 2017/11/6 0006.
  * huangjialin
  */
 
-public class BaseViewHolder extends RecyclerView.ViewHolder {
+public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
     private SparseArray<View> mViews; //用来存储控件
     private View mConvertView;
     private Context mContext;
@@ -25,6 +30,8 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         this.mContext = context;
         mConvertView = itemView;
         mViews = new SparseArray<View>();
+
+        //mConvertView.setOnCreateContextMenuListener(this);
     }
 
 
@@ -76,5 +83,19 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         View view = getView(viewId);
         view.setOnClickListener(listener);
         return this;
+    }
+
+    public void setOnCreateContextMenuListener(View v){
+        v.setOnCreateContextMenuListener(this);
+    }
+
+    public View getItemView(){
+        return mConvertView;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+      new MenuInflater(MyApplication.getContext()).inflate(R.menu.context_menu,menu);
+      //menu.add(0, R.id.delete,0,"删除");
     }
 }

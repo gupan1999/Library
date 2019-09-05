@@ -7,7 +7,12 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
@@ -19,7 +24,8 @@ import java.util.List;
 
 public class MessageActivity extends AppCompatActivity {
     private RecyclerView recyclerView2;
-    private List<MessageInformation>mesList=new ArrayList<MessageInformation>();
+
+
     private BaseRecyclerAdapter adapter;
     public List<MessageInformation>getMessageList(List<Information>inList){
         List<MessageInformation>mesList=new ArrayList<MessageInformation>();
@@ -42,14 +48,27 @@ public class MessageActivity extends AppCompatActivity {
 
         TitleLayout titleLayout=findViewById(R.id.titleLayout2);
         titleLayout.setTitle("消息通知");
-
-        mesList=getMessageList(HttpUtil.informationList);
+        if(User.mesList==null) {
+            User.mesList = getMessageList(HttpUtil.informationList);
+        }
         recyclerView2=findViewById(R.id.recyclerview2);
-        adapter= new BaseRecyclerAdapter<MessageInformation>(this,R.layout.messageitems,mesList) {
+        adapter= new BaseRecyclerAdapter<MessageInformation>(this,R.layout.messageitems,User.mesList) {
             @Override
             public void convert(BaseViewHolder holder, MessageInformation messageInformation) {
                 holder.setText(R.id.message,messageInformation.message);
                 holder.setText(R.id.messageTime,messageInformation.messageTime);
+
+            }
+            public void setting(final BaseViewHolder holder){
+                holder.setOnCreateContextMenuListener(holder.getItemView());
+                holder.getItemView().setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        System.out.println(holder.getItemView());
+                        adapter.setPosition(holder.getLayoutPosition());
+                        return false;
+                    }
+                });
             }
 
         };
@@ -60,6 +79,27 @@ public class MessageActivity extends AppCompatActivity {
         recyclerView2.setAdapter(adapter);
 
 
+
+
     }
 
+
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+            switch (item.getItemId()) {
+
+                case R.id.delete:
+                    Toast.makeText(MessageActivity.this, "delete",
+                            Toast.LENGTH_SHORT).show();
+                    User.mesList.remove(adapter.getPosition());
+                    adapter.notifyItemRemoved(adapter.getPosition());
+                    adapter.notifyItemRangeChanged(adapter.getPosition(),adapter.getItemCount());
+                    return true;
+                default:
+            }
+
+        return super.onContextItemSelected(item);
+    }
 }
