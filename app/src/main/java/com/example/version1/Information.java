@@ -1,4 +1,7 @@
 package com.example.version1;
+
+import org.litepal.crud.LitePalSupport;
+
 //Information接受从服务器请求得到的信息
 public class Information {
    String bookName;
@@ -46,53 +49,4 @@ public class Information {
     }
 
 }
-class LentInformation{
-    String bookName;
 
-    public String getBookName() {
-        return bookName;
-    }
-
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
-    }
-
-    public String getLentTime() {
-        return lentTime;
-    }
-
-    public void setLentTime(String lentTime) {
-        this.lentTime = lentTime;
-    }
-
-    String lentTime;
-
-    public LentInformation(Information information){
-        this.bookName=information.getBookName();
-        this.lentTime=information.getLentTime();
-    }
-}
-class MessageInformation{
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getMessageTime() {
-        return messageTime;
-    }
-
-    public void setMessageTime(String messageTime) {
-        this.messageTime = messageTime;
-    }
-
-    String message;
-    String messageTime;
-    public MessageInformation(Information information){
-        this.message=information.getMessage();
-        this.messageTime=information.getMessageTime();
-    }
-}

@@ -10,6 +10,8 @@ import android.widget.Button;
 
 import com.example.version1.customed.TitleLayout;
 
+import org.litepal.LitePal;
+
 public class MythingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -26,7 +28,7 @@ public class MythingsActivity extends AppCompatActivity implements View.OnClickL
         Message.setOnClickListener(this);
         Reserve.setOnClickListener(this);
         MyLent.setOnClickListener(this);
-
+        Log.d("更新数据库", LitePal.findAll(MessageInformation.class).toString());
     }
 
     @Override

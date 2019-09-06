@@ -17,4 +17,5 @@
         completions."
     </string>
     <string name="delete">删除</string>
+    <string name="no_data" >暂无记录</string>
 </resources>

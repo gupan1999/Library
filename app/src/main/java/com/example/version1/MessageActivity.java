@@ -2,12 +2,14 @@ package com.example.version1;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +19,10 @@ import android.widget.Toast;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
 import com.example.version1.Util.HttpUtil;
+import com.example.version1.Util.Temp;
 import com.example.version1.customed.TitleLayout;
+
+import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,19 +32,7 @@ public class MessageActivity extends AppCompatActivity {
 
 
     private BaseRecyclerAdapter adapter;
-    public List<MessageInformation>getMessageList(List<Information>inList){
-        List<MessageInformation>mesList=new ArrayList<MessageInformation>();
-        for(Information information:inList){
 
-            MessageInformation messageInformation=information.getMessageInformation(information);
-            if(messageInformation.getMessage()!=null&&messageInformation.getMessageTime()!=null) {
-                Log.d("MessageInformation", messageInformation.getMessage());
-                Log.d("MessageInformation", messageInformation.getMessageTime());
-                mesList.add(messageInformation);
-            }
-        }
-        return mesList;
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +41,11 @@ public class MessageActivity extends AppCompatActivity {
 
         TitleLayout titleLayout=findViewById(R.id.titleLayout2);
         titleLayout.setTitle("消息通知");
+        /*
         if(User.mesList==null) {
-            User.mesList = getMessageList(HttpUtil.informationList);
-        }
+            User.mesList = Temp.getMessageList(HttpUtil.informationList);
+
+        }*/
         recyclerView2=findViewById(R.id.recyclerview2);
         adapter= new BaseRecyclerAdapter<MessageInformation>(this,R.layout.messageitems,User.mesList) {
             @Override
@@ -79,7 +74,6 @@ public class MessageActivity extends AppCompatActivity {
 
 
 
-
     }
 
 
@@ -92,10 +86,13 @@ public class MessageActivity extends AppCompatActivity {
                 case R.id.delete:
                     Toast.makeText(MessageActivity.this, "delete",
                             Toast.LENGTH_SHORT).show();
+
+
                     User.mesList.remove(adapter.getPosition());    //移除数据源
                     adapter.notifyItemRemoved(adapter.getPosition());  //移除item
                     adapter.notifyItemRangeChanged(adapter.getPosition(),adapter.getItemCount());  //正确删除后的动画效果
-                    return true;
+
+
                 default:
             }
 

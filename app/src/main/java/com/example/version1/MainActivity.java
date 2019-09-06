@@ -5,11 +5,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.version1.Util.HttpUtil;
+import com.example.version1.Util.Temp;
+
+import org.litepal.LitePal;
+import org.litepal.crud.LitePalSupport;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent_categories);
                     return true;
                 case R.id.navigation_mythings:
-                    HttpUtil.getInformation();
+                    //HttpUtil.getInformation();
+                    loadInformation();
                     Intent intent_mythings=new Intent(MainActivity.this, MythingsActivity.class);
                     startActivity(intent_mythings);
                     return true;
@@ -53,6 +62,27 @@ public class MainActivity extends AppCompatActivity {
         Button button=findViewById(R.id.button);   //关联id为button的按钮
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    private void loadInformation(){
+
+        if (HttpUtil.isNetworkConnected(MyApplication.getContext())) {
+            HttpUtil.getInformation();
+            LitePal.deleteAll(MessageInformation.class);
+        }
+        else{
+            Toast.makeText(MyApplication.getContext(), "网络连接异常",
+                    Toast.LENGTH_SHORT).show();
+            List<MessageInformation>temp=LitePal.findAll(MessageInformation.class);
+
+            Log.d("加载数据库",temp.toString());
+                    User.mesList=temp;
+            }
+
+
+            //Log.d("MainActivity",imList.toString());
+
+
     }
 
 

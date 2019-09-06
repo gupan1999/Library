@@ -1,10 +1,17 @@
 package com.example.version1.Util;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.example.version1.Information;
+import com.example.version1.MessageInformation;
+import com.example.version1.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.litepal.LitePal;
 
 import java.util.List;
 
@@ -28,6 +35,15 @@ public class HttpUtil {
                     String responseData = response.body().string();
                     Log.d("Information",responseData);
                      parseWithGSON(responseData);
+                    User.mesList = Temp.getMessageList(HttpUtil.informationList);
+                    LitePal.deleteAll(MessageInformation.class);
+                    for(MessageInformation msg:User.mesList) {
+                        MessageInformation temp = new MessageInformation();
+                        temp.setMessage(msg.getMessage());
+                        temp.setMessageTime(msg.getMessageTime());
+                        temp.save();
+                    }
+
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -37,6 +53,18 @@ public class HttpUtil {
     private static void parseWithGSON(String jsonData){
         Gson gson=new Gson();
         informationList=gson.fromJson(jsonData,new TypeToken<List<Information>>(){}.getType());
+    }
+
+    public static boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
     }
 
 

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyLentActivity extends AppCompatActivity {
-    private List<LentInformation> LentList;
+
     private RecyclerView recyclerView;
     private BaseRecyclerAdapter adapter;
 public List<LentInformation>getLentList(List<Information>inList){
@@ -39,14 +39,14 @@ public List<LentInformation>getLentList(List<Information>inList){
         setContentView(R.layout.activity_my_lent);
         TitleLayout titleLayout=findViewById(R.id.titleLayout3);
         titleLayout.setTitle("我的借阅");
-        LentList=getLentList(HttpUtil.informationList); //得到借阅信息
+        User.leList=getLentList(HttpUtil.informationList); //得到借阅信息
         recyclerView=findViewById(R.id.recyclerview);
 
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);//线性布局管理Recyclerview
         recyclerView.setLayoutManager(layoutManager);  //设置为线性布局管理
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));//每行划分割线
         //LentAdapter adapter=new LentAdapter(LentList);  //放入适配器
-        adapter=new BaseRecyclerAdapter<LentInformation>(this,R.layout.items,LentList) {
+        adapter=new BaseRecyclerAdapter<LentInformation>(this,R.layout.items,User.leList) {
             @Override
             public void convert(BaseViewHolder holder, LentInformation lentInformation) {
             holder.setText(R.id.bookName,lentInformation.bookName);

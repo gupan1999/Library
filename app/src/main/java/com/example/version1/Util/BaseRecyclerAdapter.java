@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.example.version1.R;
+
 import java.util.List;
 
 /**
@@ -17,6 +19,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
     private int mLayoutId;
     private List<T> mData;
     private int position;
+    public static  final int EMPTY_TYPE =0;
     public int getPosition() { return position; }
     public void setPosition(int position) { this.position = position; }
 
@@ -30,7 +33,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-       BaseViewHolder holder=BaseViewHolder.getRecyclerHolder(mContext, parent, mLayoutId);
+        BaseViewHolder holder;
+
+       holder=BaseViewHolder.getRecyclerHolder(mContext, parent, mLayoutId);
 
        setting(holder);
        return holder;
