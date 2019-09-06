@@ -6,12 +6,9 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.example.version1.Information;
-import com.example.version1.MessageInformation;
 import com.example.version1.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.litepal.LitePal;
 
 import java.util.List;
 
@@ -36,13 +33,14 @@ public class HttpUtil {
                     Log.d("Information",responseData);
                      parseWithGSON(responseData);
                     User.mesList = Temp.getMessageList(HttpUtil.informationList);
+                    /*
                     LitePal.deleteAll(MessageInformation.class);
                     for(MessageInformation msg:User.mesList) {
                         MessageInformation temp = new MessageInformation();
                         temp.setMessage(msg.getMessage());
                         temp.setMessageTime(msg.getMessageTime());
                         temp.save();
-                    }
+                    }*/
 
                 }catch (Exception e){
                     e.printStackTrace();

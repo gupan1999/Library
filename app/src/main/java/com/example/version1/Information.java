@@ -1,6 +1,6 @@
 package com.example.version1;
 
-import org.litepal.crud.LitePalSupport;
+import com.example.version1.greendao.MessageInformation;
 
 //Information接受从服务器请求得到的信息
 public class Information {

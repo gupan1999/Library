@@ -1,16 +1,10 @@
 package com.example.version1;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.ContextMenu;
-import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -18,14 +12,8 @@ import android.widget.Toast;
 
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
-import com.example.version1.Util.HttpUtil;
-import com.example.version1.Util.Temp;
 import com.example.version1.customed.TitleLayout;
-
-import org.litepal.LitePal;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.version1.greendao.MessageInformation;
 
 public class MessageActivity extends AppCompatActivity {
     private RecyclerView recyclerView2;
@@ -50,8 +38,8 @@ public class MessageActivity extends AppCompatActivity {
         adapter= new BaseRecyclerAdapter<MessageInformation>(this,R.layout.messageitems,User.mesList) {
             @Override
             public void convert(BaseViewHolder holder, MessageInformation messageInformation) {
-                holder.setText(R.id.message,messageInformation.message);
-                holder.setText(R.id.messageTime,messageInformation.messageTime);
+                holder.setText(R.id.message,messageInformation.getMessage());
+                holder.setText(R.id.messageTime,messageInformation.getMessageTime());
 
             }
             public void setting(final BaseViewHolder holder){

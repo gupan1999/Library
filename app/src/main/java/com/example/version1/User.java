@@ -1,6 +1,7 @@
 package com.example.version1;
 
-import java.util.ArrayList;
+import com.example.version1.greendao.MessageInformation;
+
 import java.util.List;
 
 public class User {

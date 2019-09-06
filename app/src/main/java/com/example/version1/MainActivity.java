@@ -14,8 +14,7 @@ import android.widget.Toast;
 import com.example.version1.Util.HttpUtil;
 import com.example.version1.Util.Temp;
 
-import org.litepal.LitePal;
-import org.litepal.crud.LitePalSupport;
+
 
 import java.util.List;
 
@@ -68,15 +67,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (HttpUtil.isNetworkConnected(MyApplication.getContext())) {
             HttpUtil.getInformation();
-            LitePal.deleteAll(MessageInformation.class);
+            //LitePal.deleteAll(MessageInformation.class);
         }
         else{
             Toast.makeText(MyApplication.getContext(), "网络连接异常",
                     Toast.LENGTH_SHORT).show();
-            List<MessageInformation>temp=LitePal.findAll(MessageInformation.class);
+            //List<MessageInformation>temp=LitePal.findAll(MessageInformation.class);
 
-            Log.d("加载数据库",temp.toString());
-                    User.mesList=temp;
+           // Log.d("加载数据库",temp.toString());
+            //        User.mesList=temp;
             }
 
 

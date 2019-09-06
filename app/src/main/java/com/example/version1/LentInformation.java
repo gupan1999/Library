@@ -1,8 +1,8 @@
 package com.example.version1;
 
-import org.litepal.crud.LitePalSupport;
 
-class LentInformation extends LitePalSupport {
+
+class LentInformation{
     String bookName;
     String lentTime;
 

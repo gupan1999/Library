@@ -3,7 +3,7 @@ package com.example.version1.Util;
 import android.util.Log;
 
 import com.example.version1.Information;
-import com.example.version1.MessageInformation;
+import com.example.version1.greendao.MessageInformation;
 
 import java.util.ArrayList;
 import java.util.List;
