@@ -20,8 +20,8 @@ import com.example.version1.R;
  */
 
 public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
-    private SparseArray<View> mViews; //用来存储控件
-    private View mConvertView;
+    private SparseArray<View> mViews; //用来存储控件的键值对容器,如1:
+    private View mConvertView; //每个子项的外层布局
     private Context mContext;
 
 
@@ -95,7 +95,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCr
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-      new MenuInflater(MyApplication.getContext()).inflate(R.menu.context_menu,menu);
+      new MenuInflater(mContext).inflate(R.menu.context_menu,menu);
       //menu.add(0, R.id.delete,0,"删除");
     }
 }

@@ -60,12 +60,11 @@ public class MessageActivity extends AppCompatActivity {
 
             }
             public void setting(final BaseViewHolder holder){
-                holder.setOnCreateContextMenuListener(holder.getItemView());
+                holder.setOnCreateContextMenuListener(holder.getItemView());        //每个ViewHolder设置监听
                 holder.getItemView().setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
-                    public boolean onLongClick(View v) {
-                        System.out.println(holder.getItemView());
-                        adapter.setPosition(holder.getLayoutPosition());
+                    public boolean onLongClick(View v) {                       //设置长按监听，只为获取选中的ViewHolder的位置
+                        adapter.setPosition(holder.getAdapterPosition());
                         return false;
                     }
                 });
@@ -74,7 +73,7 @@ public class MessageActivity extends AppCompatActivity {
         };
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);//线性布局管理Recyclerview
         recyclerView2.setLayoutManager(layoutManager);
-        recyclerView2.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        recyclerView2.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL)); //item间的分割线
         //MessageAdapter adapter=new MessageAdapter(mesList);
         recyclerView2.setAdapter(adapter);
 
@@ -93,9 +92,9 @@ public class MessageActivity extends AppCompatActivity {
                 case R.id.delete:
                     Toast.makeText(MessageActivity.this, "delete",
                             Toast.LENGTH_SHORT).show();
-                    User.mesList.remove(adapter.getPosition());
-                    adapter.notifyItemRemoved(adapter.getPosition());
-                    adapter.notifyItemRangeChanged(adapter.getPosition(),adapter.getItemCount());
+                    User.mesList.remove(adapter.getPosition());    //移除数据源
+                    adapter.notifyItemRemoved(adapter.getPosition());  //移除item
+                    adapter.notifyItemRangeChanged(adapter.getPosition(),adapter.getItemCount());  //正确删除后的动画效果
                     return true;
                 default:
             }
