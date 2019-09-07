@@ -1,4 +1,4 @@
-package com.example.version1;
+package com.example.version1.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.version1.R;
 import com.example.version1.customed.TitleLayout;
 import com.example.version1.customed.ZoomImageView;
 

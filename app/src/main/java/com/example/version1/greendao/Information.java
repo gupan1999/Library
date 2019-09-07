@@ -1,14 +1,11 @@
-package com.example.version1;
-
-import com.example.version1.greendao.LentInformation;
-import com.example.version1.greendao.MessageInformation;
+package com.example.version1.greendao;
 
 //Information接受从服务器请求得到的信息
 public class Information {
-   String bookName;
-     String lentTime;
-    String message;
-    String messageTime;
+    private String bookName;
+    private String lentTime;
+    private String message;
+    private String messageTime;
     public String getBookName() {
         return bookName;
     }

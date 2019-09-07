@@ -1,10 +1,7 @@
 package com.example.version1.greendao;
 
-import com.example.version1.Information;
-
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.annotation.Generated;
 
 //@Entity 将我们的java普通类变为一个能够被greenDAO识别的数据库类型的实体类

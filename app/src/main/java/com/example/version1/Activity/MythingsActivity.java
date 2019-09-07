@@ -1,4 +1,4 @@
-package com.example.version1;
+package com.example.version1.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import com.example.version1.R;
 import com.example.version1.customed.TitleLayout;
-import com.example.version1.greendao.MessageInformation;
-
 
 
 public class MythingsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -51,7 +50,7 @@ public class MythingsActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(intent);
                 break;
             case R.id.imageButton15:
-                Intent intent3 = new Intent(MythingsActivity.this,SettingActivity.class);
+                Intent intent3 = new Intent(MythingsActivity.this, SettingActivity.class);
                 startActivity(intent3);
                 break;
             default:

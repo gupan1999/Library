@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MessageActivity">
+    tools:context=".Activity.MessageActivity">
 
     <com.example.version1.customed.TitleLayout
         android:id="@+id/titleLayout2"

@@ -1,26 +1,21 @@
-package com.example.version1;
+package com.example.version1.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.version1.MyApplication;
+import com.example.version1.R;
+import com.example.version1.greendao.User;
 import com.example.version1.Util.HttpUtil;
-import com.example.version1.Util.Temp;
 import com.example.version1.greendao.DaoSession;
 import com.example.version1.greendao.GreenDaoManager;
-import com.example.version1.greendao.LentInformation;
-import com.example.version1.greendao.MessageInformation;
-import com.example.version1.greendao.MessageInformationDao;
-
-
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent_search);
                     return true;
                 case R.id.navigation_hot:
-                    Intent intent_hot=new Intent(MainActivity.this,HotActivity.class);
+                    Intent intent_hot=new Intent(MainActivity.this, HotActivity.class);
                     //Intent intent_hot=new Intent(MainActivity.this, WebActivity.class);
 
                     startActivity(intent_hot);
@@ -48,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent_categories);
                     return true;
                 case R.id.navigation_mythings:
-                    //HttpUtil.getInformation();
                     loadInformation();
                     Intent intent_mythings=new Intent(MainActivity.this, MythingsActivity.class);
                     startActivity(intent_mythings);
@@ -88,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("User.leList"+User.leList);
             }
 
-
-            //Log.d("MainActivity",imList.toString());
 
 
     }

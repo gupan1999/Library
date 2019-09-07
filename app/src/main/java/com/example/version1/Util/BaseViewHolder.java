@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.version1.MyApplication;
+
 import com.example.version1.R;
 
 /**

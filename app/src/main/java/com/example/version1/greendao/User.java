@@ -1,4 +1,4 @@
-package com.example.version1;
+package com.example.version1.greendao;
 
 import com.example.version1.greendao.LentInformation;
 import com.example.version1.greendao.MessageInformation;

@@ -5,9 +5,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import com.example.version1.Information;
-import com.example.version1.MyApplication;
-import com.example.version1.User;
+import com.example.version1.greendao.Information;
+import com.example.version1.greendao.User;
 import com.example.version1.greendao.DaoSession;
 import com.example.version1.greendao.GreenDaoManager;
 import com.example.version1.greendao.LentInformation;
@@ -35,8 +34,7 @@ public class HttpUtil {
                     Request request = new Request.Builder().url("http://10.128.201.6/get_userdata.json").build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
-                    //Log.d("Information",responseData);
-                     parseWithGSON(responseData);
+                    parseWithGSON(responseData);
                     User.mesList = Temp.getMessageList(informationList);
                     User.leList = Temp.getLentList(informationList);
 

@@ -2,7 +2,7 @@ package com.example.version1.Util;
 
 import android.util.Log;
 
-import com.example.version1.Information;
+import com.example.version1.greendao.Information;
 import com.example.version1.greendao.LentInformation;
 import com.example.version1.greendao.MessageInformation;
 

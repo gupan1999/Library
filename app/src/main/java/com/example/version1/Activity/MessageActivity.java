@@ -1,4 +1,4 @@
-package com.example.version1;
+package com.example.version1.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.example.version1.R;
+import com.example.version1.greendao.User;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
 import com.example.version1.customed.TitleLayout;
@@ -32,7 +34,7 @@ public class MessageActivity extends AppCompatActivity {
         TitleLayout titleLayout=findViewById(R.id.titleLayout2);
         titleLayout.setTitle("消息通知");
         recyclerView2=findViewById(R.id.recyclerview2);
-        adapter= new BaseRecyclerAdapter<MessageInformation>(this,R.layout.messageitems,User.mesList) {
+        adapter= new BaseRecyclerAdapter<MessageInformation>(this,R.layout.messageitems, User.mesList) {
             @Override
             public void convert(BaseViewHolder holder, MessageInformation messageInformation) {
                 holder.setText(R.id.message,messageInformation.getMessage());
@@ -54,13 +56,17 @@ public class MessageActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);//线性布局管理Recyclerview
         recyclerView2.setLayoutManager(layoutManager);
         recyclerView2.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL)); //item间的分割线
-        //MessageAdapter adapter=new MessageAdapter(mesList);
         recyclerView2.setAdapter(adapter);
 
 
 
     }
-
+    private MessageInformation removeRecyclerViewItem(){
+        MessageInformation removedMsg=User.mesList.remove(adapter.getPosition());    //移除数据源
+        adapter.notifyItemRemoved(adapter.getPosition());  //移除item
+        adapter.notifyItemRangeChanged(adapter.getPosition(),adapter.getItemCount());  //正确删除后的动画效果
+        return  removedMsg;
+    }
 
 
     @Override
@@ -71,15 +77,16 @@ public class MessageActivity extends AppCompatActivity {
                 case R.id.delete:
                     Toast.makeText(MessageActivity.this, "delete",
                             Toast.LENGTH_SHORT).show();
-                    MessageInformation removedMsg=User.mesList.remove(adapter.getPosition());    //移除数据源
-                    adapter.notifyItemRemoved(adapter.getPosition());  //移除item
-                    adapter.notifyItemRangeChanged(adapter.getPosition(),adapter.getItemCount());  //正确删除后的动画效果
+                    MessageInformation removedMsg = removeRecyclerViewItem();
                     DaoSession daoSession= GreenDaoManager.getInstance().getDaoSession();
                     daoSession.getMessageInformationDao().delete(removedMsg);
-
-                default:
+                    return true;
+                case R.id.remove:
+                    Toast.makeText(MessageActivity.this,"remove",Toast.LENGTH_SHORT).show();
+                    removeRecyclerViewItem();
+                    return  true;
             }
 
-        return super.onContextItemSelected(item);
+        return false;
     }
 }
