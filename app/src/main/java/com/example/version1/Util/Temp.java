@@ -3,6 +3,7 @@ package com.example.version1.Util;
 import android.util.Log;
 
 import com.example.version1.Information;
+import com.example.version1.greendao.LentInformation;
 import com.example.version1.greendao.MessageInformation;
 
 import java.util.ArrayList;
@@ -22,5 +23,17 @@ public class Temp {
             }
         }
         return mesList;
+    }
+    public static List<LentInformation>getLentList(List<Information>inList){
+        List<LentInformation>LentList=new ArrayList<LentInformation>();
+        for(Information information:inList){
+            LentInformation lentInformation=information.getLentInformation(information);
+            if(lentInformation.getBookName()!=null&&lentInformation.getLentTime()!=null) {
+                Log.d("LentInformation", lentInformation.getBookName());
+                Log.d("LentInformation", lentInformation.getLentTime());
+                LentList.add(lentInformation);
+            }
+        }
+        return LentList;
     }
 }

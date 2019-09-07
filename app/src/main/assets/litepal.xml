@@ -33,7 +33,7 @@
     -->
     <list>
         <mapping class="com.example.version1.greendao.MessageInformation" />
-        <mapping class="com.example.version1.LentInformation" />
+        <mapping class="com.example.version1.greendao.LentInformation" />
     </list>
 
     <!--

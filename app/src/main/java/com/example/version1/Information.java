@@ -1,5 +1,6 @@
 package com.example.version1;
 
+import com.example.version1.greendao.LentInformation;
 import com.example.version1.greendao.MessageInformation;
 
 //Information接受从服务器请求得到的信息

@@ -15,6 +15,7 @@ import com.example.version1.Util.HttpUtil;
 import com.example.version1.Util.Temp;
 import com.example.version1.greendao.DaoSession;
 import com.example.version1.greendao.GreenDaoManager;
+import com.example.version1.greendao.LentInformation;
 import com.example.version1.greendao.MessageInformation;
 import com.example.version1.greendao.MessageInformationDao;
 
@@ -78,12 +79,13 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MyApplication.getContext(), "网络连接异常",
                     Toast.LENGTH_SHORT).show();
             DaoSession daoSession =GreenDaoManager.getInstance().getDaoSession();
-            List<MessageInformation>temp=daoSession.loadAll(MessageInformation.class);
+            User.mesList=daoSession.getMessageInformationDao().loadAll();
+            System.out.println("daoSession"+daoSession);
 
+
+            User.leList=daoSession.getLentInformationDao().loadAll();
             //List<MessageInformation>temp=LitePal.findAll(MessageInformation.class);
-
-            Log.d("加载数据库",temp.toString());
-                    User.mesList=temp;
+            System.out.println("User.leList"+User.leList);
             }
 
 

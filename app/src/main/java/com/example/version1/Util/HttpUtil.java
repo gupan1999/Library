@@ -10,6 +10,7 @@ import com.example.version1.MyApplication;
 import com.example.version1.User;
 import com.example.version1.greendao.DaoSession;
 import com.example.version1.greendao.GreenDaoManager;
+import com.example.version1.greendao.LentInformation;
 import com.example.version1.greendao.MessageInformation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -36,21 +37,19 @@ public class HttpUtil {
                     String responseData = response.body().string();
                     //Log.d("Information",responseData);
                      parseWithGSON(responseData);
-                    User.mesList = Temp.getMessageList(HttpUtil.informationList);
-
+                    User.mesList = Temp.getMessageList(informationList);
+                    User.leList = Temp.getLentList(informationList);
 
                     Log.d("UserList",User.mesList.toString());
                     DaoSession daoSession = GreenDaoManager.getInstance().getDaoSession();
-                    daoSession.deleteAll(MessageInformation.class);
-                    String sql = "update sqlite_sequence SET seq = 0 where name ='MESSAGE_INFORMATION'";//自增长ID为0
-                    daoSession.getDatabase().rawQuery(sql,null);
+                    daoSession.getMessageInformationDao().deleteAll();
+                    daoSession.getLentInformationDao().deleteAll();
                     for(MessageInformation msg:User.mesList) {
-                        MessageInformation temp = new MessageInformation();
-                        temp.setMessage(msg.getMessage());
-                        temp.setMessageTime(msg.getMessageTime());
-                        System.out.println(daoSession);
-                        daoSession.insertOrReplace(msg);
+                        daoSession.getMessageInformationDao().insertOrReplace(msg);
                         Log.d("HttpUtil","正在更新");
+                    }
+                    for(LentInformation lei:User.leList){
+                        daoSession.getLentInformationDao().insertOrReplace(lei);
                     }
                     Log.d("HttpUtil","更新完毕");
                     /*
