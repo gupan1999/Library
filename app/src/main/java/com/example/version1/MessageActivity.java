@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
 import com.example.version1.customed.TitleLayout;
+import com.example.version1.greendao.DaoSession;
+import com.example.version1.greendao.GreenDaoManager;
 import com.example.version1.greendao.MessageInformation;
 
 public class MessageActivity extends AppCompatActivity {
@@ -29,11 +31,6 @@ public class MessageActivity extends AppCompatActivity {
 
         TitleLayout titleLayout=findViewById(R.id.titleLayout2);
         titleLayout.setTitle("消息通知");
-        /*
-        if(User.mesList==null) {
-            User.mesList = Temp.getMessageList(HttpUtil.informationList);
-
-        }*/
         recyclerView2=findViewById(R.id.recyclerview2);
         adapter= new BaseRecyclerAdapter<MessageInformation>(this,R.layout.messageitems,User.mesList) {
             @Override
@@ -74,12 +71,11 @@ public class MessageActivity extends AppCompatActivity {
                 case R.id.delete:
                     Toast.makeText(MessageActivity.this, "delete",
                             Toast.LENGTH_SHORT).show();
-
-
-                    User.mesList.remove(adapter.getPosition());    //移除数据源
+                    MessageInformation removedMsg=User.mesList.remove(adapter.getPosition());    //移除数据源
                     adapter.notifyItemRemoved(adapter.getPosition());  //移除item
                     adapter.notifyItemRangeChanged(adapter.getPosition(),adapter.getItemCount());  //正确删除后的动画效果
-
+                    DaoSession daoSession= GreenDaoManager.getInstance().getDaoSession();
+                    daoSession.getMessageInformationDao().delete(removedMsg);
 
                 default:
             }

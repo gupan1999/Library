@@ -13,7 +13,10 @@ import android.widget.Toast;
 
 import com.example.version1.Util.HttpUtil;
 import com.example.version1.Util.Temp;
-
+import com.example.version1.greendao.DaoSession;
+import com.example.version1.greendao.GreenDaoManager;
+import com.example.version1.greendao.MessageInformation;
+import com.example.version1.greendao.MessageInformationDao;
 
 
 import java.util.List;
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_hot:
                     Intent intent_hot=new Intent(MainActivity.this,HotActivity.class);
                     //Intent intent_hot=new Intent(MainActivity.this, WebActivity.class);
+
                     startActivity(intent_hot);
                     return true;
                 case R.id.navigation_categories:
@@ -68,14 +72,18 @@ public class MainActivity extends AppCompatActivity {
         if (HttpUtil.isNetworkConnected(MyApplication.getContext())) {
             HttpUtil.getInformation();
             //LitePal.deleteAll(MessageInformation.class);
+
         }
         else{
             Toast.makeText(MyApplication.getContext(), "网络连接异常",
                     Toast.LENGTH_SHORT).show();
+            DaoSession daoSession =GreenDaoManager.getInstance().getDaoSession();
+            List<MessageInformation>temp=daoSession.loadAll(MessageInformation.class);
+
             //List<MessageInformation>temp=LitePal.findAll(MessageInformation.class);
 
-           // Log.d("加载数据库",temp.toString());
-            //        User.mesList=temp;
+            Log.d("加载数据库",temp.toString());
+                    User.mesList=temp;
             }
 
 

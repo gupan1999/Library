@@ -36,6 +36,7 @@ public class MythingsActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imageButton13:
+
                 Intent intent1 = new Intent(MythingsActivity.this, MessageActivity.class);
                 startActivity(intent1);
 
