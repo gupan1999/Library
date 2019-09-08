@@ -25,7 +25,7 @@ public class MythingsActivity extends AppCompatActivity implements View.OnClickL
         Button Reserve = findViewById(R.id.reserve);   //返回按钮
         Button MyLent = findViewById(R.id.imageButton9);   //我的借阅按钮
         Button Message = findViewById(R.id.imageButton13);  //消息按钮
-        Message.setOnClickListener(this);
+        Message.setOnClickListener(this);       //设置Activity为监听点击事件的listener，因此在本Activity实现相应的回调方法OnClick
         Reserve.setOnClickListener(this);
         MyLent.setOnClickListener(this);
         //Log.d("更新数据库", LitePal.findAll(MessageInformation.class).toString());

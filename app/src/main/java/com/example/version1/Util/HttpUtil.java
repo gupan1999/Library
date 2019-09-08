@@ -30,35 +30,22 @@ public class HttpUtil {
             @Override
             public void run() {
                 try {
-                    OkHttpClient client = new OkHttpClient();
-                    Request request = new Request.Builder().url("http://10.128.201.6/get_userdata.json").build();
+                    OkHttpClient client = new OkHttpClient();    //默认参数的OkHttpClient，可连缀设置各种参数
+                    Request request = new Request.Builder().url("http://10.128.201.6/get_userdata.json").build();  //连缀设置url地址的Request对象
                     Response response = client.newCall(request).execute();
-                    String responseData = response.body().string();
-                    parseWithGSON(responseData);
-                    User.mesList = Temp.getMessageList(informationList);
+                    String responseData = response.body().string();   //返回字符串
+                    parseWithGSON(responseData);            //通过Gson解析
+                    User.mesList = Temp.getMessageList(informationList); //将解析得到的Information List转为需要的两种List
                     User.leList = Temp.getLentList(informationList);
-
-                    Log.d("UserList",User.mesList.toString());
                     DaoSession daoSession = GreenDaoManager.getInstance().getDaoSession();
-                    daoSession.getMessageInformationDao().deleteAll();
+                    daoSession.getMessageInformationDao().deleteAll();      //数据库清空旧数据
                     daoSession.getLentInformationDao().deleteAll();
                     for(MessageInformation msg:User.mesList) {
-                        daoSession.getMessageInformationDao().insertOrReplace(msg);
-                        Log.d("HttpUtil","正在更新");
+                        daoSession.getMessageInformationDao().insertOrReplace(msg); //数据库添加新数据
                     }
                     for(LentInformation lei:User.leList){
                         daoSession.getLentInformationDao().insertOrReplace(lei);
                     }
-                    Log.d("HttpUtil","更新完毕");
-                    /*
-                    LitePal.deleteAll(MessageInformation.class);
-                    for(MessageInformation msg:User.mesList) {
-                        MessageInformation temp = new MessageInformation();
-                        temp.setMessage(msg.getMessage());
-                        temp.setMessageTime(msg.getMessageTime());
-                        temp.save();
-                    }*/
-
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -74,9 +61,13 @@ public class HttpUtil {
         if (context != null) {
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
+
             NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            System.out.println(mNetworkInfo);
+
             if (mNetworkInfo != null) {
                 return mNetworkInfo.isAvailable();
+
             }
         }
         return false;

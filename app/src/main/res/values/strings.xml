@@ -17,6 +17,6 @@
         completions."
     </string>
     <string name="delete">删除</string>
-    <string name="no_data" >暂无记录</string>
+    <string name="no_data" >暂无记录或网络错误</string>
     <string name="remove">移除</string>
 </resources>

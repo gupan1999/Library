@@ -7,7 +7,7 @@ import android.view.Window;
 import com.example.version1.R;
 import com.example.version1.customed.TitleLayout;
 
-
+//分类页面
 public class CategoriesActivity extends AppCompatActivity {
 
     @Override
@@ -16,7 +16,7 @@ public class CategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
         setContentView(R.layout.activity_categories);      //加载布局
-        TitleLayout titleLayout = findViewById(R.id.titleLayout);
-        titleLayout.setTitle("分类");
+        TitleLayout titleLayout = findViewById(R.id.titleLayout);  //加载自定义控件TitleLayout
+        titleLayout.setTitle("分类");            //调用TitleLayout.java 中设置标题文字的方法
     }
 }

@@ -17,8 +17,6 @@ public class Temp {
 
             MessageInformation messageInformation=information.getMessageInformation(information);
             if(messageInformation.getMessage()!=null&&messageInformation.getMessageTime()!=null) {
-                Log.d("MessageInformation", messageInformation.getMessage());
-                Log.d("MessageInformation", messageInformation.getMessageTime());
                 mesList.add(messageInformation);
             }
         }
@@ -29,8 +27,6 @@ public class Temp {
         for(Information information:inList){
             LentInformation lentInformation=information.getLentInformation(information);
             if(lentInformation.getBookName()!=null&&lentInformation.getLentTime()!=null) {
-                Log.d("LentInformation", lentInformation.getBookName());
-                Log.d("LentInformation", lentInformation.getLentTime());
                 LentList.add(lentInformation);
             }
         }

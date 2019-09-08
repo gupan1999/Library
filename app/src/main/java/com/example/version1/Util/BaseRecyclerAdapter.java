@@ -18,8 +18,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
     private Context mContext;
     private int mLayoutId;
     private List<T> mData;
-    private int position;
-    //public static  final int EMPTY_TYPE =0;
+    private int position;    //用于记录被选中的ViewHolder的位置
     public int getPosition() { return position; }
     public void setPosition(int position) { this.position = position; }
 
@@ -33,18 +32,14 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        BaseViewHolder holder;
-
-       holder=BaseViewHolder.getRecyclerHolder(mContext, parent, mLayoutId);
-
-       setting(holder);
-       return holder;
+        BaseViewHolder holder=BaseViewHolder.getRecyclerHolder(mContext, parent, mLayoutId);
+        setting(holder);
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         convert(holder, mData.get(position));
-
     }
 
     @Override
