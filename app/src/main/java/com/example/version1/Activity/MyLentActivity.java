@@ -1,6 +1,7 @@
 package com.example.version1.Activity;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,8 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.example.version1.R;
+import com.example.version1.Util.HttpUtil;
+import com.example.version1.Util.Temp;
 import com.example.version1.greendao.User;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
@@ -20,7 +23,8 @@ public class MyLentActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private BaseRecyclerAdapter adapter;
-
+    private SwipeRefreshLayout swipeRefresh;
+    private TextView lent_nodata;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +53,40 @@ public class MyLentActivity extends AppCompatActivity {
             recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));//每行划分割线
             recyclerView.setAdapter(adapter);
         }else{
-            recyclerView.setAdapter(null);
-            TextView lent_nodata=findViewById(R.id.lent_nodata);
+            recyclerView.setAdapter(adapter);
+            lent_nodata=findViewById(R.id.lent_nodata);
             lent_nodata.setVisibility(View.VISIBLE);
         }
+        swipeRefresh = findViewById(R.id.swipe_refresh);
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.
+                OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+    //            refreshLentInformation();
+            }
+        });
     }
-}
+    private void refreshLentInformation(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+          //      Temp.loadInformation();
+
+                if(User.leList!=null) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println(User.leList);
+                            adapter.notifyDataSetChanged();
+                            swipeRefresh.setRefreshing(false);
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+    }
+
+
+

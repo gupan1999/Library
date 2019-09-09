@@ -11,9 +11,10 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.SettingActivity"></activity>
-        <activity android:name=".Activity.WebActivity" />
+
         <activity android:name=".Activity.MessageActivity" />
         <activity android:name=".Activity.MyLentActivity" />
         <activity android:name=".Activity.ReserveActivity" />

@@ -1,5 +1,7 @@
 package com.example.version1;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,14 +11,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.version1.Activity.MainActivity;
+import com.example.version1.Activity.MessageActivity;
 import com.example.version1.Util.HttpUtil;
+import com.example.version1.Util.Temp;
 import com.example.version1.customed.TitleLayout;
 import com.example.version1.greendao.DaoSession;
 import com.example.version1.greendao.GreenDaoManager;
 import com.example.version1.greendao.User;
 
 public class MainFragment extends Fragment {
-
+    private  Handler handler;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
@@ -29,22 +34,26 @@ public class MainFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadInformation();
+
+                handler=new Handler(){
+                    @Override
+                    public void handleMessage(Message msg) {
+                        switch (msg.what){
+                            //当加载网络失败执行的逻辑代码
+                            case HttpUtil.FAIL:
+                                Toast.makeText(MyApplication.getContext(), "网络出现了问题", Toast.LENGTH_SHORT).show();
+                                DaoSession daoSession = GreenDaoManager.getInstance().getDaoSession();
+                                User.mesList = daoSession.getMessageInformationDao().loadAll();         //从本地数据库 的相应表中拉取上一次保存的数据
+                                User.leList =daoSession.getLentInformationDao().loadAll();
+                                break;
+                        }
+                    }
+                };
+                HttpUtil.getInformation(handler);
             }
         });
     }
 
 
-    private void loadInformation() {
 
-        if (HttpUtil.isNetworkConnected(MyApplication.getContext())) {     //有网络，则选择通过网络从服务器拉取新信息
-            HttpUtil.getInformation();
-        } else {                            //无网络
-            Toast.makeText(MyApplication.getContext(), "网络连接异常",
-                    Toast.LENGTH_SHORT).show();
-            DaoSession daoSession = GreenDaoManager.getInstance().getDaoSession();
-            User.mesList = daoSession.getMessageInformationDao().loadAll();         //从本地数据库 的相应表中拉取上一次保存的数据
-            User.leList = daoSession.getLentInformationDao().loadAll();
-        }
-    }
 }

@@ -18,7 +18,11 @@
 <!--        app:layout_constraintVertical_bias="0.0">-->
 
 <!--    </com.example.version1.customed.TitleLayout>-->
-
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview2"
         android:layout_width="0dp"
@@ -34,14 +38,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.039" />
-
+    </android.support.v4.widget.SwipeRefreshLayout >
     <TextView
         android:id="@+id/message_nodata"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_data"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerview2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

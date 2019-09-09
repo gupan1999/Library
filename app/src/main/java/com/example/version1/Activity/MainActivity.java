@@ -75,18 +75,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
-    private void loadInformation(){
 
-        if (HttpUtil.isNetworkConnected(MyApplication.getContext())) {     //有网络，则选择通过网络从服务器拉取新信息
-            HttpUtil.getInformation();
-        }
-        else{                            //无网络
-            Toast.makeText(MyApplication.getContext(), "网络连接异常",
-                    Toast.LENGTH_SHORT).show();
-            DaoSession daoSession =GreenDaoManager.getInstance().getDaoSession();
-            User.mesList=daoSession.getMessageInformationDao().loadAll();         //从本地数据库 的相应表中拉取上一次保存的数据
-            User.leList=daoSession.getLentInformationDao().loadAll();
-            }
 
 
 
@@ -94,4 +83,4 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-}
+

@@ -44,7 +44,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mData!=null?mData.size():0;
     }
 
     /**
