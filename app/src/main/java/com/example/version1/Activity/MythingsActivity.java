@@ -17,17 +17,13 @@ public class MythingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
-        setContentView(R.layout.activity_mythings);
-        TitleLayout titleLayout = findViewById(R.id.titleLayout4);
-        titleLayout.setTitle("我的");
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
+        setContentView(R.layout.fragment_mythings);
+        //TitleLayout titleLayout = findViewById(R.id.titleLayout4);
+        //titleLayout.setTitle("我的");
 
         Button Reserve = findViewById(R.id.reserve);   //返回按钮
-        Button MyLent = findViewById(R.id.imageButton9);   //我的借阅按钮
-        Button Message = findViewById(R.id.imageButton13);  //消息按钮
-        Message.setOnClickListener(this);       //设置Activity为监听点击事件的listener，因此在本Activity实现相应的回调方法OnClick
-        Reserve.setOnClickListener(this);
-        MyLent.setOnClickListener(this);
+
         //Log.d("更新数据库", LitePal.findAll(MessageInformation.class).toString());
     }
 

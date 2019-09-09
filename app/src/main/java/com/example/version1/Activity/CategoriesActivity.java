@@ -15,8 +15,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
-        setContentView(R.layout.activity_categories);      //加载布局
-        TitleLayout titleLayout = findViewById(R.id.titleLayout);  //加载自定义控件TitleLayout
-        titleLayout.setTitle("分类");            //调用TitleLayout.java 中设置标题文字的方法
+        setContentView(R.layout.fragment_categories);      //加载布局
+
     }
 }

@@ -13,10 +13,10 @@ public class HotActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
-        setContentView(R.layout.activity_hot);
-        TitleLayout titleLayout=findViewById(R.id.titleLayout1);
-        titleLayout.setTitle("热门");
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
+        setContentView(R.layout.fragment_hot);
+        //TitleLayout titleLayout=findViewById(R.id.titleLayout1);
+        //titleLayout.setTitle("热门");
 
     }
 }

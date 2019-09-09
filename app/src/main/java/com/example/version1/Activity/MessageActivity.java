@@ -29,11 +29,10 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
         setContentView(R.layout.activity_message);
 
-        TitleLayout titleLayout=findViewById(R.id.titleLayout2);
-        titleLayout.setTitle("消息通知");
+
         recyclerView2=findViewById(R.id.recyclerview2);
         if(User.mesList!=null) {          //如果列表数据不为空(此时要么在离线状态下从本地数据库得到了上一次保存的数据，要么成功从服务器得到新数据)
             adapter = new BaseRecyclerAdapter<MessageInformation>(this, R.layout.messageitems, User.mesList) {   //通过匿名内部类扩展通用adapter

@@ -10,7 +10,7 @@ import com.example.version1.R;
 
 /*
 WebView测试
- */
+
 public class WebActivity extends AppCompatActivity {
 
     @Override
@@ -29,3 +29,4 @@ public class WebActivity extends AppCompatActivity {
     }
 
 }
+ */

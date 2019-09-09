@@ -17,6 +17,9 @@
         completions."
     </string>
     <string name="delete">删除</string>
-    <string name="no_data" >暂无记录或网络错误</string>
+    <string name="no_data">暂无记录或网络错误</string>
     <string name="remove">移除</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

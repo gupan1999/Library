@@ -23,10 +23,10 @@ public class MyLentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
+        super.onCreate(savedInstanceState);
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
         setContentView(R.layout.activity_my_lent);
-        TitleLayout titleLayout=findViewById(R.id.titleLayout3);
-        titleLayout.setTitle("我的借阅");
+
         recyclerView=findViewById(R.id.recyclerview);
 
         //LentAdapter adapter=new LentAdapter(LentList);  //放入适配器

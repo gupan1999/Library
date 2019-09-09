@@ -10,6 +10,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
 import com.example.version1.MyApplication;
 import com.example.version1.R;
 import com.example.version1.greendao.User;
@@ -19,7 +24,7 @@ import com.example.version1.greendao.GreenDaoManager;
 
 
 public class MainActivity extends AppCompatActivity {
-
+/*
    //首页底部导航栏，new一个匿名内部类对象用来重写(实现)接口BottomNavigationView.OnNavigationItemSelectedListener的onNavigationItemSelected方法
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -51,15 +56,23 @@ public class MainActivity extends AppCompatActivity {
           return false;
         }
     };
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
-        setContentView(R.layout.activity_main);   //关联layout/activity_main.xml的配置
-        Button button=findViewById(R.id.button);   //关联id为button的按钮
-        BottomNavigationView navigation = findViewById(R.id.navigation); //首页底部导航栏的View
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);  //用上面的匿名内部类对象给View设置回调监听
+
+        setContentView(R.layout.activity_main);   //关联layout/fragment_main.xml的配置
+       // BottomNavigationView navigation = findViewById(R.id.navigation); //首页底部导航栏的View
+        //navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);  //用上面的匿名内部类对象给View设置回调监听
+        BottomNavigationView navView = findViewById(R.id.navigation);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_search, R.id.navigation_mythings, R.id.navigation_categories,R.id.navigation_hot)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
     }
 
     private void loadInformation(){
