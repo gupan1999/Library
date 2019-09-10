@@ -22,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -40,7 +41,9 @@ public class HttpUtil {
             @Override
             public void run() {
                 try {
-                    OkHttpClient client = new OkHttpClient();    //默认参数的OkHttpClient，可连缀设置各种参数
+                    OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
+                            .readTimeout(5,TimeUnit.SECONDS) //读取超时
+                            .writeTimeout(5,TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
                     Request request = new Request.Builder().url("http://10.128.201.6/get_userdata.json").build();  //连缀设置url地址的Request对象
                     //Response response = client.newCall(request).execute();
                     Call call=client.newCall(request);
@@ -56,27 +59,27 @@ public class HttpUtil {
                         public void onResponse(Call call, Response response) throws IOException {
                             //得到从网上获取资源，转换成我们想要的类型
                             responseData = response.body().string();
-                            System.out.println(responseData);
                             //通过handler更新UI
                             Message message = handler.obtainMessage();
-                            message.obj=responseData;
+                            //message.obj=responseData;
                             message.what = SUCCESS;
+                            parseWithGSON(responseData);            //通过Gson解析
+                            User.mesList = Temp.getMessageList(informationList); //将解析得到的Information List转为需要的两种List
+                            User.leList = Temp.getLentList(informationList);
+                            DaoSession daoSession = GreenDaoManager.getInstance().getDaoSession();
+                            daoSession.getMessageInformationDao().deleteAll();      //数据库清空旧数据
+                            daoSession.getLentInformationDao().deleteAll();
+                            for(MessageInformation msg:User.mesList) {
+                                daoSession.getMessageInformationDao().insertOrReplace(msg); //数据库添加新数据
+                            }
+                            for(LentInformation lei:User.leList){
+                                daoSession.getLentInformationDao().insertOrReplace(lei);
+                            }
                             handler.sendMessage(message);
                         }
                     });
 
-                    parseWithGSON(responseData);            //通过Gson解析
-                    User.mesList = Temp.getMessageList(informationList); //将解析得到的Information List转为需要的两种List
-                    User.leList = Temp.getLentList(informationList);
-                    DaoSession daoSession = GreenDaoManager.getInstance().getDaoSession();
-                    daoSession.getMessageInformationDao().deleteAll();      //数据库清空旧数据
-                    daoSession.getLentInformationDao().deleteAll();
-                    for(MessageInformation msg:User.mesList) {
-                        daoSession.getMessageInformationDao().insertOrReplace(msg); //数据库添加新数据
-                    }
-                    for(LentInformation lei:User.leList){
-                        daoSession.getLentInformationDao().insertOrReplace(lei);
-                    }
+
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -88,7 +91,7 @@ public class HttpUtil {
         Gson gson=new Gson();
         informationList=gson.fromJson(jsonData,new TypeToken<List<Information>>(){}.getType());
     }
-
+    /*
     public static boolean isNetworkConnected(Context context) {
         if (context != null) {
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context
@@ -104,6 +107,6 @@ public class HttpUtil {
         }
         return false;
     }
-
+    */
 
 }

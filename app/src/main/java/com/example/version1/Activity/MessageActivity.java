@@ -87,6 +87,8 @@ public class MessageActivity extends AppCompatActivity {
                     switch (msg.what){
                         //加载网络成功进行UI的更新,处理得到的图片资源
                         case HttpUtil.SUCCESS:
+                            adapter.updateItems(User.mesList);
+                            checkNull();
                             adapter.notifyDataSetChanged();
                             swipeRefresh1.setRefreshing(false);
                             break;
@@ -95,22 +97,24 @@ public class MessageActivity extends AppCompatActivity {
                             Toast.makeText(MessageActivity.this, "网络出现了问题", Toast.LENGTH_SHORT).show();
                             DaoSession daoSession = GreenDaoManager.getInstance().getDaoSession();
                             User.mesList = daoSession.getMessageInformationDao().loadAll();         //从本地数据库 的相应表中拉取上一次保存的数据
+                            System.out.println(User.mesList);
+                            adapter.updateItems(User.mesList);
+                            checkNull();
+                            adapter.notifyDataSetChanged();
                             swipeRefresh1.setRefreshing(false);
                             break;
                     }
-                    if (adapter.getItemCount()==0)message_nodata.setVisibility(View.VISIBLE);
+
                 }
             };
                  HttpUtil.getInformation(handler);
 
         }
 
-
-
-
-
-
-
+    private void checkNull(){
+        if (adapter.getItemCount()==0)message_nodata.setVisibility(View.VISIBLE);
+        else message_nodata.setVisibility(View.GONE);
+    }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -123,6 +127,7 @@ public class MessageActivity extends AppCompatActivity {
                     MessageInformation removedMsg = Temp.removeRecyclerViewItem(adapter,User.mesList);   //得到被移除的数据对象
                     DaoSession daoSession= GreenDaoManager.getInstance().getDaoSession();
                     daoSession.getMessageInformationDao().delete(removedMsg);  //从数据库中删除对应数据
+                    checkNull();
                     return true;
                 case R.id.remove:
                     Toast.makeText(MessageActivity.this,"remove",Toast.LENGTH_SHORT).show();

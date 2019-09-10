@@ -1,8 +1,9 @@
-package com.example.version1;
+package com.example.version1.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.version1.Activity.MainActivity;
 import com.example.version1.Activity.MessageActivity;
+import com.example.version1.MyApplication;
+import com.example.version1.R;
 import com.example.version1.Util.HttpUtil;
 import com.example.version1.Util.Temp;
 import com.example.version1.customed.TitleLayout;
@@ -28,8 +31,10 @@ public class MainFragment extends Fragment {
 
         return root;
     }
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         Button button=getActivity().findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +58,13 @@ public class MainFragment extends Fragment {
             }
         });
     }
+/*
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+ */
 
 
 

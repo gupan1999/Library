@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.version1.MainFragment"
+        android:name="com.example.version1.Fragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
     <fragment
         android:id="@+id/navigation_hot"
-        android:name="com.example.version1.HotFragment"
+        android:name="com.example.version1.Fragment.HotFragment"
         android:label="fragment_hot"
         tools:layout="@layout/fragment_hot" />
     <fragment
         android:id="@+id/navigation_mythings"
-        android:name="com.example.version1.MythingsFragment"
+        android:name="com.example.version1.Fragment.MythingsFragment"
         android:label="fragment_mythings"
         tools:layout="@layout/fragment_mythings" />
     <fragment
         android:id="@+id/navigation_categories"
-        android:name="com.example.version1.CatergoriesFragment"
+        android:name="com.example.version1.Fragment.CatergoriesFragment"
         android:label="fragment_categories"
         tools:layout="@layout/fragment_categories" />
 </navigation>

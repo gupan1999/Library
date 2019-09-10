@@ -24,6 +24,7 @@ import com.example.version1.greendao.GreenDaoManager;
 
 
 public class MainActivity extends AppCompatActivity {
+    private NavController navController;
 /*
    //首页底部导航栏，new一个匿名内部类对象用来重写(实现)接口BottomNavigationView.OnNavigationItemSelectedListener的onNavigationItemSelected方法
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -70,16 +71,16 @@ public class MainActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_search, R.id.navigation_mythings, R.id.navigation_categories,R.id.navigation_hot)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
 
-
-
-
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        return navController.navigateUp();
     }
+}
 
 
 

@@ -38,12 +38,16 @@ public class Temp {
         }
         return LentList;
     }
+    /*
     public static void loadInformation(Handler handler) {
 
     }
+
+
+
     public static void loadInformation() {
         loadInformation(new Handler());
-    }
+    }*/
     public static <T> T removeRecyclerViewItem(BaseRecyclerAdapter adapter,List<T>dataList){
         T removedThing=dataList.remove(adapter.getPosition());    //移除数据源
         adapter.notifyItemRemoved(adapter.getPosition());  //移除item

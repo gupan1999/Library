@@ -1,8 +1,9 @@
-package com.example.version1;
+package com.example.version1.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import com.example.version1.Activity.MessageActivity;
 import com.example.version1.Activity.MyLentActivity;
+import com.example.version1.R;
 
 public class MythingsFragment extends Fragment {
+
+    @Override
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -19,9 +24,8 @@ public class MythingsFragment extends Fragment {
 
         return root;
     }
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         Button MyLent = getActivity().findViewById(R.id.imageButton9);   //我的借阅按钮
         Button Message = getActivity().findViewById(R.id.imageButton13);  //消息按钮
         Message.setOnClickListener(new View.OnClickListener() {
@@ -40,4 +44,12 @@ public class MythingsFragment extends Fragment {
             }
         });
     }
+    /*
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+    */
+
     }

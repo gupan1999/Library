@@ -1,6 +1,8 @@
 package com.example.version1.Activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -9,10 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.version1.R;
 import com.example.version1.Util.HttpUtil;
 import com.example.version1.Util.Temp;
+import com.example.version1.greendao.DaoSession;
+import com.example.version1.greendao.GreenDaoManager;
 import com.example.version1.greendao.User;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
@@ -20,7 +25,7 @@ import com.example.version1.customed.TitleLayout;
 import com.example.version1.greendao.LentInformation;
 
 public class MyLentActivity extends AppCompatActivity {
-
+    private Handler handler;
     private RecyclerView recyclerView;
     private BaseRecyclerAdapter adapter;
     private SwipeRefreshLayout swipeRefresh;
@@ -34,7 +39,7 @@ public class MyLentActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.recyclerview);
 
         //LentAdapter adapter=new LentAdapter(LentList);  //放入适配器
-        if(User.leList!=null) {  //与MessageActivity相关部分完全类似
+       // if(User.leList!=null) {  //与MessageActivity相关部分完全类似
             adapter = new BaseRecyclerAdapter<LentInformation>(this, R.layout.items, User.leList) {
                 @Override
                 public void convert(BaseViewHolder holder, LentInformation lentInformation) {
@@ -52,39 +57,50 @@ public class MyLentActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(layoutManager);  //设置为线性布局管理
             recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));//每行划分割线
             recyclerView.setAdapter(adapter);
-        }else{
-            recyclerView.setAdapter(adapter);
+       // }else{
+        //    recyclerView.setAdapter(adapter);
             lent_nodata=findViewById(R.id.lent_nodata);
-            lent_nodata.setVisibility(View.VISIBLE);
-        }
+         //   lent_nodata.setVisibility(View.VISIBLE);
+         checkNull();
+  //      }
         swipeRefresh = findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.
                 OnRefreshListener() {
             @Override
             public void onRefresh() {
-    //            refreshLentInformation();
+                refreshLentInformation();
             }
         });
     }
     private void refreshLentInformation(){
-        new Thread(new Runnable() {
+        handler=new Handler(){
             @Override
-            public void run() {
-          //      Temp.loadInformation();
-
-                if(User.leList!=null) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            System.out.println(User.leList);
-                            adapter.notifyDataSetChanged();
-                            swipeRefresh.setRefreshing(false);
-                        }
-                    });
+            public void handleMessage(Message msg) {
+                switch (msg.what){
+                    //加载网络成功进行UI的更新,处理得到的图片资源
+                    case HttpUtil.SUCCESS:
+                        adapter.updateItems(User.leList);
+                        checkNull();
+                        adapter.notifyDataSetChanged();
+                        swipeRefresh.setRefreshing(false);
+                        break;
+                    //当加载网络失败执行的逻辑代码
+                    case HttpUtil.FAIL:
+                        Toast.makeText(MyLentActivity.this, "网络出现了问题", Toast.LENGTH_SHORT).show();
+                        checkNull();
+                        swipeRefresh.setRefreshing(false);
+                        break;
                 }
+
             }
-        }).start();
+        };
+        HttpUtil.getInformation(handler);
+    }
+
+    private void checkNull(){
+        if (adapter.getItemCount()==0)lent_nodata.setVisibility(View.VISIBLE);
+        else lent_nodata.setVisibility(View.GONE);
     }
     }
 
