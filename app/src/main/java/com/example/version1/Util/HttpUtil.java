@@ -91,6 +91,7 @@ public class HttpUtil {
         Gson gson=new Gson();
         informationList=gson.fromJson(jsonData,new TypeToken<List<Information>>(){}.getType());
     }
+
     /*
     public static boolean isNetworkConnected(Context context) {
         if (context != null) {

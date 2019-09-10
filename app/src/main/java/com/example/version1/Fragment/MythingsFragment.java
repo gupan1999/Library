@@ -14,20 +14,20 @@ import com.example.version1.Activity.MyLentActivity;
 import com.example.version1.R;
 
 public class MythingsFragment extends Fragment {
+    private Button MyLent;
+    private Button Message;
 
     @Override
-
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_mythings, container, false);
-
+        MyLent = root.findViewById(R.id.imageButton9);   //我的借阅按钮
+        Message = root.findViewById(R.id.imageButton13);  //消息按钮
         return root;
     }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button MyLent = getActivity().findViewById(R.id.imageButton9);   //我的借阅按钮
-        Button Message = getActivity().findViewById(R.id.imageButton13);  //消息按钮
+
         Message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

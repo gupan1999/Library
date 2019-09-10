@@ -12,8 +12,11 @@ import com.example.version1.customed.TitleLayout;
 
 public class HotFragment extends Fragment {
 
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         View root = inflater.inflate(R.layout.fragment_hot, container, false);
         return root;
     }
