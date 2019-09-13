@@ -11,7 +11,7 @@ import android.widget.Button;
 import com.example.version1.R;
 import com.example.version1.customed.TitleLayout;
 
-
+/*
 public class MythingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -54,3 +54,4 @@ public class MythingsActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 }
+*/

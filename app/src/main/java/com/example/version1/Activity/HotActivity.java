@@ -6,7 +6,7 @@ import android.view.Window;
 
 import com.example.version1.R;
 import com.example.version1.customed.TitleLayout;
-
+/*
 //热门页面
 public class HotActivity extends AppCompatActivity {
 
@@ -20,3 +20,5 @@ public class HotActivity extends AppCompatActivity {
 
     }
 }
+*/
+

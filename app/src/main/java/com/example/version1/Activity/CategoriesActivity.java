@@ -7,6 +7,7 @@ import android.view.Window;
 import com.example.version1.R;
 import com.example.version1.customed.TitleLayout;
 
+/*
 //分类页面
 public class CategoriesActivity extends AppCompatActivity {
 
@@ -19,3 +20,4 @@ public class CategoriesActivity extends AppCompatActivity {
 
     }
 }
+*/

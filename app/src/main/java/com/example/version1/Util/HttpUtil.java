@@ -10,7 +10,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.version1.Activity.SearchActivity;
+
 import com.example.version1.greendao.Information;
 import com.example.version1.greendao.User;
 import com.example.version1.greendao.DaoSession;
@@ -44,7 +44,7 @@ public class HttpUtil {
                     OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
                             .readTimeout(5,TimeUnit.SECONDS) //读取超时
                             .writeTimeout(5,TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
-                    Request request = new Request.Builder().url("http://10.128.246.161/get_userdata.json").build();  //连缀设置url地址的Request对象
+                    Request request = new Request.Builder().url("http://10.128.221.86/get_userdata.json").build();  //连缀设置url地址的Request对象
                     //Response response = client.newCall(request).execute();
                     Call call=client.newCall(request);
                     call.enqueue(new Callback() {

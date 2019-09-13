@@ -1,4 +1,6 @@
 package com.example.version1.Activity;
+
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -23,12 +25,12 @@ import okhttp3.Response;
 
 
 public class SearchActivity extends AppCompatActivity {
-    private String Path = "http://192.168.0.103/route/floor2.png";
+    private String Path = "http://10.128.221.86/route/2.jpg";
 
    private ZoomImageView zoomimageView;
-
     private static final int SUCCESS = 1;
     private static final int FAIL = 2;
+
      Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -59,7 +61,18 @@ public class SearchActivity extends AppCompatActivity {
         //TitleLayout titleLayout=findViewById(R.id.titleLayout6);
         //titleLayout.setTitle("查询");
          zoomimageView=findViewById(R.id.imageView);
-        Glide.with(this).load(Path).into(zoomimageView);   //Glide库的基本语句，一行完成通过网络加载图片
+        Intent intent=getIntent();
+        String msg=intent.getStringExtra("floor");
+        switch(msg){
+            case "2":  Glide.with(this).load("http://10.128.221.86/route/2.jpg").into(zoomimageView);   //Glide库的基本语句，一行完成通过网络加载图片
+                break;
+            case "3":  Glide.with(this).load("http://10.128.221.86/route/3.jpg").into(zoomimageView);   //Glide库的基本语句，一行完成通过网络加
+                break;
+            case "4": Glide.with(this).load("http://10.128.221.86/route/4.jpg").into(zoomimageView);   //Glide库的基本语句，一行完成通过网络加
+                break;
+            default:
+        }
+       // Glide.with(this).load(Path).into(zoomimageView);   //Glide库的基本语句，一行完成通过网络加载图片
       //   RequestPicture();
 
     }

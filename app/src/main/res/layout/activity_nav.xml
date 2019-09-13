@@ -22,14 +22,4 @@
          app:layout_constraintStart_toStartOf="parent"
          app:layout_constraintTop_toTopOf="parent" />
 
-    <com.example.version1.customed.TitleLayout
-
-        android:id="@+id/titleLayout6"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp">
-
-    </com.example.version1.customed.TitleLayout>
-
 </android.support.constraint.ConstraintLayout>

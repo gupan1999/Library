@@ -122,7 +122,7 @@ public class MessageActivity extends AppCompatActivity {
             switch (item.getItemId()) {
 
                 case R.id.delete:
-                    Toast.makeText(MessageActivity.this, "delete",
+                    Toast.makeText(MessageActivity.this, "删除成功",
                             Toast.LENGTH_SHORT).show();
                     MessageInformation removedMsg = Temp.removeRecyclerViewItem(adapter,User.mesList);   //得到被移除的数据对象
                     DaoSession daoSession= GreenDaoManager.getInstance().getDaoSession();
@@ -130,7 +130,7 @@ public class MessageActivity extends AppCompatActivity {
                     checkNull();
                     return true;
                 case R.id.remove:
-                    Toast.makeText(MessageActivity.this,"remove",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MessageActivity.this,"remove",Toast.LENGTH_SHORT).show();
                     Temp.removeRecyclerViewItem(adapter,User.mesList);
                     return  true;
             }
