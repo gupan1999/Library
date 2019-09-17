@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.version1.R;
 
-public class TitleLayout extends ConstraintLayout {
+public class TitleLayout extends ConstraintLayout {      //继承ConstraintLayout，只是将基本控件组合起来
     private  ImageButton Return;
     private  TextView Title;
     public TitleLayout(Context context, AttributeSet attrs){
@@ -28,7 +28,7 @@ public class TitleLayout extends ConstraintLayout {
             public void onClick(View v) {
                 ((Activity)getContext()).finish();
             }
-        });
+        });  //点击返回按钮，则销毁本Activity
    }
 
    public  void setTitle(String name){

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.version1.MyApplication;
+
 import com.example.version1.R;
 
 /**
@@ -93,9 +93,9 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCr
         return mConvertView;
     }
 
-    @Override
+    @Override          //实现接口View.OnCreateContextMenuListener的回调方法，在创建ContextMenu时调用
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-      new MenuInflater(mContext).inflate(R.menu.context_menu,menu);
+      new MenuInflater(mContext).inflate(R.menu.context_menu,menu);    //动态加载menu/context_menu的布局
       //menu.add(0, R.id.delete,0,"删除");
     }
 }

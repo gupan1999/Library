@@ -1,7 +1,9 @@
-package com.example.version1;
+package com.example.version1.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.version1.R;
 
 public class SettingActivity extends AppCompatActivity {
 

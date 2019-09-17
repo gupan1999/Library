@@ -1,13 +1,16 @@
-package com.example.version1;
+package com.example.version1.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.example.version1.R;
+
 /*
 WebView测试
- */
+
 public class WebActivity extends AppCompatActivity {
 
     @Override
@@ -26,3 +29,4 @@ public class WebActivity extends AppCompatActivity {
     }
 
 }
+ */
