@@ -1,18 +1,10 @@
 package com.example.version1.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.navigation.NavController;
@@ -20,16 +12,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.version1.Fragment.CatergoriesFragment;
-import com.example.version1.Fragment.HotFragment;
-import com.example.version1.Fragment.MainFragment;
-import com.example.version1.Fragment.MythingsFragment;
 import com.example.version1.MyApplication;
 import com.example.version1.R;
-import com.example.version1.greendao.User;
 import com.example.version1.Util.HttpUtil;
 import com.example.version1.greendao.DaoSession;
 import com.example.version1.greendao.GreenDaoManager;
+import com.example.version1.greendao.User;
 
 
 

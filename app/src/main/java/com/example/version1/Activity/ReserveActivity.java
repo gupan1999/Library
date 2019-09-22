@@ -1,15 +1,11 @@
 package com.example.version1.Activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.example.version1.R;
-import com.example.version1.customed.TitleLayout;
 
 public class ReserveActivity extends AppCompatActivity {
 

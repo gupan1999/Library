@@ -9,20 +9,15 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.version1.R;
-import com.example.version1.Util.HttpUtil;
-import com.example.version1.Util.Temp;
-import com.example.version1.greendao.DaoSession;
-import com.example.version1.greendao.GreenDaoManager;
-import com.example.version1.greendao.User;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
-import com.example.version1.customed.TitleLayout;
+import com.example.version1.Util.HttpUtil;
 import com.example.version1.greendao.LentInformation;
+import com.example.version1.greendao.User;
 
 public class MyLentActivity extends AppCompatActivity {
     private Handler handler;

@@ -1,5 +1,5 @@
 package com.example.version1.Activity;
-
+/*
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -7,7 +7,7 @@ import android.view.Window;
 import com.example.version1.R;
 import com.example.version1.customed.TitleLayout;
 
-/*
+
 //分类页面
 public class CategoriesActivity extends AppCompatActivity {
 

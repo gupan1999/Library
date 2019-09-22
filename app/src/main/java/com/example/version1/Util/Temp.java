@@ -1,16 +1,9 @@
 package com.example.version1.Util;
 
-import android.util.Log;
-import android.widget.Toast;
-
-import com.example.version1.MyApplication;
-import com.example.version1.greendao.DaoSession;
-import com.example.version1.greendao.GreenDaoManager;
 import com.example.version1.greendao.Information;
 import com.example.version1.greendao.LentInformation;
 import com.example.version1.greendao.MessageInformation;
-import com.example.version1.greendao.User;
-import android.os.Handler;
+
 import java.util.ArrayList;
 import java.util.List;
 

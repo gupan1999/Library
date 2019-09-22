@@ -1,22 +1,14 @@
 package com.example.version1.Util;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-import android.widget.Toast;
 
-
-import com.example.version1.greendao.Information;
-import com.example.version1.greendao.User;
 import com.example.version1.greendao.DaoSession;
 import com.example.version1.greendao.GreenDaoManager;
+import com.example.version1.greendao.Information;
 import com.example.version1.greendao.LentInformation;
 import com.example.version1.greendao.MessageInformation;
+import com.example.version1.greendao.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -31,11 +23,14 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class HttpUtil {
-
     public static List<Information>informationList;
     public static final int SUCCESS = 1;
     public static final int FAIL = 2;
     public static String responseData;//返回字符串
+    //public static String host="http://10.128.211.178";
+    public static  String host="http://167.179.66.196";
+    public static String userdata="/get_userdata.json";
+    public static String picture="";
     public static void getInformation(final Handler handler){
         new  Thread(new Runnable() {
             @Override
@@ -44,7 +39,7 @@ public class HttpUtil {
                     OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
                             .readTimeout(5,TimeUnit.SECONDS) //读取超时
                             .writeTimeout(5,TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
-                    Request request = new Request.Builder().url("http://10.128.221.86/get_userdata.json").build();  //连缀设置url地址的Request对象
+                    Request request = new Request.Builder().url(host+userdata).build();  //连缀设置url地址的Request对象
                     //Response response = client.newCall(request).execute();
                     Call call=client.newCall(request);
                     call.enqueue(new Callback() {

@@ -1,5 +1,5 @@
 package com.example.version1.Activity;
-
+/*
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +11,7 @@ import android.widget.Button;
 import com.example.version1.R;
 import com.example.version1.customed.TitleLayout;
 
-/*
+
 public class MythingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override

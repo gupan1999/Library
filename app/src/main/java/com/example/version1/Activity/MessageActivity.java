@@ -13,16 +13,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.version1.MyApplication;
 import com.example.version1.R;
-import com.example.version1.Util.HttpUtil;
-import com.example.version1.Util.Temp;
-import com.example.version1.greendao.User;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
+import com.example.version1.Util.HttpUtil;
+import com.example.version1.Util.Temp;
 import com.example.version1.greendao.DaoSession;
 import com.example.version1.greendao.GreenDaoManager;
 import com.example.version1.greendao.MessageInformation;
+import com.example.version1.greendao.User;
 
 public class MessageActivity extends AppCompatActivity {
     private RecyclerView recyclerView2;
