@@ -2,6 +2,7 @@ package com.example.version1.Util;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.example.version1.greendao.DaoSession;
 import com.example.version1.greendao.GreenDaoManager;
@@ -81,6 +82,45 @@ public class HttpUtil {
                 }
             }
         }).start();
+    }
+
+    public static void queryTitle(final Handler handler,final String key){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
+                            .readTimeout(5, TimeUnit.SECONDS) //读取超时
+                            .writeTimeout(5, TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
+                    Request request = new Request.Builder().url("https://reststop.randomhouse.com/resources/titles?keyword=" + key).build();  //连缀设置url地址的Request对象
+                    Call call=client.newCall(request);
+                    call.enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Message message=handler.obtainMessage();
+                            message.what=FAIL;
+                            handler.sendMessage(message);
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            //得到从网上获取资源，转换成我们想要的类型
+                            responseData = response.body().string();
+                            //通过handler更新UI
+                            Message message = handler.obtainMessage();
+                            //message.obj=responseData;
+                            message.what = SUCCESS;
+                            Log.d("HttpUtil",responseData);
+                            handler.sendMessage(message);
+                        }
+                    });
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
     private static void parseWithGSON(String jsonData){
         Gson gson=new Gson();
