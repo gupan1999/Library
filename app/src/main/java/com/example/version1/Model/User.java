@@ -1,4 +1,4 @@
-package com.example.version1.greendao;
+package com.example.version1.Model;
 
 import java.util.List;
 

@@ -16,8 +16,8 @@ import com.example.version1.R;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
 import com.example.version1.Util.HttpUtil;
-import com.example.version1.greendao.LentInformation;
-import com.example.version1.greendao.User;
+import com.example.version1.Model.LentInformation;
+import com.example.version1.Model.User;
 
 public class MyLentActivity extends AppCompatActivity {
     private Handler handler;

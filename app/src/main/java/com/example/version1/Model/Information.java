@@ -1,4 +1,4 @@
-package com.example.version1.greendao;
+package com.example.version1.Model;
 
 //Information接受从服务器请求得到的信息
 public class Information {

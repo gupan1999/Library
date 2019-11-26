@@ -1,8 +1,8 @@
 package com.example.version1.Util;
 
-import com.example.version1.greendao.Information;
-import com.example.version1.greendao.LentInformation;
-import com.example.version1.greendao.MessageInformation;
+import com.example.version1.Model.Information;
+import com.example.version1.Model.LentInformation;
+import com.example.version1.Model.MessageInformation;
 
 import java.util.ArrayList;
 import java.util.List;

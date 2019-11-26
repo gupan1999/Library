@@ -18,10 +18,10 @@ import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
 import com.example.version1.Util.HttpUtil;
 import com.example.version1.Util.Temp;
-import com.example.version1.greendao.DaoSession;
-import com.example.version1.greendao.GreenDaoManager;
-import com.example.version1.greendao.MessageInformation;
-import com.example.version1.greendao.User;
+import com.example.version1.Model.DaoSession;
+import com.example.version1.Model.GreenDaoManager;
+import com.example.version1.Model.MessageInformation;
+import com.example.version1.Model.User;
 
 public class MessageActivity extends AppCompatActivity {
     private RecyclerView recyclerView2;
@@ -67,8 +67,8 @@ public class MessageActivity extends AppCompatActivity {
    //     }else{          //列表数据为空(此时可能网络错误，从服务器获取数据失败；可能服务器上没有相关数据，可能在离线状态下从数据库读取失败)
 //            recyclerView2.setAdapter(adapter);
             message_nodata=findViewById(R.id.message_nodata);
-            if (adapter.getItemCount()==0)message_nodata.setVisibility(View.VISIBLE);
-
+            //if (adapter.getItemCount()==0)message_nodata.setVisibility(View.VISIBLE);
+            checkNull();
   //      }
         swipeRefresh1 = findViewById(R.id.swipe_refresh1);
         swipeRefresh1.setColorSchemeResources(R.color.colorPrimary);
@@ -84,7 +84,7 @@ public class MessageActivity extends AppCompatActivity {
                 @Override
                 public void handleMessage(Message msg) {
                     switch (msg.what){
-                        //加载网络成功进行UI的更新,处理得到的图片资源
+                        //加载网络成功进行UI的更新
                         case HttpUtil.SUCCESS:
                             adapter.updateItems(User.mesList);
                             checkNull();

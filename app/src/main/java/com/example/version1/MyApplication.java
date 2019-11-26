@@ -2,7 +2,7 @@ package com.example.version1;
 
 import android.app.Application;
 import android.content.Context;
-import com.example.version1.greendao.GreenDaoManager;
+import com.example.version1.Model.GreenDaoManager;
 import com.facebook.stetho.Stetho;
 
 public class MyApplication extends Application {

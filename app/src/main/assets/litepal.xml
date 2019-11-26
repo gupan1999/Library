@@ -32,8 +32,8 @@
     	</list>
     -->
     <list>
-        <mapping class="com.example.version1.greendao.MessageInformation" />
-        <mapping class="com.example.version1.greendao.LentInformation" />
+        <mapping class="com.example.version1.Model.MessageInformation" />
+        <mapping class="com.example.version1.Model.LentInformation" />
     </list>
 
     <!--
