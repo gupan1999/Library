@@ -6,6 +6,7 @@ public class Information {
     private String lentTime;
     private String message;
     private String messageTime;
+    
     public String getBookName() {
         return bookName;
     }

@@ -19,12 +19,13 @@ public class ResultActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BaseRecyclerAdapter adapter;
     private TextView search_nodata;
-
+    private TextView total;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         recyclerView=findViewById(R.id.recyclerView3);
+
         adapter = new BaseRecyclerAdapter<Book>(this, R.layout.searchitem, HttpUtil.bookList) {
             @Override
             public void convert(BaseViewHolder holder,Book book) {
@@ -51,6 +52,8 @@ public class ResultActivity extends AppCompatActivity {
         System.out.println(HttpUtil.bookList);
         recyclerView.setAdapter(adapter);
         search_nodata=findViewById(R.id.search_nodata);
+        total=findViewById(R.id.total);
+        total.setText("共 "+HttpUtil.bookList.size()+" 条搜索结果");
         //   lent_nodata.setVisibility(View.VISIBLE);
         checkNull();
         //      }
