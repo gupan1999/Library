@@ -1,4 +1,4 @@
-package com.example.version1.Model;
+package com.example.version1.greendao;
 
 
 import android.database.sqlite.SQLiteDatabase;

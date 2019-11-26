@@ -5,9 +5,9 @@ import android.os.Message;
 import android.util.Log;
 
 import com.example.version1.Model.Book;
-import com.example.version1.Model.DaoSession;
+import com.example.version1.greendao.DaoSession;
 import com.example.version1.Model.Decorater;
-import com.example.version1.Model.GreenDaoManager;
+import com.example.version1.greendao.GreenDaoManager;
 import com.example.version1.Model.Information;
 import com.example.version1.Model.LentInformation;
 import com.example.version1.Model.MessageInformation;

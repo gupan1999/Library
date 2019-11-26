@@ -15,8 +15,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.version1.MyApplication;
 import com.example.version1.R;
 import com.example.version1.Util.HttpUtil;
-import com.example.version1.Model.DaoSession;
-import com.example.version1.Model.GreenDaoManager;
+import com.example.version1.greendao.DaoSession;
+import com.example.version1.greendao.GreenDaoManager;
 import com.example.version1.Model.User;
 
 
