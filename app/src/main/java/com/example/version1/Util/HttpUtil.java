@@ -5,6 +5,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.example.version1.Model.Book;
+import com.example.version1.Model.Collin;
 import com.example.version1.greendao.DaoSession;
 import com.example.version1.Model.Decorater;
 import com.example.version1.greendao.GreenDaoManager;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.xml.transform.Result;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -31,6 +34,7 @@ import okhttp3.Response;
 public class HttpUtil {
     public static List<Information>informationList;
     public static List<Book>bookList;
+    public static List<Collin>collinList;
     public static final int SUCCESS = 1;
     public static final int FAIL = 2;
 
@@ -92,12 +96,15 @@ public class HttpUtil {
             }
         }).start();
     }
-    private static void  setRequestjson(final String key){
+    private static void  setSearchjson(final String key){
         Log.d("HttpUtil",key);
         requestjson="/get/{ '[]': { 'Book': { 'bookname$': '%25"+key+"%25' } } }";
     }
+    private static void setDetailsjson( String bookno){
+        requestjson="/get/{ '[]' :  { 'Collin' :  { 'bookno' :'"+bookno+"' } } }";
+    }
     public static void queryTitle(final Handler handler,final String key){
-        setRequestjson(key);
+        setSearchjson(key);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -124,7 +131,7 @@ public class HttpUtil {
                             Message message = handler.obtainMessage();
                             //message.obj=responseData;
                             Log.d("HttpUtil",responseData);
-                            message.what=paraseWithFastjson(handler,responseData);
+                            message.what=paraseSearchResult(handler,responseData);
                             handler.sendMessage(message);
                         }
                     });
@@ -136,7 +143,62 @@ public class HttpUtil {
         }).start();
 
     }
-    private static int paraseWithFastjson(Handler handler,String jsonData) {
+    public static void showDetails(final Handler handler,final String bookno){
+        setDetailsjson(bookno);
+        System.out.println(requestjson);
+        System.out.println(HttpUtil.collinList);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
+                            .readTimeout(5, TimeUnit.SECONDS) //读取超时
+                            .writeTimeout(5, TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
+                    Request request = new Request.Builder().url("http://10.128.243.29:8888" + requestjson).build();  //连缀设置url地址的Request对象
+                    Call call=client.newCall(request);
+                    call.enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Message message=handler.obtainMessage();
+                            message.what=FAIL;
+                            Log.d("HttpUtil","Failed");
+                            handler.sendMessage(message);
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            //得到从网上获取资源，转换成我们想要的类型
+                            responseData = response.body().string();
+                            //通过handler更新UI
+                            Message message = handler.obtainMessage();
+                            //message.obj=responseData;
+                            Log.d("HttpUtil",responseData);
+                            message.what=paraseDetailsResult(handler,responseData);
+                            handler.sendMessage(message);
+                        }
+                    });
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
+    private static int paraseDetailsResult(Handler handler,String jsonData){
+        List<Collin>tempList=new ArrayList<Collin>();
+        Results results=JSON.parseObject(jsonData,Results.class);
+        List<Decorater> decoraterList = results.getDecoraterList();
+        if (decoraterList != null) {
+            for (Decorater decorater : decoraterList) {
+                Collin collin=decorater.getCollin();
+                tempList.add(collin);
+            }
+        }
+        collinList = tempList;
+        return SUCCESS;
+    }
+    private static int paraseSearchResult(Handler handler,String jsonData) {
         List<Book> templist = new ArrayList<Book>();
         Results results = JSON.parseObject(jsonData, Results.class);
         List<Decorater> decoraterList = results.getDecoraterList();

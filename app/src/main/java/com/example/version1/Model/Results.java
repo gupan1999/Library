@@ -4,7 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.List;
 
-public class Results {
+public class Results{
     private List<Decorater>decoraterList;
     private int code;
     public Results() {

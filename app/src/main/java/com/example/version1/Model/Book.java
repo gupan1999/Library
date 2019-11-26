@@ -12,11 +12,11 @@ public class Book {
     private String price;
     private String lendn;
     private String colln;
-
+    private String bookno;
     public Book() {
     }
 
-    public Book(int id, String bookName, String author, String publisher, String publishDate, String isbn, String callNumber, String form, String price, String lendn, String colln) {
+    public Book(int id, String bookName, String author, String publisher, String publishDate, String isbn, String callNumber, String form, String price, String lendn, String colln,String bookno) {
         this.id = id;
         this.bookName = bookName;
         this.author = author;
@@ -28,6 +28,15 @@ public class Book {
         this.price = price;
         this.lendn = lendn;
         this.colln = colln;
+        this.bookno = bookno;
+    }
+
+    public String getBookno() {
+        return bookno;
+    }
+
+    public void setBookno(String bookno) {
+        this.bookno = bookno;
     }
 
     public String getBookName() {
