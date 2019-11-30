@@ -53,9 +53,8 @@ public class DetailsActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));//每行划分割线
         recyclerView.setAdapter(adapter);
         detail_nodata=findViewById(R.id.detail_nodata);
-        //   lent_nodata.setVisibility(View.VISIBLE);
         checkNull();
-        //      }
+
     }
     private void checkNull(){
         if (adapter.getItemCount()==0)detail_nodata.setVisibility(View.VISIBLE);

@@ -63,12 +63,5 @@ public class MythingsFragment extends Fragment {
             System.out.println("Logined");
         }*/
     }
-    /*
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
-    */
 
     }

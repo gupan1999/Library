@@ -30,11 +30,7 @@ public class MyLentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
         setContentView(R.layout.activity_my_lent);
-
         recyclerView=findViewById(R.id.recyclerview);
-
-        //LentAdapter adapter=new LentAdapter(LentList);  //放入适配器
-       // if(User.leList!=null) {  //与MessageActivity相关部分完全类似
             adapter = new BaseRecyclerAdapter<LentInformation>(this, R.layout.items, User.leList) {
                 @Override
                 public void convert(BaseViewHolder holder, LentInformation lentInformation) {
@@ -52,12 +48,9 @@ public class MyLentActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(layoutManager);  //设置为线性布局管理
             recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));//每行划分割线
             recyclerView.setAdapter(adapter);
-       // }else{
-        //    recyclerView.setAdapter(adapter);
             lent_nodata=findViewById(R.id.lent_nodata);
-         //   lent_nodata.setVisibility(View.VISIBLE);
-         checkNull();
-  //      }
+            checkNull();
+
         swipeRefresh = findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.

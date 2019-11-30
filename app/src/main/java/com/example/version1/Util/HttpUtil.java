@@ -41,7 +41,7 @@ public class HttpUtil {
     public static String responseData;//返回字符串
     //public static String host="http://10.128.211.178";
     //public static  String host="http://167.179.66.196";
-    public static String host="http://10.28.187.251";
+    public static String host="http://192.168.43.44";
     public static String requestjson;
     public static String userdata="/get_userdata.json";
     public static String picture="";
@@ -53,7 +53,7 @@ public class HttpUtil {
                     OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
                             .readTimeout(5,TimeUnit.SECONDS) //读取超时
                             .writeTimeout(5,TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
-                    Request request = new Request.Builder().url("http://10.128.243.29"+userdata).build();  //连缀设置url地址的Request对象
+                    Request request = new Request.Builder().url(host+userdata).build();  //连缀设置url地址的Request对象
                     //Response response = client.newCall(request).execute();
                     Call call=client.newCall(request);
                     call.enqueue(new Callback() {
@@ -112,7 +112,7 @@ public class HttpUtil {
                     OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
                             .readTimeout(5, TimeUnit.SECONDS) //读取超时
                             .writeTimeout(5, TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
-                    Request request = new Request.Builder().url("http://10.128.243.29:8888" + requestjson).build();  //连缀设置url地址的Request对象
+                    Request request = new Request.Builder().url("http://192.168.43.44:9999" + requestjson).build();  //连缀设置url地址的Request对象
                     Call call=client.newCall(request);
                     call.enqueue(new Callback() {
                         @Override
@@ -154,7 +154,7 @@ public class HttpUtil {
                     OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
                             .readTimeout(5, TimeUnit.SECONDS) //读取超时
                             .writeTimeout(5, TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
-                    Request request = new Request.Builder().url("http://10.128.243.29:8888" + requestjson).build();  //连缀设置url地址的Request对象
+                    Request request = new Request.Builder().url("http://192.168.43.44:9999" + requestjson).build();  //连缀设置url地址的Request对象
                     Call call=client.newCall(request);
                     call.enqueue(new Callback() {
                         @Override
