@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array2">
+        <item>本图书馆查询</item>
+        <item>跨图书馆查询</item>
+    </string-array>
+</resources>
