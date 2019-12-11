@@ -7,11 +7,14 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.version1.Activity.ResultActivity;
@@ -26,17 +29,32 @@ public class MainFragment extends Fragment {
     private Button button;
     private EditText text;
     private Handler handler;
+    private Spinner spinner;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         button = root.findViewById(R.id.button);
         text = root.findViewById(R.id.editText2);
+        spinner = root.findViewById(R.id.spinner);
         return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("Spinner","parent:"+parent.getId()+"\nview:"+view.getId()+"\nposition:"+position+"\n");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         new Handler() {
             @Override
             public void handleMessage(Message msg) {
