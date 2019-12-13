@@ -4,4 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.SettingActivity"/>
+    tools:context=".Activity.SettingActivity"
+    android:background="@drawable/jbshape"
+    >
+
+    <com.example.version1.customed.TitleLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.example.version1.customed.TitleLayout>
+</android.support.constraint.ConstraintLayout>

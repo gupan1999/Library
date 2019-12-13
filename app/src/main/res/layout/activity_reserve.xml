@@ -4,7 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.ReserveActivity">
+    tools:context=".Activity.ReserveActivity"
+    android:background="@drawable/jbshape"
+    >
+
+    <com.example.version1.customed.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.example.version1.customed.TitleLayout>
 
     <Button
         android:id="@+id/discussroom"

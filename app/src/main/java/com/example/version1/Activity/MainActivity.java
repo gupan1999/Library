@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);   //关联layout/fragment_main.xml的配置
 
 

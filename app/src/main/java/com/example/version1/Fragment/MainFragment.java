@@ -53,10 +53,13 @@ public class MainFragment extends Fragment {
             adapter.add(level[i]);
         }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
         spinner.setAdapter(adapter);
+
         return root;
     }
-
+    
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

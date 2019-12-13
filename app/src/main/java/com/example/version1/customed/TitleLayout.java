@@ -32,7 +32,7 @@ public class TitleLayout extends ConstraintLayout {      //继承ConstraintLayou
    }
 
    public  void setTitle(String name){
-        Title.setText(name);
+        Title.setText("");
    }
 
 

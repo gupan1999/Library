@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
 import com.example.version1.Util.HttpUtil;
 import com.example.version1.Util.Temp;
+import com.example.version1.customed.TitleLayout;
 import com.example.version1.greendao.DaoSession;
 import com.example.version1.greendao.GreenDaoManager;
 import com.example.version1.Model.MessageInformation;
@@ -33,7 +35,8 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
+
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
         setContentView(R.layout.activity_message);
         recyclerView2=findViewById(R.id.recyclerview2);
             adapter = new BaseRecyclerAdapter<MessageInformation>(this, R.layout.messageitems, User.mesList) {   //通过匿名内部类扩展通用adapter

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MessageActivity">
+    tools:context=".Activity.MessageActivity"
+    android:background="@drawable/jbshape"
+    >
 
 <!--    <com.example.version1.customed.TitleLayout-->
 <!--        android:id="@+id/titleLayout2"-->
@@ -18,27 +20,42 @@
 <!--        app:layout_constraintVertical_bias="0.0">-->
 
 <!--    </com.example.version1.customed.TitleLayout>-->
+    <com.example.version1.customed.TitleLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/swipe_refresh1"
+        app:layout_constraintStart_toStartOf="@+id/swipe_refresh1"
+        app:layout_constraintBottom_toTopOf="@id/swipe_refresh1">
+
+    </com.example.version1.customed.TitleLayout>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview2"
-        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:longClickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.039" />
-    </android.support.v4.widget.SwipeRefreshLayout >
+        app:layout_constraintTop_toBottomOf="@+id/titleLayout">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:longClickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.039" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
     <TextView
         android:id="@+id/message_nodata"
         android:layout_width="wrap_content"
