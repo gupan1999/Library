@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.version1.Model.Book;
 import com.example.version1.Model.Collin;
+import com.example.version1.Model.Electronicbook;
 import com.example.version1.MyApplication;
 import com.example.version1.R;
 import com.example.version1.Util.BaseRecyclerAdapter;
@@ -32,6 +33,11 @@ public class DetailsActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.recyclerView);
         detail_nodata=findViewById(R.id.detail_nodata);
         adapter = new BaseRecyclerAdapter<Collin>(this, R.layout.detailitem, HttpUtil.collinList) {
+            @Override
+            public void convert(BaseViewHolder holder, Electronicbook electronicbook) {
+
+            }
+
             @Override
             public void convert(BaseViewHolder holder, Collin collin) {
                 holder.setText(R.id.dept, "馆藏部门:"+collin.getDept());

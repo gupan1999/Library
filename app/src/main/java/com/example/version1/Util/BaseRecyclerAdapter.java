@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.example.version1.Model.Electronicbook;
+
 import java.util.List;
 
 /**
@@ -48,6 +50,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
         mData=newList;
     }
 
+
+    public abstract void convert(BaseViewHolder holder, Electronicbook electronicbook);
 
     /**
      * 对外提供的方法

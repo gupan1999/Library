@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.version1.Model.Electronicbook;
 import com.example.version1.MyApplication;
 import com.example.version1.R;
 import com.example.version1.Util.BaseRecyclerAdapter;
@@ -33,6 +34,11 @@ public class ResultActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.recyclerView3);
 
         adapter = new BaseRecyclerAdapter<Book>(this, R.layout.searchitem, HttpUtil.bookList) {
+            @Override
+            public void convert(BaseViewHolder holder, Electronicbook electronicbook) {
+
+            }
+
             @Override
             public void convert(BaseViewHolder holder,Book book) {
                 System.out.println(book.getBookno());

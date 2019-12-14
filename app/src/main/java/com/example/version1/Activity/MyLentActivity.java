@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.version1.Model.Electronicbook;
 import com.example.version1.R;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
@@ -32,6 +33,11 @@ public class MyLentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_lent);
         recyclerView=findViewById(R.id.recyclerview);
             adapter = new BaseRecyclerAdapter<LentInformation>(this, R.layout.items, User.leList) {
+                @Override
+                public void convert(BaseViewHolder holder, Electronicbook electronicbook) {
+
+                }
+
                 @Override
                 public void convert(BaseViewHolder holder, LentInformation lentInformation) {
                     holder.setText(R.id.bookName, lentInformation.getBookName());

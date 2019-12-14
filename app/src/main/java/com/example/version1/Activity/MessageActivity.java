@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.version1.Model.Electronicbook;
 import com.example.version1.R;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
@@ -40,6 +41,11 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
         recyclerView2=findViewById(R.id.recyclerview2);
             adapter = new BaseRecyclerAdapter<MessageInformation>(this, R.layout.messageitems, User.mesList) {   //通过匿名内部类扩展通用adapter
+                @Override
+                public void convert(BaseViewHolder holder, Electronicbook electronicbook) {
+
+                }
+
                 @Override                           //实现抽象方法convert和setting
                 public void convert(BaseViewHolder holder, MessageInformation messageInformation) {
                     holder.setText(R.id.message, messageInformation.getMessage());
