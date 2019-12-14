@@ -22,6 +22,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
     public int getPosition() { return position; }
     public void setPosition(int position) { this.position = position; }
 
+    public T getmDataByPosition(int position){
+        return mData.get(position);
+    }
 
 
     public BaseRecyclerAdapter(Context mContext, int mLayoutId, List<T> mData) {
@@ -51,7 +54,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
     }
 
 
-    public abstract void convert(BaseViewHolder holder, Electronicbook electronicbook);
+
 
     /**
      * 对外提供的方法

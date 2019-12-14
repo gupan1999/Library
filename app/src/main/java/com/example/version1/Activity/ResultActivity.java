@@ -34,10 +34,6 @@ public class ResultActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.recyclerView3);
 
         adapter = new BaseRecyclerAdapter<Book>(this, R.layout.searchitem, HttpUtil.bookList) {
-            @Override
-            public void convert(BaseViewHolder holder, Electronicbook electronicbook) {
-
-            }
 
             @Override
             public void convert(BaseViewHolder holder,Book book) {
@@ -60,23 +56,23 @@ public class ResultActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {                       //设置长按监听，只为获取选中的ViewHolder的位置
                     final Intent intent=new Intent(ResultActivity.this,DetailsActivity.class);
-                    String bookno=((TextView)holder.getView(R.id.bookno)).getText().toString();
-
-                        handler=new Handler() {
-                            @Override
-                            public void handleMessage(Message msg) {
-                                switch (msg.what) {
-                                    //当加载网络失败执行的逻辑代码
-                                    case HttpUtil.FAIL:
-                                        Toast.makeText(MyApplication.getContext(), "网络出现了问题", Toast.LENGTH_SHORT).show();
-                                        break;
-                                    case HttpUtil.SUCCESS:
-                                        startActivity(intent);
-                                        break;
-                                }
+                    String bookno = ((Book)adapter.getmDataByPosition(holder.getAdapterPosition())).getBookno();
+                    int from=((Book)adapter.getmDataByPosition(holder.getAdapterPosition())).getFrom();
+                    handler=new Handler() {
+                        @Override
+                        public void handleMessage(Message msg) {
+                            switch (msg.what) {
+                                //当加载网络失败执行的逻辑代码
+                                case HttpUtil.FAIL:
+                                    Toast.makeText(MyApplication.getContext(), "网络出现了问题", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpUtil.SUCCESS:
+                                    startActivity(intent);
+                                    break;
                             }
+                        }
                         };
-                        HttpUtil.showDetails(handler, bookno);
+                    HttpUtil.showDetails(handler, bookno,from);
 
                     }
                 });
@@ -92,13 +88,17 @@ public class ResultActivity extends AppCompatActivity {
         search_nodata=findViewById(R.id.search_nodata);
         total=findViewById(R.id.total);
         total.setText("共 "+HttpUtil.bookList.size()+" 条搜索结果");
-        //   lent_nodata.setVisibility(View.VISIBLE);
         checkNull();
-        //      }
     }
 
     private void checkNull(){
         if (adapter.getItemCount()==0)search_nodata.setVisibility(View.VISIBLE);
         else search_nodata.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        HttpUtil.bookList.clear();
     }
 }

@@ -33,10 +33,6 @@ public class MyLentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_lent);
         recyclerView=findViewById(R.id.recyclerview);
             adapter = new BaseRecyclerAdapter<LentInformation>(this, R.layout.items, User.leList) {
-                @Override
-                public void convert(BaseViewHolder holder, Electronicbook electronicbook) {
-
-                }
 
                 @Override
                 public void convert(BaseViewHolder holder, LentInformation lentInformation) {

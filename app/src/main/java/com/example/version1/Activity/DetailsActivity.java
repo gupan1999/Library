@@ -33,10 +33,7 @@ public class DetailsActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.recyclerView);
         detail_nodata=findViewById(R.id.detail_nodata);
         adapter = new BaseRecyclerAdapter<Collin>(this, R.layout.detailitem, HttpUtil.collinList) {
-            @Override
-            public void convert(BaseViewHolder holder, Electronicbook electronicbook) {
 
-            }
 
             @Override
             public void convert(BaseViewHolder holder, Collin collin) {
@@ -65,5 +62,11 @@ public class DetailsActivity extends AppCompatActivity {
     private void checkNull(){
         if (adapter.getItemCount()==0)detail_nodata.setVisibility(View.VISIBLE);
         else detail_nodata.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        HttpUtil.collinList.clear();
     }
 }

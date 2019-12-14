@@ -1,5 +1,7 @@
 package com.example.version1.Model;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Book {
     private int id;
     private String bookName;
@@ -13,6 +15,18 @@ public class Book {
     private String lendn;
     private String colln;
     private String bookno;
+
+    @JSONField(deserialize = false)
+    private int from;
+
+    public int getFrom() {
+        return from;
+    }
+
+    public void setFrom(int from) {
+        this.from = from;
+    }
+
     public Book() {
     }
 
