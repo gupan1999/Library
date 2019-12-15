@@ -16,6 +16,7 @@
         android:layout_marginTop="72dp"
         android:ems="10"
         android:hint="请设置昵称"
+
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,6 +39,8 @@
         android:layout_marginTop="204dp"
         android:layout_marginEnd="8dp"
         android:text="我的借阅"
+        android:textColor="#4CAEC3"
+        android:background="@drawable/jbshape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,10 +50,14 @@
         android:id="@+id/imageButton15"
         android:layout_width="395dp"
         android:layout_height="60dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/jbshape"
         android:text="设置"
+        android:textColor="#4CAEC3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton13" />
 
@@ -64,6 +71,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="我的电子书架"
+        android:textColor="#4CAEC3"
+        android:background="@drawable/jbshape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton9" />
@@ -78,6 +87,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="座位/研讨间预约"
+        android:textColor="#4CAEC3"
+        android:background="@drawable/jbshape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton11" />
@@ -92,6 +103,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="消息通知"
+        android:textColor="#4CAEC3"
+        android:background="@drawable/jbshape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reserve" />
@@ -101,6 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="我的"
+
         android:textSize="25dp"
         android:textColor="#4CAEC3"
         app:layout_constraintEnd_toEndOf="parent"
