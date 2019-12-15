@@ -23,6 +23,7 @@ public class AcademicDissertations extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_academic_dissertation);
         academicDissertationre=findViewById(R.id.academicdissertationre);
         AcademicDissertation academicDissertation=new AcademicDissertation("散文江湖","形散神不散，优美娓娓来。散文，以其优美的文字，丰富的意向，舒缓的情调让人喜爱。或歌颂，或致意，或赞美...",R.mipmap.book2);

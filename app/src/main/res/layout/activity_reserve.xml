@@ -16,6 +16,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="座位/研讨间预约"
+            android:textSize="25dp"
+            android:textColor="#4CAEC3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </com.example.version1.customed.TitleLayout>
 
     <Button
@@ -31,7 +42,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/readinghouse"
+        android:id="@+id/seat"
         android:layout_width="395dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
@@ -40,10 +51,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seat" />
+        app:layout_constraintTop_toBottomOf="@+id/readinghouse"
+        android:background="@drawable/jbshape"/>
 
     <Button
-        android:id="@+id/seat"
+        android:id="@+id/readinghouse"
         android:layout_width="395dp"
         android:layout_height="60dp"
         android:layout_marginTop="24dp"
@@ -52,36 +64,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/discussroom" />
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:divider="@drawable/divider"
-        android:orientation="vertical"
-        android:showDividers="middle|end"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/readinghouse">
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:text="TextView"
-            android:textAlignment="center" />
-    </LinearLayout>
 
     <!--    <com.example.version1.customed.TitleLayout-->
 <!--        android:id="@+id/titleLayout5"-->

@@ -40,6 +40,7 @@ public class MainFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_main, container, false);
+
        button = root.findViewById(R.id.button);
         text = root.findViewById(R.id.editText2);
 

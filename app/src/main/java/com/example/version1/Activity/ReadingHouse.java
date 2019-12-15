@@ -6,13 +6,14 @@ import android.widget.ImageView;
 
 import com.example.version1.R;
 
-public class Discussroom extends AppCompatActivity {
+public class ReadingHouse extends AppCompatActivity {
     private ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_discussroom);
-        imageView=findViewById(R.id.imageView5);
+
+        setContentView(R.layout.activity_reading_house);
+        imageView=findViewById(R.id.imageView7);
     }
 }

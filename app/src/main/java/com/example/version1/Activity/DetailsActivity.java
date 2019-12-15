@@ -29,6 +29,7 @@ public class DetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_details);
         recyclerView=findViewById(R.id.recyclerView);
         detail_nodata=findViewById(R.id.detail_nodata);
