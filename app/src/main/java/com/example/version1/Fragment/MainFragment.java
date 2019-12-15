@@ -42,6 +42,7 @@ public class MainFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
        button = root.findViewById(R.id.button);
         text = root.findViewById(R.id.editText2);
+
         spinner = root.findViewById(R.id.spinner);
         spinner2 = root.findViewById(R.id.spinner2);
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item){

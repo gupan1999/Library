@@ -6,6 +6,7 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.example.version1.R;
+import com.example.version1.customed.TitleLayout;
 
 public class ReserveActivity extends AppCompatActivity {
 
@@ -17,8 +18,8 @@ public class ReserveActivity extends AppCompatActivity {
         Button button1=findViewById(R.id.discussroom);
         Button button2=findViewById(R.id.seat);
         Button button3=findViewById(R.id.readinghouse);
-        //TitleLayout titleLayout=findViewById(R.id.titleLayout5);
-        //titleLayout.setTitle("预约");
+        TitleLayout titleLayout=findViewById(R.id.titleLayout5);
+        titleLayout.setTitle("预约");
 
     }
 }

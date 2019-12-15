@@ -25,15 +25,17 @@ public class AcademicDissertations extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_academic_dissertation);
         academicDissertationre=findViewById(R.id.academicdissertationre);
-        AcademicDissertation academicDissertation=new AcademicDissertation("通信原理","专业课",R.mipmap.abcd);
-        AcademicDissertation academicDissertation1=new AcademicDissertation("通信","专业课",R.mipmap.defg);
+        AcademicDissertation academicDissertation=new AcademicDissertation("散文江湖","形散神不散，优美娓娓来。散文，以其优美的文字，丰富的意向，舒缓的情调让人喜爱。或歌颂，或致意，或赞美...",R.mipmap.book2);
+        AcademicDissertation academicDissertation1=new AcademicDissertation("时间移民","选取25岁以下的人类成员向未来移民。旅行队伍进行了多次停留，但每一次的地球环境都不再适合人类居住...",R.mipmap.book1);
         academicDissertationList.add(academicDissertation);
         academicDissertationList.add(academicDissertation1);
 
         baseRecyclerAdapter=new BaseRecyclerAdapter<AcademicDissertation>(this,R.layout.academicdissertationitem,academicDissertationList){
             @Override
             public void convert(BaseViewHolder holder, AcademicDissertation academicDissertation) {
-
+                holder.setText(R.id.textView5,academicDissertation.getBookname());
+                holder.setText(R.id.textView6,academicDissertation.getDetails());
+                holder.setImageResource(R.id.imageView3,academicDissertation.getImageid());
             }
 
             @Override
