@@ -26,6 +26,25 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
         return mData.get(position);
     }
 
+    public BaseRecyclerAdapter(Context mContext) {
+        this.mContext = mContext;
+    }
+
+    public int getmLayoutId() {
+        return mLayoutId;
+    }
+
+    public void setmLayoutId(int mLayoutId) {
+        this.mLayoutId = mLayoutId;
+    }
+
+    public List<T> getmData() {
+        return mData;
+    }
+
+    public void setmData(List<T> mData) {
+        this.mData = mData;
+    }
 
     public BaseRecyclerAdapter(Context mContext, int mLayoutId, List<T> mData) {
         this.mContext = mContext;

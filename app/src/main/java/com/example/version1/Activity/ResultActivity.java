@@ -34,54 +34,121 @@ public class ResultActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_result);
         recyclerView=findViewById(R.id.recyclerView3);
+        int limit=getIntent().getIntExtra("limit",2);
+        if(limit==0) {
+            adapter = new BaseRecyclerAdapter<Book>(this, R.layout.searchitem, HttpUtil.bookList) {
 
-        adapter = new BaseRecyclerAdapter<Book>(this, R.layout.searchitem, HttpUtil.bookList) {
+                @Override
+                public void convert(BaseViewHolder holder, Book book) {
+                    System.out.println(book.getBookno());
+                    Log.d("ResultActivity", book.getBookName());
+                    holder.setText(R.id.titles, book.getBookName());
+                    holder.setText(R.id.authors, "作者:" + book.getAuthor());
+                    holder.setText(R.id.publisher, "出版社:" + book.getPublisher());
+                    holder.setText(R.id.publishdate, "出版时间:" + book.getPublishDate());
+                    holder.setText(R.id.isbn, "标准号:" + book.getIsbn());
+                    holder.setText(R.id.price, "价格:" + book.getPrice());
+                    holder.setText(R.id.callnumber, "索书号:" + book.getCallNumber());
+                    holder.setText(R.id.lend, "可借/总藏:" + book.getLendn() + "/" + book.getColln());
+                }
 
-            @Override
-            public void convert(BaseViewHolder holder,Book book) {
-                System.out.println(book.getBookno());
-                Log.d("ResultActivity",book.getBookName());
-                holder.setText(R.id.titles, book.getBookName());
-                holder.setText(R.id.authors, "作者:"+book.getAuthor());
-                holder.setText(R.id.publisher,"出版社:"+book.getPublisher());
-                holder.setText(R.id.publishdate,"出版时间:"+book.getPublishDate());
-                holder.setText(R.id.isbn,"标准号:"+book.getIsbn());
-                holder.setText(R.id.price,"价格:"+book.getPrice());
-                holder.setText(R.id.callnumber,"索书号:"+book.getCallNumber());
-                holder.setText(R.id.lend,"可借/总藏:"+book.getLendn()+"/"+book.getColln());
-                holder.setText(R.id.bookno,book.getBookno());
-            }
-
-            @Override
-            public void setting(final BaseViewHolder holder) {
-                holder.getItemView().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {                       //设置长按监听，只为获取选中的ViewHolder的位置
-                    final Intent intent=new Intent(ResultActivity.this,DetailsActivity.class);
-                    String bookno = ((Book)adapter.getmDataByPosition(holder.getAdapterPosition())).getBookno();
-                    int from=((Book)adapter.getmDataByPosition(holder.getAdapterPosition())).getFrom();
-                    handler=new Handler() {
+                @Override
+                public void setting(final BaseViewHolder holder) {
+                    holder.getItemView().setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void handleMessage(Message msg) {
-                            switch (msg.what) {
-                                //当加载网络失败执行的逻辑代码
-                                case HttpUtil.FAIL:
-                                    Toast.makeText(MyApplication.getContext(), "网络出现了问题", Toast.LENGTH_SHORT).show();
-                                    break;
-                                case HttpUtil.SUCCESS:
-                                    startActivity(intent);
-                                    break;
-                            }
+                        public void onClick(View v) {                       //设置长按监听，只为获取选中的ViewHolder的位置
+                            final Intent intent = new Intent(ResultActivity.this, DetailsActivity.class);
+                            final String bookname = ((Book) adapter.getmDataByPosition(holder.getAdapterPosition())).getBookName();
+                            String bookno = ((Book) adapter.getmDataByPosition(holder.getAdapterPosition())).getBookno();
+                            final int from = ((Book) adapter.getmDataByPosition(holder.getAdapterPosition())).getFrom();
+                            handler = new Handler() {
+                                @Override
+                                public void handleMessage(Message msg) {
+                                    switch (msg.what) {
+                                        //当加载网络失败执行的逻辑代码
+                                        case HttpUtil.FAIL:
+                                            Toast.makeText(MyApplication.getContext(), "网络出现了问题", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        case HttpUtil.SUCCESS:
+                                            intent.putExtra("bookname", bookname);
+                                            startActivity(intent);
+                                            break;
+                                    }
+                                }
+                            };
+                            HttpUtil.showDetails(handler, bookno, from);
+
                         }
-                        };
-                    HttpUtil.showDetails(handler, bookno,from);
+                    });
 
+                }
+
+            };
+        }else if(limit==1){
+            adapter = new BaseRecyclerAdapter<Book>(this, R.layout.searchallitem, HttpUtil.bookList) {
+
+                @Override
+                public void convert(BaseViewHolder holder, Book book) {
+                    System.out.println(book.getBookno());
+                    Log.d("ResultActivity", book.getBookName());
+                    holder.setText(R.id.titles, book.getBookName());
+                    holder.setText(R.id.authors, "作者:" + book.getAuthor());
+                    holder.setText(R.id.publisher, "出版社:" + book.getPublisher());
+                    holder.setText(R.id.publishdate, "出版时间:" + book.getPublishDate());
+                    holder.setText(R.id.isbn, "标准号:" + book.getIsbn());
+                    holder.setText(R.id.price, "价格:" + book.getPrice());
+                    holder.setText(R.id.callnumber, "索书号:" + book.getCallNumber());
+                    holder.setText(R.id.lend, "可借/总藏:" + book.getLendn() + "/" + book.getColln());
+                    switch (book.getFrom()){
+                        case 0:holder.setText(R.id.from,"本校");
+                        break;
+                        case 1:holder.setText(R.id.from,"他校1");
+                        break;
+                        default:
                     }
-                });
+                }
 
-            }
+                @Override
+                public void setting(final BaseViewHolder holder) {
 
-        };
+
+                        holder.getItemView().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                final int from = ((Book) adapter.getmDataByPosition(holder.getAdapterPosition())).getFrom();
+                                if (from==0) {
+                                    final Intent intent = new Intent(ResultActivity.this, DetailsActivity.class);
+                                    final String bookname = ((Book) adapter.getmDataByPosition(holder.getAdapterPosition())).getBookName();
+                                    String bookno = ((Book) adapter.getmDataByPosition(holder.getAdapterPosition())).getBookno();
+                                    handler = new Handler() {
+                                        @Override
+                                        public void handleMessage(Message msg) {
+                                            switch (msg.what) {
+                                                //当加载网络失败执行的逻辑代码
+                                                case HttpUtil.FAIL:
+                                                    Toast.makeText(MyApplication.getContext(), "网络出现了问题", Toast.LENGTH_SHORT).show();
+                                                    break;
+                                                case HttpUtil.SUCCESS:
+                                                    intent.putExtra("bookname", bookname);
+                                                    startActivity(intent);
+                                                    break;
+                                            }
+                                        }
+                                    };
+                                    HttpUtil.showDetails(handler, bookno, from);
+                                }else{
+                                    Toast.makeText(MyApplication.getContext(), "您没有查看他校书籍的权限", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+
+
+                        });
+
+                }
+
+            };
+        }
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);//线性布局管理Recyclerview
         recyclerView.setLayoutManager(layoutManager);  //设置为线性布局管理
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));//每行划分割线

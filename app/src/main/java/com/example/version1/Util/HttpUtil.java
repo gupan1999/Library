@@ -46,8 +46,8 @@ public class HttpUtil {
     private static String[] libraries={"Book","Bookother"};
     private static String[] details={"Collin","Collinother"};
     public static String responseData;
-    //public static String host="http://10.128.245.151";
-   public static String host="http://192.168.43.44";
+    public static String host="http://10.128.239.39";
+   //public static String host="http://192.168.43.44";
     public static List<String>requestjsons=new ArrayList<String>();
     public static String userdata="/get_userdata.json";
     public static String picture="";
@@ -142,7 +142,7 @@ public class HttpUtil {
                         OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
                             .readTimeout(5, TimeUnit.SECONDS) //读取超时
                             .writeTimeout(5, TimeUnit.SECONDS).addInterceptor(new MyInterceptor(String.valueOf(i))).build();
-                        Request request = new Request.Builder().url("http://192.168.43.44:9999" + requestjsons.get(i)).build();  //连缀设置url地址的Request对象
+                        Request request = new Request.Builder().url(host+":9999" + requestjsons.get(i)).build();  //连缀设置url地址的Request对象
                         Call call = client.newCall(request);
                         call.enqueue(new Callback() {
                             @Override
@@ -184,7 +184,7 @@ public class HttpUtil {
                             .readTimeout(5, TimeUnit.SECONDS) //读取超时
                             .writeTimeout(5, TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
 
-                        Request request = new Request.Builder().url("http://192.168.43.44:9999" + requestjsons.get(0)).build();  //连缀设置url地址的Request对象
+                        Request request = new Request.Builder().url(host+":9999" + requestjsons.get(0)).build();  //连缀设置url地址的Request对象
                         Call call = client.newCall(request);
                         call.enqueue(new Callback() {
                             @Override

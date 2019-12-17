@@ -15,11 +15,23 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textStyle="bold"
+
         app:layout_constraintBottom_toTopOf="@id/LinearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/from"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <TextView
+        android:id="@+id/from"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@id/LinearLayout"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/titles"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/LinearLayout"
@@ -75,5 +87,4 @@
             android:text="TextView" />
 
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>

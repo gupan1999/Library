@@ -88,6 +88,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final Intent intent = new Intent(getActivity(), ResultActivity.class);
+                intent.putExtra("limit",spinner2.getSelectedItemPosition());
                 //Intent intent=new Intent(getActivity(), SearchActivity.class);
                 //intent.putExtra("floor",text.getText().toString());
 

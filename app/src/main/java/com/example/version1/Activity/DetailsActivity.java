@@ -26,6 +26,7 @@ public class DetailsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BaseRecyclerAdapter adapter;
     private TextView detail_nodata;
+    private TextView detail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,8 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
         recyclerView=findViewById(R.id.recyclerView);
         detail_nodata=findViewById(R.id.detail_nodata);
+        detail=findViewById(R.id.bookdetail);
+        detail.setText(getIntent().getStringExtra("bookname"));
         adapter = new BaseRecyclerAdapter<Collin>(this, R.layout.detailitem, HttpUtil.collinList) {
 
 
