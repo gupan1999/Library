@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +31,8 @@ public class DetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        //getSupportActionBar().hide();
         setContentView(R.layout.activity_details);
         recyclerView=findViewById(R.id.recyclerView);
         detail_nodata=findViewById(R.id.detail_nodata);

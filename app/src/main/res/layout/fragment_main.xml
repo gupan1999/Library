@@ -9,7 +9,7 @@
     android:background="@drawable/jbshape"
     >
 
-    android:background="@drawable/jbshape"
+
 
     <EditText
         android:id="@+id/editText2"

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.ReadingHouse"
-    android:background="@drawable/jbshape">
+    android:background="@drawable/jbshape"
+    android:fitsSystemWindows="true">
 
     <com.example.version1.customed.TitleLayout
         android:id="@+id/titleLayout3"

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.example.version1.Model.Electronicbook;
 
 import java.util.List;
 

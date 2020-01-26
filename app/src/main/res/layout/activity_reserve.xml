@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Activity.ReserveActivity"
     android:background="@drawable/jbshape"
+    android:fitsSystemWindows="true"
     >
 
     <com.example.version1.customed.TitleLayout

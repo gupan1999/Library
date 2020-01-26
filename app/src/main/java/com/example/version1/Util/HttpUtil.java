@@ -46,8 +46,8 @@ public class HttpUtil {
     private static String[] libraries={"Book","Bookother"};
     private static String[] details={"Collin","Collinother"};
     public static String responseData;
-    public static String host="http://10.128.239.39";
-   //public static String host="http://192.168.43.44";
+    //public static String host="http://10.128.239.39";
+    public static String host="http://192.168.0.103";
     public static List<String>requestjsons=new ArrayList<String>();
     public static String userdata="/get_userdata.json";
     public static String picture="";

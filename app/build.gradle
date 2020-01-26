@@ -25,6 +25,7 @@ android {
 
         }
     }
+    buildToolsVersion = '28.0.2'
 }
 greendao {
     //指定数据库schema版本号，迁移等操作会用到
