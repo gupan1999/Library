@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Window;
 
 import com.example.version1.Model.MyElectronicBookshelf;
 import com.example.version1.R;
@@ -23,7 +24,8 @@ public class MyElectronicBookshelves extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.activity_my_electronic_bookshelf);
         myelectronicbookshelfre=findViewById(R.id.myelectronicbookshelfre);
         MyElectronicBookshelf myElectronicBookshelf=new MyElectronicBookshelf("散文江湖","形散神不散，优美娓娓来。散文，以其优美的文字，丰富的意向，舒缓的情调让人喜爱。或歌颂，或致意，或赞美...",R.mipmap.book2);
