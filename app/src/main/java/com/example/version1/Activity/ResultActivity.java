@@ -42,7 +42,9 @@ public class ResultActivity extends AppCompatActivity {
 
                 @Override
                 public void convert(BaseViewHolder holder, Book book) {
-                    holder.setText(R.id.titles, book.getBookName());
+                    Log.d("ResultActivity", book.getBookName());
+                    int no=holder.getAdapterPosition()+1;
+                    holder.setText(R.id.titles, no+"."+book.getBookName());
                     holder.setText(R.id.authors, "作者:" + book.getAuthor());
                     holder.setText(R.id.publisher, "出版社:" + book.getPublisher());
                     holder.setText(R.id.publishdate, "出版时间:" + book.getPublishDate());
@@ -90,8 +92,9 @@ public class ResultActivity extends AppCompatActivity {
                 @Override
                 public void convert(BaseViewHolder holder, Book book) {
                     System.out.println(book.getBookno());
+                    int no=holder.getAdapterPosition()+1;
                     Log.d("ResultActivity", book.getBookName());
-                    holder.setText(R.id.titles, book.getBookName());
+                    holder.setText(R.id.titles, no+"."+book.getBookName());
                     holder.setText(R.id.authors, "作者:" + book.getAuthor());
                     holder.setText(R.id.publisher, "出版社:" + book.getPublisher());
                     holder.setText(R.id.publishdate, "出版时间:" + book.getPublishDate());
