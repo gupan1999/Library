@@ -92,9 +92,7 @@ public class MainFragment extends Fragment {
                 //Intent intent=new Intent(getActivity(), SearchActivity.class);
                 //intent.putExtra("floor",text.getText().toString());
 
-                if (text.getText().toString().equals("")) {
-                    Toast.makeText(MyApplication.getContext(), "请输入检索词", Toast.LENGTH_SHORT).show();
-                }else{
+
                     handler = new Handler() {
                     int cnt=0;
                     @Override
@@ -113,7 +111,7 @@ public class MainFragment extends Fragment {
                     }
                 };
                     HttpUtil.query(handler, text.getText().toString(),spinner2.getSelectedItemPosition(),spinner.getSelectedItemPosition());
-                }
+
             }
         });
     }

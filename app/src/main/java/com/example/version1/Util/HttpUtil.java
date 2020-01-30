@@ -47,7 +47,9 @@ public class HttpUtil {
     private static String[] details={"Collin","Collinother"};
     public static String responseData;
     //public static String host="http://10.128.239.39";
-    public static String host="http://192.168.0.103";
+    //public static String host="http://192.168.0.103";
+    public  static String host="http://167.179.73.97:80";
+    //public static String host="http://192.168.43.114";
     public static List<String>requestjsons=new ArrayList<String>();
     public static String userdata="/get_userdata.json";
     public static String picture="";
@@ -78,6 +80,7 @@ public class HttpUtil {
                             Message message = handler.obtainMessage();
                             //message.obj=responseData;
                             message.what = SUCCESS;
+                            Log.d("Information",responseData);
                             parseWithGSON(responseData);            //通过Gson解析
                             User.mesList = Temp.getMessageList(informationList); //将解析得到的Information List转为需要的两种List
                             User.leList = Temp.getLentList(informationList);
@@ -105,17 +108,24 @@ public class HttpUtil {
     private static void  setSearchjson(final String key,final int limit,final int type){
 
         switch (limit) {
-            case 0: requestjsons.add(  "/get/{ '[]': { 'Book': { '" + searchKey[type] + "$': '%25" + key + "%25' } } }");
+
+            case 0: if(key.equals("")){
+                requestjsons.add(  "/get/{ '[]': { 'Book': {  } } }");
+                return;
+            }
+                requestjsons.add(  "/get/{ '[]': { 'Book': { '" + searchKey[type] + "$': '%25" + key + "%25' } } }");
 
             break;
-            case 1: for(int i=0;i<libraries.length;i++){
-                requestjsons.add("/get/{ '[]': { '"+libraries[i]+"': { '" + searchKey[type] + "$': '%25" + key + "%25' } } }");
+            case 1: if(!key.equals("")){
+                for(int i=0;i<libraries.length;i++) requestjsons.add("/get/{ '[]': { '"+libraries[i]+"': { '" + searchKey[type] + "$': '%25" + key + "%25' } } }");
+            }else{
+                for(int i=0;i<libraries.length;i++)   requestjsons.add("/get/{ '[]': { '"+libraries[i]+"': {  } } }");
+
             }
             break;
 
             default:
             }
-        System.out.println(requestjsons);
         }
 
     private static void setDetailsjson( String bookno,int from){
@@ -142,7 +152,7 @@ public class HttpUtil {
                         OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
                             .readTimeout(5, TimeUnit.SECONDS) //读取超时
                             .writeTimeout(5, TimeUnit.SECONDS).addInterceptor(new MyInterceptor(String.valueOf(i))).build();
-                        Request request = new Request.Builder().url(host+":9999" + requestjsons.get(i)).build();  //连缀设置url地址的Request对象
+                        Request request = new Request.Builder().url(host + requestjsons.get(i)).build();  //连缀设置url地址的Request对象
                         Call call = client.newCall(request);
                         call.enqueue(new Callback() {
                             @Override
@@ -184,7 +194,7 @@ public class HttpUtil {
                             .readTimeout(5, TimeUnit.SECONDS) //读取超时
                             .writeTimeout(5, TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
 
-                        Request request = new Request.Builder().url(host+":9999" + requestjsons.get(0)).build();  //连缀设置url地址的Request对象
+                        Request request = new Request.Builder().url(host + requestjsons.get(0)).build();  //连缀设置url地址的Request对象
                         Call call = client.newCall(request);
                         call.enqueue(new Callback() {
                             @Override
@@ -236,11 +246,13 @@ public class HttpUtil {
     }
 
     private static int paraseSearchResult(Handler handler,String jsonData,int from) {
+        Log.d("Test",jsonData);
         for(int i=1;i<libraries.length;i++){
             if(jsonData.contains(libraries[i])){
                jsonData=jsonData.replaceAll(libraries[i],"Book");
             }
         }
+
         Results results = JSON.parseObject(jsonData, Results.class);
         List<Decorater> decoraterList = results.getDecoraterList();
         Log.d("HttpUtil",String.valueOf(from));

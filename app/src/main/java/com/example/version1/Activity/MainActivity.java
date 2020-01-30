@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);   //关联layout/fragment_main.xml的配置
-
+        /*
         handler=new Handler(){
             @Override
             public void handleMessage(Message msg) {
@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity{
             }
         };
         HttpUtil.getInformation(handler);
+        */
+
+
        // BottomNavigationView navigation = findViewById(R.id.navigation); //首页底部导航栏的View
         //navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);  //用上面的匿名内部类对象给View设置回调监听
 

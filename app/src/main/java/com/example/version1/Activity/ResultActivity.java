@@ -42,8 +42,6 @@ public class ResultActivity extends AppCompatActivity {
 
                 @Override
                 public void convert(BaseViewHolder holder, Book book) {
-                    System.out.println(book.getBookno());
-                    Log.d("ResultActivity", book.getBookName());
                     holder.setText(R.id.titles, book.getBookName());
                     holder.setText(R.id.authors, "作者:" + book.getAuthor());
                     holder.setText(R.id.publisher, "出版社:" + book.getPublisher());
