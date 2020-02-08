@@ -7,6 +7,7 @@ import java.util.List;
 public class Results{
     private List<Decorater>decoraterList;
     private int code;
+    private int total;
     public Results() {
     }
 
@@ -17,6 +18,7 @@ public class Results{
         this.sqlpara1 = sqlpara1;
         this.sqlpara2 = sqlpara2;
         this.sqlpara3 = sqlpara3;
+
     }
     @JSONField(name="[]")
     public List<Decorater> getDecoraterList() {
@@ -26,6 +28,7 @@ public class Results{
     public void setDecoraterList(List<Decorater> decoraterList) {
         this.decoraterList = decoraterList;
     }
+
 
     public int getCode() {
         return code;
@@ -72,4 +75,11 @@ public class Results{
     private String sqlpara2;
     private String sqlpara3;
 
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
 }

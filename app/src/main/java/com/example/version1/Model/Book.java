@@ -43,6 +43,7 @@ public class Book {
         this.lendn = lendn;
         this.colln = colln;
         this.bookno = bookno;
+
     }
 
     public String getBookno() {
@@ -140,4 +141,5 @@ public class Book {
     public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
     }
+
 }

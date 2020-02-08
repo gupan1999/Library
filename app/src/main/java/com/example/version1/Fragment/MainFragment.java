@@ -3,50 +3,54 @@ package com.example.version1.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-
 import android.widget.EditText;
 import android.widget.Spinner;
-
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.example.version1.Activity.ResultActivity;
-
+import com.example.version1.Model.Book;
+import com.example.version1.Model.Decorater;
+import com.example.version1.Model.Results;
 import com.example.version1.MyApplication;
 import com.example.version1.R;
+import com.example.version1.Util.HttpManager;
 import com.example.version1.Util.HttpUtil;
+import com.example.version1.customed.CustomClickListener;
+import com.example.version1.zuo.biao.apijson.StringUtil;
 
+import java.util.List;
 
 
 public class MainFragment extends Fragment {
     private Button button;
     private EditText text;
-    private Handler handler;
     private Spinner spinner;
     private Spinner spinner2;
-    private  ArrayAdapter<String> adapter;
+    private Intent intent;
+    private ArrayAdapter<String> adapter;
+    private HttpManager.OnHttpResponseListener onHttpResponseListener;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_main, container, false);
 
-       button = root.findViewById(R.id.button);
+        button = root.findViewById(R.id.button);
         text = root.findViewById(R.id.editText2);
 
         spinner = root.findViewById(R.id.spinner);
         spinner2 = root.findViewById(R.id.spinner2);
-        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item){
+        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item) {
         };
         String level[] = getResources().getStringArray(R.array.array);//资源文件
         for (int i = 0; i < level.length; i++) {
@@ -56,7 +60,7 @@ public class MainFragment extends Fragment {
         spinner.setAdapter(adapter);
         return root;
     }
-    
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -64,56 +68,65 @@ public class MainFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Log.d("Spinner","parent:"+parent.getId()+"\nview:"+view.getId()+"\nposition:"+position+"\n");
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-        new Handler() {
+
+        button.setOnClickListener(new CustomClickListener() {
             @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what) {
-                    //当加载网络失败执行的逻辑代码
-                    case HttpUtil.FAIL:
-                        Toast.makeText(MyApplication.getContext(), "网络出现了问题", Toast.LENGTH_SHORT).show();
-                        break;
+            protected void onSingleClick() {
+                if (StringUtil.isEmpty(text.getText().toString(), true))
+                    Toast.makeText(MyApplication.getContext(), "请输入检索词", Toast.LENGTH_SHORT).show();
+                else {
+                    final int limit = spinner2.getSelectedItemPosition();
+                    intent = new Intent(getActivity(), ResultActivity.class);
+                    intent.putExtra("limit", limit);
+                    intent.putExtra("key", text.getText().toString());
+                    intent.putExtra("type", spinner.getSelectedItemPosition());
+                    onHttpResponseListener = new HttpManager.OnHttpResponseListener() {
+                        int cnt = -1;
+
+                        @Override
+                        public void onHttpResponse(int requestCode, String resultJson, Exception e) {
+                            cnt++;
+
+                            if (limit == HttpUtil.ALL_SCHOOL)
+                                resultJson = resultJson.replace(HttpUtil.libraries[requestCode], HttpUtil.libraries[0]);
+                            Results results = JSON.parseObject(resultJson, Results.class);
+                            intent.putExtra("total" + cnt, results.getTotal());
+                            List<Decorater> decoraterList = results.getDecoraterList();
+                            if (decoraterList != null) {
+                                for (Decorater decorater : decoraterList) {
+                                    Book book = decorater.getBook();
+                                    book.setFrom(requestCode);
+                                    HttpUtil.bookList.add(book);
+                                }
+
+                            }
+                            if (cnt == spinner2.getSelectedItemPosition())
+                                startActivity(intent);
+                        }
+                    };
+                    if (limit == HttpUtil.MY_SCHOOL)
+                        HttpUtil.getBook(0, text.getText().toString(), spinner.getSelectedItemPosition(), HttpUtil.pgcnt, 0, onHttpResponseListener);
+                    else {
+                        HttpUtil.getBook(0, text.getText().toString(), spinner.getSelectedItemPosition(), HttpUtil.pgcnt / 2, 0, onHttpResponseListener);
+                        HttpUtil.getBook(1, text.getText().toString(), spinner.getSelectedItemPosition(), HttpUtil.pgcnt / 2, 0, onHttpResponseListener);
+                    }
                 }
             }
-        };
-        button.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                final Intent intent = new Intent(getActivity(), ResultActivity.class);
-                intent.putExtra("limit",spinner2.getSelectedItemPosition());
-                //Intent intent=new Intent(getActivity(), SearchActivity.class);
-                //intent.putExtra("floor",text.getText().toString());
-
-
-                    handler = new Handler() {
-                    int cnt=0;
-                    @Override
-                    public void handleMessage(Message msg) {
-                        switch (msg.what) {
-                            //当加载网络失败执行的逻辑代码
-                            case HttpUtil.FAIL:
-                                Toast.makeText(MyApplication.getContext(), "网络出现了问题", Toast.LENGTH_SHORT).show();
-                                break;
-                            case HttpUtil.SUCCESS:
-                                cnt++;
-                                if(cnt==spinner2.getSelectedItemPosition()+1) startActivity(intent);
-
-                                break;
-                        }
-                    }
-                };
-                    HttpUtil.query(handler, text.getText().toString(),spinner2.getSelectedItemPosition(),spinner.getSelectedItemPosition());
+            protected void onFastClick() {
 
             }
+
         });
+
     }
+
 
 }
