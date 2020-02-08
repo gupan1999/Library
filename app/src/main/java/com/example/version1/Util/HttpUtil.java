@@ -4,16 +4,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
 import com.example.version1.Model.Book;
 import com.example.version1.Model.Collin;
-import com.example.version1.Model.Decorater;
 import com.example.version1.Model.Information;
 import com.example.version1.Model.LentInformation;
 import com.example.version1.Model.MessageInformation;
-import com.example.version1.Model.Results;
 import com.example.version1.Model.User;
-import com.example.version1.Model.info;
 import com.example.version1.MyApplication;
 import com.example.version1.greendao.DaoSession;
 import com.example.version1.greendao.GreenDaoManager;
@@ -112,85 +108,6 @@ public class HttpUtil {
     }
 
 
-    private static void setDetailsjson(String bookno, int from) {
-        switch (from) {
-            case MY_SCHOOL:
-                requestjsons.add("/get/{ '[]' :  { 'Collin' :  { 'bookno' :'" + bookno + "' } } }");
-                break;
-            case OTHER_SCHOOL1:
-                requestjsons.add("/get/{ '[]' :  { '" + details[OTHER_SCHOOL1] + "' :  { 'bookno' :'" + bookno + "' } } }");
-
-
-                break;
-            default:
-        }
-        Log.d("HttpUtiljson", requestjsons.get(0));
-    }
-
-
-    public static void showDetails(final Handler handler, final String bookno, int from) {
-        setDetailsjson(bookno, from);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
-                            .readTimeout(5, TimeUnit.SECONDS) //读取超时
-                            .writeTimeout(5, TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
-
-                    Request request = new Request.Builder().url(host + requestjsons.get(0)).build();  //连缀设置url地址的Request对象
-                    Call call = client.newCall(request);
-                    call.enqueue(new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-                            Message message = handler.obtainMessage();
-                            requestjsons.clear();
-                            message.what = FAIL;
-                            Log.d("HttpUtil", "Failed");
-                            handler.sendMessage(message);
-                        }
-
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            //得到从网上获取资源，转换成我们想要的类型
-                            responseData = response.body().string();
-                            //通过handler更新UI
-                            requestjsons.clear();
-                            Message message = handler.obtainMessage();
-                            //message.obj=responseData;
-                            Log.d("HttpUtil", responseData);
-                            message.what = paraseDetailsResult(handler, responseData);
-                            handler.sendMessage(message);
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-    }
-
-
-    private static int paraseDetailsResult(Handler handler, String jsonData) {
-        Log.d("HttpUtildetail", jsonData);
-        for (int i = 1; i < details.length; i++) {
-            if (jsonData.contains(details[i])) {
-                jsonData = jsonData.replaceAll(details[i], "Collin");
-            }
-        }
-        Results results = JSON.parseObject(jsonData, Results.class);
-        List<Decorater> decoraterList = results.getDecoraterList();
-        if (decoraterList != null) {
-            for (Decorater decorater : decoraterList) {
-                Collin collin = decorater.getCollin();
-                collinList.add(collin);
-            }
-        }
-        return SUCCESS;
-    }
-
-
     private static void parseWithGSON(String jsonData) {
         Gson gson = new Gson();
         informationList = gson.fromJson(jsonData, new TypeToken<List<Information>>() {
@@ -202,7 +119,8 @@ public class HttpUtil {
     /**
      * 基础URL，这里服务器设置可切换
      */
-    public static String URL_BASE = "http://192.168.0.103:9999/";
+    public static String URL_BASE = "http://139.180.204.128:80/";
+    //public static String URL_BASE = "http://192.168.0.103:9999/";
 
     static {
         application = MyApplication.getInstance();
@@ -301,6 +219,17 @@ public class HttpUtil {
         request.put("total@", "/[]/total");
         get(request, libraryCode, listener);
 
+    }
+
+    public static void getColl(int libraryCode, String bookno, HttpManager.OnHttpResponseListener listener){
+
+        JSONRequest request = new JSONRequest();
+        JSONRequest item = new JSONRequest();
+        JSONRequest collinRequest = new JSONRequest();
+        collinRequest.put("bookno", bookno);
+        item.put(details[libraryCode],collinRequest);
+        request.putsAll(item.toArray(0,0));
+        get(request,libraryCode,listener);
     }
 }
 

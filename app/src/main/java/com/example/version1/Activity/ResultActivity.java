@@ -3,7 +3,6 @@ package com.example.version1.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.example.version1.Model.Book;
+import com.example.version1.Model.Collin;
 import com.example.version1.Model.Decorater;
 import com.example.version1.Model.Results;
 import com.example.version1.MyApplication;
@@ -46,11 +46,10 @@ public class ResultActivity extends AppCompatActivity {
     private int cnt = 0;
     private HttpManager.OnHttpResponseListener nextPageListener;
     private HttpManager.OnHttpResponseListener previousPageListener;
-
+    private HttpManager.OnHttpResponseListener detailListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getSupportActionBar().hide();
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_result);
         recyclerView = findViewById(R.id.recyclerView3);
@@ -75,7 +74,7 @@ public class ResultActivity extends AppCompatActivity {
 
                         @Override
                         public void onHttpResponse(int requestCode, String resultJson, Exception e) {
-                            cnt++;
+
                             if (limit == HttpUtil.ALL_SCHOOL)
                                 resultJson = resultJson.replace(HttpUtil.libraries[requestCode], HttpUtil.libraries[0]);
                             Results results = JSON.parseObject(resultJson, Results.class);
@@ -87,8 +86,8 @@ public class ResultActivity extends AppCompatActivity {
                                     HttpUtil.bookList.add(book);
                                 }
                             }
-                            if (cnt == requestCode) {
-                                adapter.updateItems(HttpUtil.bookList);
+                            cnt++;
+                            if (cnt == limit) {
                                 adapter.notifyDataSetChanged();
                                 page.setText(pginfo);
                             }
@@ -120,7 +119,7 @@ public class ResultActivity extends AppCompatActivity {
 
                         @Override
                         public void onHttpResponse(int requestCode, String resultJson, Exception e) {
-                            cnt++;
+
                             if (limit == HttpUtil.ALL_SCHOOL)
                                 resultJson = resultJson.replace(HttpUtil.libraries[requestCode], HttpUtil.libraries[0]);
                             Results results = JSON.parseObject(resultJson, Results.class);
@@ -133,8 +132,8 @@ public class ResultActivity extends AppCompatActivity {
 
                                 }
                             }
-                            if (cnt == requestCode) {
-                                adapter.updateItems(HttpUtil.bookList);
+                            cnt++;
+                            if (cnt == limit) {
                                 adapter.notifyDataSetChanged();
                                 page.setText(pginfo);
                             }
@@ -182,22 +181,24 @@ public class ResultActivity extends AppCompatActivity {
                             final String bookname = ((Book) adapter.getmDataByPosition(holder.getAdapterPosition())).getBookName();
                             String bookno = ((Book) adapter.getmDataByPosition(holder.getAdapterPosition())).getBookno();
                             final int from = ((Book) adapter.getmDataByPosition(holder.getAdapterPosition())).getFrom();
-                            handler = new Handler() {
+                            detailListener=new HttpManager.OnHttpResponseListener() {
                                 @Override
-                                public void handleMessage(Message msg) {
-                                    switch (msg.what) {
-                                        //当加载网络失败执行的逻辑代码
-                                        case HttpUtil.FAIL:
-                                            Toast.makeText(MyApplication.getContext(), "网络出现了问题", Toast.LENGTH_SHORT).show();
-                                            break;
-                                        case HttpUtil.SUCCESS:
-                                            intent.putExtra("bookname", bookname);
-                                            startActivity(intent);
-                                            break;
+                                public void onHttpResponse(int requestCode, String resultJson, Exception e) {
+                                    if (limit == HttpUtil.ALL_SCHOOL)
+                                        resultJson = resultJson.replace(HttpUtil.details[requestCode], HttpUtil.details[0]);
+                                    Results results = JSON.parseObject(resultJson, Results.class);
+                                    List<Decorater> decoraterList = results.getDecoraterList();
+                                    if (decoraterList != null) {
+                                        for (Decorater decorater : decoraterList) {
+                                            Collin collin = decorater.getCollin();
+                                            HttpUtil.collinList.add(collin);
+                                        }
                                     }
+                                    intent.putExtra("bookname", bookname);
+                                    startActivity(intent);
                                 }
                             };
-                            HttpUtil.showDetails(handler, bookno, from);
+                            HttpUtil.getColl(from,bookno,detailListener);
 
                         }
 
@@ -246,22 +247,23 @@ public class ResultActivity extends AppCompatActivity {
                                 final Intent intent = new Intent(ResultActivity.this, DetailsActivity.class);
                                 final String bookname = ((Book) adapter.getmDataByPosition(holder.getAdapterPosition())).getBookName();
                                 String bookno = ((Book) adapter.getmDataByPosition(holder.getAdapterPosition())).getBookno();
-                                handler = new Handler() {
+                                detailListener=new HttpManager.OnHttpResponseListener() {
                                     @Override
-                                    public void handleMessage(Message msg) {
-                                        switch (msg.what) {
-                                            //当加载网络失败执行的逻辑代码
-                                            case HttpUtil.FAIL:
-                                                Toast.makeText(MyApplication.getContext(), "网络出现了问题", Toast.LENGTH_SHORT).show();
-                                                break;
-                                            case HttpUtil.SUCCESS:
-                                                intent.putExtra("bookname", bookname);
-                                                startActivity(intent);
-                                                break;
+                                    public void onHttpResponse(int requestCode, String resultJson, Exception e) {
+                                        resultJson = resultJson.replace(HttpUtil.details[requestCode], HttpUtil.details[0]);
+                                        Results results = JSON.parseObject(resultJson, Results.class);
+                                        List<Decorater> decoraterList = results.getDecoraterList();
+                                        if (decoraterList != null) {
+                                            for (Decorater decorater : decoraterList) {
+                                                Collin collin = decorater.getCollin();
+                                                HttpUtil.collinList.add(collin);
+                                            }
                                         }
+                                        intent.putExtra("bookname", bookname);
+                                        startActivity(intent);
                                     }
                                 };
-                                HttpUtil.showDetails(handler, bookno, from);
+                                HttpUtil.getColl(from,bookno,detailListener);
                             } else {
                                 Toast.makeText(MyApplication.getContext(), "您没有查看他校书籍的权限", Toast.LENGTH_SHORT).show();
 
