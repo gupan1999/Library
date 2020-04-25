@@ -4,7 +4,6 @@
 
         <item>按标题</item>
         <item>按作者</item>
-        <item>按出版时间</item>
         <item>按标准号</item>
     </string-array>
 </resources>

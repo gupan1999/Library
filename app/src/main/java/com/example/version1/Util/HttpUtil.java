@@ -19,9 +19,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -40,7 +42,7 @@ public class HttpUtil {
     public static final int MY_SCHOOL = 0;
     public static final int ALL_SCHOOL = 1;
     public static final int OTHER_SCHOOL1 = 1;
-    public static String[] searchKey = {"bookname", "author", "publishdate", "isbn"};
+    public static String[] searchKey = {"bookname", "author",  "isbn"};
     public static String[] libraries = {"Book", "Bookother"};
     public static String[] details = {"Collin", "Collinother"};
     //public static int[] pages = {0, 0};
@@ -53,6 +55,7 @@ public class HttpUtil {
 
     public static int page(int total, int cnt) {
         return (total % cnt == 0) ? total / cnt : total / cnt + 1;
+
     }
 
     public static void getInformation(final Handler handler) {
@@ -60,6 +63,7 @@ public class HttpUtil {
             @Override
             public void run() {
                 try {
+
                     OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
                             .readTimeout(5, TimeUnit.SECONDS) //读取超时
                             .writeTimeout(5, TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
@@ -76,9 +80,7 @@ public class HttpUtil {
 
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
-                            //得到从网上获取资源，转换成我们想要的类型
                             responseData = response.body().string();
-                            //通过handler更新UI
                             Message message = handler.obtainMessage();
                             //message.obj=responseData;
                             message.what = SUCCESS;
@@ -119,8 +121,8 @@ public class HttpUtil {
     /**
      * 基础URL，这里服务器设置可切换
      */
-    public static String URL_BASE = "http://139.180.204.128:80/";
-    //public static String URL_BASE = "http://192.168.0.103:9999/";
+    //public static String URL_BASE = "http://139.180.204.128:80/";
+    public static String URL_BASE = "http://192.168.0.101:9999/";
 
     static {
         application = MyApplication.getInstance();

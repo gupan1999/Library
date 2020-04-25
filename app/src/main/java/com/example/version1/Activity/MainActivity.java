@@ -1,8 +1,8 @@
 package com.example.version1.Activity;
 
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Window;
 
 import androidx.navigation.NavController;

@@ -1,10 +1,11 @@
 package com.example.version1.Fragment;
 
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import com.example.version1.Activity.MyElectronicBookshelves;
 import com.example.version1.Activity.MyLentActivity;
 import com.example.version1.Activity.ReserveActivity;
 import com.example.version1.Activity.SettingActivity;
-import com.example.version1.Model.MyElectronicBookshelf;
 import com.example.version1.R;
 
 public class MythingsFragment extends Fragment {

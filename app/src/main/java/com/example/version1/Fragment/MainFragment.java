@@ -2,9 +2,9 @@ package com.example.version1.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,34 +86,30 @@ public class MainFragment extends Fragment {
                     intent.putExtra("key", text.getText().toString());
                     intent.putExtra("type", spinner.getSelectedItemPosition());
                     onHttpResponseListener = new HttpManager.OnHttpResponseListener() {
-                        int cnt = -1;
-
                         @Override
                         public void onHttpResponse(int requestCode, String resultJson, Exception e) {
-                            cnt++;
+                            if(resultJson!=null) {
+                                if (limit == HttpUtil.OTHER_SCHOOL1)
+                                    resultJson = resultJson.replace(HttpUtil.libraries[requestCode], HttpUtil.libraries[0]);
+                                Results results = JSON.parseObject(resultJson, Results.class);
+                                intent.putExtra("total", results.getTotal());
+                                List<Decorater> decoraterList = results.getDecoraterList();
+                                if (decoraterList != null) {
+                                    for (Decorater decorater : decoraterList) {
+                                        Book book = decorater.getBook();
+                                        book.setFrom(requestCode);
+                                        HttpUtil.bookList.add(book);
+                                    }
 
-                            if (limit == HttpUtil.ALL_SCHOOL)
-                                resultJson = resultJson.replace(HttpUtil.libraries[requestCode], HttpUtil.libraries[0]);
-                            Results results = JSON.parseObject(resultJson, Results.class);
-                            intent.putExtra("total" + cnt, results.getTotal());
-                            List<Decorater> decoraterList = results.getDecoraterList();
-                            if (decoraterList != null) {
-                                for (Decorater decorater : decoraterList) {
-                                    Book book = decorater.getBook();
-                                    book.setFrom(requestCode);
-                                    HttpUtil.bookList.add(book);
                                 }
-
-                            }
-                            if (cnt == spinner2.getSelectedItemPosition())
                                 startActivity(intent);
+                            }else  Toast.makeText(MyApplication.getContext(), "访问服务器失败，请稍后重试", Toast.LENGTH_SHORT).show();
                         }
                     };
                     if (limit == HttpUtil.MY_SCHOOL)
                         HttpUtil.getBook(0, text.getText().toString(), spinner.getSelectedItemPosition(), HttpUtil.pgcnt, 0, onHttpResponseListener);
                     else {
-                        HttpUtil.getBook(0, text.getText().toString(), spinner.getSelectedItemPosition(), HttpUtil.pgcnt / 2, 0, onHttpResponseListener);
-                        HttpUtil.getBook(1, text.getText().toString(), spinner.getSelectedItemPosition(), HttpUtil.pgcnt / 2, 0, onHttpResponseListener);
+                        HttpUtil.getBook(1, text.getText().toString(), spinner.getSelectedItemPosition(), HttpUtil.pgcnt, 0, onHttpResponseListener);
                     }
                 }
             }

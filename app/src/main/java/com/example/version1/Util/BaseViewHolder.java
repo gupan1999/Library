@@ -1,7 +1,7 @@
 package com.example.version1.Util;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
