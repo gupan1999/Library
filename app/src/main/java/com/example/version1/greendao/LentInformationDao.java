@@ -25,8 +25,9 @@ public class LentInformationDao extends AbstractDao<LentInformation, Long> {
      */
     public static class Properties {
         public final static Property BookName = new Property(0, String.class, "bookName", false, "BOOK_NAME");
-        public final static Property LentTime = new Property(1, String.class, "lentTime", false, "LENT_TIME");
-        public final static Property Id = new Property(2, Long.class, "id", true, "_id");
+        public final static Property Location = new Property(1, String.class, "location", false, "LOCATION");
+        public final static Property LentTime = new Property(2, String.class, "lentTime", false, "LENT_TIME");
+        public final static Property Id = new Property(3, Long.class, "id", true, "_id");
     }
 
 
@@ -43,8 +44,9 @@ public class LentInformationDao extends AbstractDao<LentInformation, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"LENT_INFORMATION\" (" + //
                 "\"BOOK_NAME\" TEXT," + // 0: bookName
-                "\"LENT_TIME\" TEXT," + // 1: lentTime
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT );"); // 2: id
+                "\"LOCATION\" TEXT," + // 1: location
+                "\"LENT_TIME\" TEXT," + // 2: lentTime
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT );"); // 3: id
     }
 
     /** Drops the underlying database table. */
@@ -62,14 +64,19 @@ public class LentInformationDao extends AbstractDao<LentInformation, Long> {
             stmt.bindString(1, bookName);
         }
  
+        String location = entity.getLocation();
+        if (location != null) {
+            stmt.bindString(2, location);
+        }
+ 
         String lentTime = entity.getLentTime();
         if (lentTime != null) {
-            stmt.bindString(2, lentTime);
+            stmt.bindString(3, lentTime);
         }
  
         Long id = entity.getId();
         if (id != null) {
-            stmt.bindLong(3, id);
+            stmt.bindLong(4, id);
         }
     }
 
@@ -82,28 +89,34 @@ public class LentInformationDao extends AbstractDao<LentInformation, Long> {
             stmt.bindString(1, bookName);
         }
  
+        String location = entity.getLocation();
+        if (location != null) {
+            stmt.bindString(2, location);
+        }
+ 
         String lentTime = entity.getLentTime();
         if (lentTime != null) {
-            stmt.bindString(2, lentTime);
+            stmt.bindString(3, lentTime);
         }
  
         Long id = entity.getId();
         if (id != null) {
-            stmt.bindLong(3, id);
+            stmt.bindLong(4, id);
         }
     }
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2);
+        return cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3);
     }    
 
     @Override
     public LentInformation readEntity(Cursor cursor, int offset) {
         LentInformation entity = new LentInformation( //
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // bookName
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // lentTime
-            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2) // id
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // location
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // lentTime
+            cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3) // id
         );
         return entity;
     }
@@ -111,8 +124,9 @@ public class LentInformationDao extends AbstractDao<LentInformation, Long> {
     @Override
     public void readEntity(Cursor cursor, LentInformation entity, int offset) {
         entity.setBookName(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
-        entity.setLentTime(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setId(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
+        entity.setLocation(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setLentTime(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setId(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
      }
     
     @Override

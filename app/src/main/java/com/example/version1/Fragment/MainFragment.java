@@ -16,16 +16,17 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.example.version1.Activity.ResultActivity;
 import com.example.version1.Model.Book;
-import com.example.version1.Model.Decorater;
-import com.example.version1.Model.Results;
+
 import com.example.version1.MyApplication;
 import com.example.version1.R;
-import com.example.version1.Util.HttpManager;
+import com.example.version1.manager.HttpManager;
 import com.example.version1.Util.HttpUtil;
 import com.example.version1.customed.CustomClickListener;
-import com.example.version1.zuo.biao.apijson.StringUtil;
+import apijson.StringUtil;
 
 import java.util.List;
 
@@ -91,16 +92,23 @@ public class MainFragment extends Fragment {
                             if(resultJson!=null) {
                                 if (limit == HttpUtil.OTHER_SCHOOL1)
                                     resultJson = resultJson.replace(HttpUtil.libraries[requestCode], HttpUtil.libraries[0]);
-                                Results results = JSON.parseObject(resultJson, Results.class);
-                                intent.putExtra("total", results.getTotal());
-                                List<Decorater> decoraterList = results.getDecoraterList();
-                                if (decoraterList != null) {
-                                    for (Decorater decorater : decoraterList) {
-                                        Book book = decorater.getBook();
-                                        book.setFrom(requestCode);
-                                        HttpUtil.bookList.add(book);
-                                    }
+                                JSONObject response = JSON.parseObject(resultJson);
+                                int total = response.getIntValue("total");
+                                intent.putExtra("total",total);
+                                JSONArray List = response.getJSONArray("[]");
+                                if (List == null) {
+                                    List = new JSONArray();
+                                }
+                                JSONObject item;
 
+                                for (int i = 0; i < List.size(); i ++) {
+                                    item = List.getJSONObject(i);
+                                    if (item == null) {
+                                        continue;
+                                    }
+                                    Book book = item.getObject("Book", Book.class);
+                                    book.setFrom(requestCode);
+                                    HttpUtil.bookList.add(book);
                                 }
                                 startActivity(intent);
                             }else  Toast.makeText(MyApplication.getContext(), "访问服务器失败，请稍后重试", Toast.LENGTH_SHORT).show();

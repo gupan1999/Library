@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 
 
-package com.example.version1.Util;
+package com.example.version1.manager;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -23,7 +23,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.version1.MyApplication;
-import com.example.version1.zuo.biao.apijson.StringUtil;
+
 
 import org.json.JSONException;
 
@@ -36,11 +36,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import apijson.StringUtil;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
 
 
 /**
@@ -113,7 +115,6 @@ public class HttpManager {
         new AsyncTask<Void, Void, Exception>() {
 
             String result;
-
             @Override
             protected Exception doInBackground(Void... params) {
 
@@ -124,15 +125,14 @@ public class HttpManager {
                     if (client == null) {
                         return new Exception(TAG + ".post  AsyncTask.doInBackground  client == null >> return;");
                     }
-                    Log.d(TAG, "request \n" + request);
                     String body = JSON.toJSONString(request);
+                    Log.d(TAG, "\n\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n post  url = " + url_ + "\n request = \n" + body);
 
                     RequestBody requestBody = RequestBody.create(TYPE_JSON, body);
 
                     result = getResponseJson(client, new Request.Builder()
-                            .url(url)
+                            .addHeader(KEY_TOKEN, getToken(url)).url(StringUtil.getNoBlankString(url))
                             .post(requestBody).build());
-
                     Log.d(TAG, "\n post  result = \n" + result + "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n");
                 } catch (Exception e) {
                     Log.e(TAG, "post  AsyncTask.doInBackground  try {  result = getResponseJson(..." +
@@ -160,15 +160,17 @@ public class HttpManager {
      * @return
      */
     private OkHttpClient getHttpClient(String url) {
-        //Log.i(TAG, "getHttpClient  url = " + url);
+        Log.i(TAG, "getHttpClient  url = " + url);
         if (StringUtil.isNotEmpty(url, true) == false) {
-            //	Log.e(TAG, "getHttpClient  StringUtil.isNotEmpty(url, true) == false >> return null;");
+            Log.e(TAG, "getHttpClient  StringUtil.isNotEmpty(url, true) == false >> return null;");
             return null;
         }
-        OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
-                .readTimeout(5, TimeUnit.SECONDS) //读取超时
-                .writeTimeout(5, TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
 
+        OkHttpClient client = new OkHttpClient();
+        client.setCookieHandler(new HttpHead());
+        client.setConnectTimeout(5, TimeUnit.SECONDS);
+        client.setWriteTimeout(3, TimeUnit.SECONDS);
+        client.setReadTimeout(3, TimeUnit.SECONDS);
 
         return client;
     }
