@@ -16,7 +16,7 @@ import apijson.StringUtil;
  */
 public class DataManager {
     private final String TAG = "DataManager";
-
+    public static String lastCacheDate;
     private Context context;
     private DataManager(Context context) {
         this.context = context;
@@ -35,7 +35,7 @@ public class DataManager {
     public final String KEY_USER_ID = "KEY_USER_ID";
     public final String KEY_USER_NAME = "KEY_USER_NAME";
     public final String KEY_USER_PHONE = "KEY_USER_PHONE";
-
+    public final String CACHE_TIME = "CACHE_TIME";
     public final String KEY_CURRENT_USER_ID = "KEY_CURRENT_USER_ID";
     public final String KEY_LAST_USER_ID = "KEY_LAST_USER_ID";
 
@@ -152,6 +152,30 @@ public class DataManager {
             return;
         }
         sdf.edit().remove(StringUtil.getTrimedString(userId)).commit();
+    }
+
+    public void saveLastCacheDate(String date){
+        if(date==null){
+            Log.e(TAG, "date == null >> return;");
+            return;
+        }
+        Log.i(TAG, "saveLastCacheDate: "+date);
+        SharedPreferences.Editor editor = context.getSharedPreferences(CACHE_TIME,
+                Context.MODE_PRIVATE).edit();
+        editor.remove(CACHE_TIME).putString(CACHE_TIME,date);
+        editor.commit();
+
+    }
+
+    public String getLastCacheDate(){
+        if (lastCacheDate==null){
+            SharedPreferences sdf = context.getSharedPreferences(CACHE_TIME, Context.MODE_PRIVATE);
+            return sdf==null?null:(sdf.getString(CACHE_TIME,null));
+        }else return lastCacheDate;
+    }
+
+    public void setLastCacheDate(String date){
+        lastCacheDate = date;
     }
 
 //    /**设置当前用户手机号

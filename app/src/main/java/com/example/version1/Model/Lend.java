@@ -1,12 +1,17 @@
 package com.example.version1.Model;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+
 import java.io.Serializable;
 
 import apijson.MethodAccess;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  *
  */
+
 @MethodAccess
 public class Lend implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -18,6 +23,8 @@ public class Lend implements Serializable {
         this();
         setLendid(id);
     }
+
+
 
 
     private Long lendid; //

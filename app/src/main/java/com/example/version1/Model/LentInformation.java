@@ -3,11 +3,12 @@ package com.example.version1.Model;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
+
 
 import java.io.Serializable;
 
 import apijson.MethodAccess;
+import org.greenrobot.greendao.annotation.Generated;
 
 @MethodAccess
 @Entity
@@ -16,8 +17,10 @@ public class LentInformation implements Serializable {
     private String bookName;
     private String location;
     private String lentTime;
+
     @Id(autoincrement = true)
     private Long id;
+
     public String getBookName() {
         return bookName;
     }
@@ -50,10 +53,6 @@ public class LentInformation implements Serializable {
         this.location = location;
     }
 
-//    public LentInformation(Information information){
-//        this.bookName=information.getBookName();
-//        this.lentTime=information.getLentTime();
-//    }
     public LentInformation(){ }
     public LentInformation(String bookName, String lentTime, String location){
         this.bookName = bookName;
@@ -62,10 +61,16 @@ public class LentInformation implements Serializable {
     }
 
     @Generated(hash = 1460575843)
-    public LentInformation(String bookName, String location, String lentTime, Long id) {
+    public LentInformation(String bookName, String location, String lentTime,
+            Long id) {
         this.bookName = bookName;
         this.location = location;
         this.lentTime = lentTime;
         this.id = id;
     }
+
+
+
+
+ 
 }

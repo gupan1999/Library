@@ -80,6 +80,7 @@ public class MyApplication extends Application {
         return 0;
     }
 
+
     /**判断是否为当前用户
      * @param userId
      * @return
