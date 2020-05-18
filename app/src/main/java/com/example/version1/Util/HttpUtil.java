@@ -112,8 +112,8 @@ public class HttpUtil {
     /**
      * 基础URL，这里服务器设置可切换
      */
-    //public static String URL_BASE = "http://139.180.204.128:80/";
-    public static String URL_BASE = "http://192.168.0.101:9999/";
+    public static String URL_BASE = "http://202.182.107.241:9999/";
+//    public static String URL_BASE = "http://192.168.0.101:9999/";
 
     static {
         application = MyApplication.getInstance();

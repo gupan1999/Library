@@ -2,7 +2,9 @@ package com.example.version1.Model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable {
     private int id;
     private String bookName;
     private String author;

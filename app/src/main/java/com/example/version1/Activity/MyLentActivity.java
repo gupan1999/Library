@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,11 +34,10 @@ import com.example.version1.manager.HttpManager;
 
 public class MyLentActivity extends AppCompatActivity {
     public static final String TAG="MyLentActivity";
-    private Handler handler;
-    private RecyclerView recyclerView;
     private BaseRecyclerAdapter adapter;
     private SwipeRefreshLayout swipeRefresh;
     private TextView lent_nodata;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +45,9 @@ public class MyLentActivity extends AppCompatActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//单个页面隐藏标题栏
         setContentView(R.layout.activity_my_lent);
 
-        recyclerView=findViewById(R.id.recyclerview);
-
+        RecyclerView recyclerView=findViewById(R.id.recyclerview);
+        progressBar = findViewById(R.id.progressBar2);
+        progressBar.setVisibility(View.VISIBLE);
         adapter = new BaseRecyclerAdapter<LentInformation>(this, R.layout.items, HttpUtil.LentinformationinList) {
 
             @Override
@@ -101,8 +102,10 @@ public class MyLentActivity extends AppCompatActivity {
                         LentInformation lentInformation = new LentInformation(Bookname, Date, Dept + " " + Shelfn);
                         HttpUtil.LentinformationinList.add(lentInformation);
                         adapter.updateItems(HttpUtil.LentinformationinList);
-                        checkNull();
                         adapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                        checkNull();
+
                     }
                 }else {
                     Toast.makeText(MyLentActivity.this, "获取数据失败", Toast.LENGTH_SHORT).show();
@@ -114,7 +117,7 @@ public class MyLentActivity extends AppCompatActivity {
             recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));//每行划分割线
             recyclerView.setAdapter(adapter);
             lent_nodata=findViewById(R.id.lent_nodata);
-            checkNull();
+
 
         swipeRefresh = findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
@@ -132,9 +135,10 @@ public class MyLentActivity extends AppCompatActivity {
         public void onHttpResponse(int requestCode, String resultJson, Exception e) {
 
             adapter.updateItems(HttpUtil.LentinformationinList);
-            checkNull();
             adapter.notifyDataSetChanged();
             swipeRefresh.setRefreshing(false);
+            checkNull();
+
         }
     });
     }

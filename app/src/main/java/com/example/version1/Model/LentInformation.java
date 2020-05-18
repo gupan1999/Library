@@ -5,11 +5,14 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
+import java.io.Serializable;
+
 import apijson.MethodAccess;
 
 @MethodAccess
 @Entity
-public class LentInformation{
+public class LentInformation implements Serializable {
+    private static final long serialVersionUID=1L;
     private String bookName;
     private String location;
     private String lentTime;

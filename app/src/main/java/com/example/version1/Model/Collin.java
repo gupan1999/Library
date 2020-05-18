@@ -1,6 +1,8 @@
 package com.example.version1.Model;
 
-public class Collin {
+import java.io.Serializable;
+
+public class Collin implements Serializable {
     private String dept;
     private String barcode;
     private String callnumber;
