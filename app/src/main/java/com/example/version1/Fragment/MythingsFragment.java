@@ -35,6 +35,9 @@ import com.example.version1.Model.User;
 import com.example.version1.MyApplication;
 import com.example.version1.R;
 import com.example.version1.Util.HttpUtil;
+import com.example.version1.greendao.DaoSession;
+import com.example.version1.greendao.GreenDaoManager;
+import com.example.version1.manager.DataManager;
 import com.example.version1.manager.HttpManager;
 
 import apijson.JSONResponse;
@@ -156,7 +159,11 @@ public class MythingsFragment extends Fragment implements HttpManager.OnHttpResp
                 return true;
             case R.id.logout:
                 HttpUtil.logout(HTTP_LOUOUT, this);
-               MyApplication.getInstance().logout();
+                DaoSession daoSession = GreenDaoManager.getInstance().getDaoSession();
+                daoSession.getLentInformationDao().deleteAll();      //数据库清空旧数据
+                DataManager.getInstance().setLastCacheDate(null);
+
+                MyApplication.getInstance().logout();
                     refreshState();
                     Toast.makeText(getContext(),"登出成功",Toast.LENGTH_SHORT).show();
 

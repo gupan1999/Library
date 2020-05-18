@@ -65,6 +65,11 @@ public class ResultActivity extends AppCompatActivity {
         //initCnt();
         cnt=getIntent().getIntExtra("total",-1);
         totalpage = HttpUtil.page(cnt, HttpUtil.pgcnt);
+        if (cnt==0){
+            previous.setVisibility(View.GONE);
+            next.setVisibility(View.GONE);
+            page.setVisibility(View.GONE);
+        }
         next.setOnClickListener(new CustomClickListener(500L) {
             @Override
             protected void onSingleClick() {
