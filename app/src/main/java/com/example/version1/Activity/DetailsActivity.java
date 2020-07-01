@@ -1,25 +1,26 @@
 package com.example.version1.Activity;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.version1.Model.Collin;
 import com.example.version1.R;
+import com.example.version1.Util.BaseActivity;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
 import com.example.version1.Util.HttpUtil;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends BaseActivity {
     private RecyclerView recyclerView;
-    private BaseRecyclerAdapter adapter;
+    private BaseRecyclerAdapter<Collin> adapter;
     private TextView detail_nodata;
-    private TextView detail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +28,7 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
         recyclerView=findViewById(R.id.recyclerView);
         detail_nodata=findViewById(R.id.detail_nodata);
-        detail=findViewById(R.id.bookdetail);
+        TextView detail = findViewById(R.id.bookdetail);
         detail.setText(getIntent().getStringExtra("bookname"));
         adapter = new BaseRecyclerAdapter<Collin>(this, R.layout.detailitem, HttpUtil.collinList) {
 

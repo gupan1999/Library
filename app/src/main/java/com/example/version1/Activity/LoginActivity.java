@@ -1,40 +1,27 @@
 package com.example.version1.Activity;
 
-import android.app.Activity;
-
-
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.version1.Model.User;
 import com.example.version1.MyApplication;
 import com.example.version1.R;
+import com.example.version1.Util.BaseActivity;
 import com.example.version1.Util.HttpUtil;
 import com.example.version1.manager.HttpManager;
-import com.example.version1.Model.User;
 
 import java.util.regex.Pattern;
 
 import apijson.JSONResponse;
-import apijson.StringUtil;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
 
     @Override

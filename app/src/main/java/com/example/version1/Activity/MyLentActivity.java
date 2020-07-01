@@ -1,18 +1,18 @@
 package com.example.version1.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -20,11 +20,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.version1.Model.Book;
 import com.example.version1.Model.Collin;
 import com.example.version1.Model.Lend;
+import com.example.version1.Model.LentInformation;
 import com.example.version1.R;
+import com.example.version1.Util.BaseActivity;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
 import com.example.version1.Util.HttpUtil;
-import com.example.version1.Model.LentInformation;
 import com.example.version1.Util.TimeUtil;
 import com.example.version1.greendao.DaoSession;
 import com.example.version1.greendao.GreenDaoManager;
@@ -32,10 +33,10 @@ import com.example.version1.manager.DataManager;
 import com.example.version1.manager.HttpManager;
 
 
-public class MyLentActivity extends AppCompatActivity {
+public class MyLentActivity extends BaseActivity {
     public static final String TAG="MyLentActivity";
     private BaseRecyclerAdapter adapter;
-
+    private Button off;
     private TextView lent_nodata;
     private ProgressBar progressBar;
     @Override
@@ -48,7 +49,17 @@ public class MyLentActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView2);
         progressBar = findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.VISIBLE);
+
+        off = findViewById(R.id.button3);
+        off.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent("com.example.version1.FORCE_OFFLINE");
+                sendBroadcast(intent);
+            }
+        });
         adapter = new BaseRecyclerAdapter<LentInformation>(this, R.layout.items, HttpUtil.LentinformationinList) {
+
 
             @Override
             public void convert(BaseViewHolder holder, LentInformation lentInformation) {

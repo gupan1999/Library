@@ -4,129 +4,53 @@ import android.os.Handler;
 
 import com.example.version1.Model.Book;
 import com.example.version1.Model.Collin;
-
 import com.example.version1.Model.LentInformation;
-//import com.example.version1.Model.MessageInformation;
 import com.example.version1.MyApplication;
-
-import apijson.JSONObject;
-import apijson.JSONRequest;
-
 import com.example.version1.manager.HttpManager;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import apijson.JSONObject;
+import apijson.JSONRequest;
+
+
 
 public class HttpUtil {
-//    public static List<Information> informationList;
+
     public static List<Book> bookList = new ArrayList<>();
     public static List<Collin> collinList = new ArrayList<>();
     public static List<LentInformation> LentinformationinList = new ArrayList<>();
-//    public static List<MessageInformation> MessageinformationinList = new ArrayList<>();
+
     public static final int pgcnt = 10;
-    public static final int SUCCESS = 1;
-    public static final int FAIL = 2;
+
     public static final int MY_SCHOOL = 0;
-    public static final int ALL_SCHOOL = 1;
     public static final int OTHER_SCHOOL1 = 1;
-    public static String[] searchKey = {"bookname", "author",  "isbn"};
+    private static String[] searchKey = {"bookname", "author",  "isbn"};
     public static String[] libraries = {"Book", "Bookother"};
     public static String[] details = {"Collin", "Collinother"};
 
-    //public static int[] pages = {0, 0};
-    //public static info[] libraries_page = {new info("Book", 0), new info("Bookother", 0)};
-//    public static String responseData;
-//    public static String host = "http://192.168.0.101:9999";
-//    public static List<String> requestjsons = new ArrayList<String>();
-//    public static String userdata = "/get_userdata.json";
-//    public static String picture = "";
 
     public static int page(int total, int cnt) {
         return (total % cnt == 0) ? total / cnt : total / cnt + 1;
-
     }
 
-//    public static void getInformation(final Handler handler) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//
-//                    OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS) //连接超时
-//                            .readTimeout(5, TimeUnit.SECONDS) //读取超时
-//                            .writeTimeout(5, TimeUnit.SECONDS).build(); //写超时;    //默认参数的OkHttpClient，可连缀设置各种参数
-//                    Request request = new Request.Builder().url(host + userdata).build();  //连缀设置url地址的Request对象
-//                    //Response response = client.newCall(request).execute();  //同步请求
-//                    Call call = client.newCall(request);
-//                    call.enqueue(new Callback() {
-//                        @Override
-//                        public void onFailure(Call call, IOException e) {
-//                            Message message = handler.obtainMessage();
-//                            message.what = FAIL;
-//                            handler.sendMessage(message);
-//                        }
-//
-//                        @Override
-//                        public void onResponse(Call call, Response response) throws IOException {
-//                            responseData = response.body().string();
-//                            Message message = handler.obtainMessage();
-//                            //message.obj=responseData;
-//                            message.what = SUCCESS;
-//                            Log.d("Information", responseData);
-//                            parseWithGSON(responseData);            //通过Gson解析
-//                            User.mesList = Temp.getMessageList(informationList); //将解析得到的Information List转为需要的两种List
-//                            User.leList = Temp.getLentList(informationList);
-//                            DaoSession daoSession = GreenDaoManager.getInstance().getDaoSession();
-//                            daoSession.getMessageInformationDao().deleteAll();      //数据库清空旧数据
-//                            daoSession.getLentInformationDao().deleteAll();
-//                            for (MessageInformation msg : User.mesList) {
-//                                daoSession.getMessageInformationDao().insertOrReplace(msg); //数据库添加新数据
-//                            }
-//                            for (LentInformation lei : User.leList) {
-//                                daoSession.getLentInformationDao().insertOrReplace(lei);
-//                            }
-//                            handler.sendMessage(message);
-//                        }
-//                    });
-//
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-//    }
-
-
-//    private static void parseWithGSON(String jsonData) {
-//        Gson gson = new Gson();
-//        informationList = gson.fromJson(jsonData, new TypeToken<List<Information>>() {
-//        }.getType());
-//    }
-
-
-    private static MyApplication application;
     /**
      * 基础URL，这里服务器设置可切换
      */
     public static String URL_BASE = "http://202.182.107.241:9999/";
-//    public static String URL_BASE = "http://192.168.0.101:9999/";
+//    private static String URL_BASE = "http://192.168.0.103:9999/";
 
-    static {
-        application = MyApplication.getInstance();
-        // URL_BASE = SettingUtil.getCurrentServerAddress();
-    }
 
-    public static final String URL_HEAD = URL_BASE + "head/";
-    public static final String URL_GET = URL_BASE + "get/";
-    public static final String URL_POST = URL_BASE + "post/";
-    public static final String URL_HEADS = URL_BASE + "heads/";
-    public static final String URL_GETS = URL_BASE + "gets/";
-    public static final String URL_PUT = URL_BASE + "put/";
-    public static final String URL_DELETE = URL_BASE + "delete/";
+    private static final String URL_HEAD = URL_BASE + "head/";
+    private static final String URL_GET = URL_BASE + "get/";
+    private static final String URL_POST = URL_BASE + "post/";
+    private static final String URL_HEADS = URL_BASE + "heads/";
+    private static final String URL_GETS = URL_BASE + "gets/";
+    private static final String URL_PUT = URL_BASE + "put/";
+    private static final String URL_DELETE = URL_BASE + "delete/";
 
     /**
      * @param request
@@ -280,13 +204,51 @@ public class HttpUtil {
 
     }
 
-    public static void getMessage(int type,HttpManager.OnHttpResponseListener listener){
-        switch (type){
-            case 0:
-                getLend(listener);
-                break;
-        }
+    public static void getReservedDates(String name,HttpManager.OnHttpResponseListener listener){
+        JSONRequest request = new JSONRequest();
+        JSONRequest item = new JSONRequest();
+        JSONRequest reserve = new JSONRequest();
+        reserve.put("name", name);
+        reserve.setOrder("start");
+        reserve.setColumn("start,end");
+        item.put("Reserve", reserve);
+        request.putAll(item.toArray(0, 0));
+        get(request,0,listener);
     }
+
+    public static void reserve(String reserveName,String startStr,String endStr,HttpManager.OnHttpResponseListener listener){
+        JSONRequest request = new JSONRequest();
+        JSONRequest reserve = new JSONRequest();
+        reserve.put("name", reserveName);
+        reserve.put("userid", String.valueOf(MyApplication.getInstance().getCurrentUserId()));
+        reserve.put("start", startStr);
+        reserve.put("end", endStr);
+        request.put("Reserve", reserve);
+        request.setTag("Reserve");
+        HttpManager.getInstance().post(URL_BASE + "reserve/", request, 0, listener);
+    }
+
+    public static void getMyReserves( HttpManager.OnHttpResponseListener listener){
+        JSONRequest request = new JSONRequest();
+        JSONRequest item = new JSONRequest();
+        JSONRequest reserve = new JSONRequest();
+        reserve.put("userid",MyApplication.getInstance().getCurrentUserId());
+        reserve.setColumn("name,start,end,id");
+        reserve.setOrder("start");
+        item.put("Reserve", reserve);
+        request.putAll(item.toArray(0, 0));
+        get(request,0,listener);
+    }
+
+    public static void deleteReserve(Long id,HttpManager.OnHttpResponseListener listener){
+            JSONRequest request = new JSONRequest();
+            JSONRequest reserve = new JSONRequest();
+            reserve.put("id", id);
+            request.put("Reserve", reserve);
+            request.setTag("Reserve");
+            delete(request,0,listener);
+    }
+
 }
 
 

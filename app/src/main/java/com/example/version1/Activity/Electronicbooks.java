@@ -1,22 +1,23 @@
 package com.example.version1.Activity;
 
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
+
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.Window;
 
 import com.example.version1.Model.Electronicbook;
 import com.example.version1.R;
+import com.example.version1.Util.BaseActivity;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Electronicbooks extends AppCompatActivity {
+public class Electronicbooks extends BaseActivity {
     private RecyclerView electronicbookre;
     private BaseRecyclerAdapter baseRecyclerAdapter;
     private List<Electronicbook> electronicbookList=new ArrayList<Electronicbook>();

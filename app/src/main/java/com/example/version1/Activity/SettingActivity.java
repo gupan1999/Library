@@ -1,12 +1,12 @@
 package com.example.version1.Activity;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.Window;
 
 import com.example.version1.R;
+import com.example.version1.Util.BaseActivity;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

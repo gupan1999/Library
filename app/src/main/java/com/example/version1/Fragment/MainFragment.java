@@ -2,9 +2,6 @@ package com.example.version1.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,20 +12,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.version1.Activity.ResultActivity;
 import com.example.version1.Model.Book;
-
-import com.example.version1.MyApplication;
 import com.example.version1.R;
-import com.example.version1.manager.HttpManager;
 import com.example.version1.Util.HttpUtil;
 import com.example.version1.customed.CustomClickListener;
-import apijson.StringUtil;
+import com.example.version1.manager.HttpManager;
 
-import java.util.List;
+import apijson.StringUtil;
 
 
 public class MainFragment extends Fragment {
@@ -52,7 +50,7 @@ public class MainFragment extends Fragment {
         spinner2 = root.findViewById(R.id.spinner2);
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item) {
         };
-        String level[] = getResources().getStringArray(R.array.array);//资源文件
+        String[] level = getResources().getStringArray(R.array.array);//资源文件
         for (int i = 0; i < level.length; i++) {
             adapter.add(level[i]);
         }
@@ -79,7 +77,7 @@ public class MainFragment extends Fragment {
             @Override
             protected void onSingleClick() {
                 if (StringUtil.isEmpty(text.getText().toString(), true))
-                    Toast.makeText(MyApplication.getContext(), "请输入检索词", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "请输入检索词", Toast.LENGTH_SHORT).show();
                 else {
                     final int limit = spinner2.getSelectedItemPosition();
                     intent = new Intent(getActivity(), ResultActivity.class);
@@ -111,7 +109,7 @@ public class MainFragment extends Fragment {
                                     HttpUtil.bookList.add(book);
                                 }
                                 startActivity(intent);
-                            }else  Toast.makeText(MyApplication.getContext(), "访问服务器失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                            }else  Toast.makeText(getContext(), "访问服务器失败，请稍后重试", Toast.LENGTH_SHORT).show();
                         }
                     };
                     if (limit == HttpUtil.MY_SCHOOL)

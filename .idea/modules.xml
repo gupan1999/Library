@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/APIJSONLibrary/APIJSONLibrary.iml" filepath="$PROJECT_DIR$/APIJSONLibrary/APIJSONLibrary.iml" group="Version1/APIJSONLibrary" />
-      <module fileurl="file://$PROJECT_DIR$/QRCodeLibrary/QRCodeLibrary.iml" filepath="$PROJECT_DIR$/QRCodeLibrary/QRCodeLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/Version1.iml" filepath="$PROJECT_DIR$/Version1.iml" group="Version1" />
-      <module fileurl="file://$PROJECT_DIR$/QRCodeLibrary/Version1-QRCodeLibrary.iml" filepath="$PROJECT_DIR$/QRCodeLibrary/Version1-QRCodeLibrary.iml" group="Version1/QRCodeLibrary" />
-      <module fileurl="file://$PROJECT_DIR$/ZBLibrary/Version1-ZBLibrary.iml" filepath="$PROJECT_DIR$/ZBLibrary/Version1-ZBLibrary.iml" group="Version1/ZBLibrary" />
-      <module fileurl="file://$PROJECT_DIR$/ZBLibrary/ZBLibrary.iml" filepath="$PROJECT_DIR$/ZBLibrary/ZBLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Version1/app" />
     </modules>
   </component>

@@ -2,16 +2,17 @@ package com.example.version1.customed;
 
 import android.app.Activity;
 import android.content.Context;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.example.version1.R;
 
-public class TitleLayout extends ConstraintLayout {      //继承ConstraintLayout，只是将基本控件组合起来
+public class TitleLayout extends ConstraintLayout{      //继承ConstraintLayout，只是将基本控件组合起来
     private  ImageButton Return;
     private  TextView Title;
     public TitleLayout(Context context, AttributeSet attrs){
@@ -32,7 +33,7 @@ public class TitleLayout extends ConstraintLayout {      //继承ConstraintLayou
    }
 
    public  void setTitle(String name){
-        Title.setText("");
+        Title.setText(name);
    }
 
 

@@ -16,10 +16,10 @@ import apijson.StringUtil;
  */
 public class DataManager {
     private final String TAG = "DataManager";
-    public static String lastCacheDate;
+    private static String lastCacheDate;
     private Context context;
     private DataManager(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
     }
 
     private static DataManager instance = new DataManager(MyApplication.getInstance());
@@ -33,9 +33,9 @@ public class DataManager {
 
     public final String KEY_USER = "KEY_USER";
     public final String KEY_USER_ID = "KEY_USER_ID";
-    public final String KEY_USER_NAME = "KEY_USER_NAME";
-    public final String KEY_USER_PHONE = "KEY_USER_PHONE";
-    public final String CACHE_TIME = "CACHE_TIME";
+//    public final String KEY_USER_NAME = "KEY_USER_NAME";
+//    public final String KEY_USER_PHONE = "KEY_USER_PHONE";
+    private final String CACHE_TIME = "CACHE_TIME";
     public final String KEY_CURRENT_USER_ID = "KEY_CURRENT_USER_ID";
     public final String KEY_LAST_USER_ID = "KEY_LAST_USER_ID";
 

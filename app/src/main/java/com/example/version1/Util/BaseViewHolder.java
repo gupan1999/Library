@@ -22,7 +22,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCr
     private SparseArray<View> mViews; //用来存储控件的键值对容器,如1:
     private View mConvertView; //每个子项的外层布局
     private Context mContext;
-
+    private boolean chosen = false;
 
     public BaseViewHolder(Context context, View itemView) {
         super(itemView);
@@ -33,6 +33,13 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCr
         //mConvertView.setOnCreateContextMenuListener(this);
     }
 
+    public boolean isChosen() {
+        return chosen;
+    }
+
+    public void setChosen(boolean chosen) {
+        this.chosen = chosen;
+    }
 
     /**
      * 提供一个获取ViewHolder的方法
@@ -94,7 +101,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCr
 
     @Override          //实现接口View.OnCreateContextMenuListener的回调方法，在创建ContextMenu时调用
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-      new MenuInflater(mContext).inflate(R.menu.context_menu,menu);    //动态加载menu/context_menu的布局
+      new MenuInflater(mContext).inflate(R.menu.cancel,menu);    //动态加载menu/context_menu的布局
       //menu.add(0, R.id.delete,0,"删除");
     }
 }

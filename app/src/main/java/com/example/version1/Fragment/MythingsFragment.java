@@ -3,10 +3,6 @@ package com.example.version1.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -18,19 +14,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.example.version1.Activity.LoginActivity;
-//import com.example.version1.Activity.MessageActivity;
 import com.example.version1.Activity.MyElectronicBookshelves;
 import com.example.version1.Activity.MyLentActivity;
 import com.example.version1.Activity.ReserveActivity;
-import com.example.version1.Activity.SettingActivity;
-import com.example.version1.Model.Book;
-import com.example.version1.Model.Collin;
-import com.example.version1.Model.Lend;
-import com.example.version1.Model.LentInformation;
 import com.example.version1.Model.User;
 import com.example.version1.MyApplication;
 import com.example.version1.R;
@@ -42,6 +33,9 @@ import com.example.version1.manager.HttpManager;
 
 import apijson.JSONResponse;
 
+//import com.example.version1.Activity.MessageActivity;
+
+
 public class MythingsFragment extends Fragment implements HttpManager.OnHttpResponseListener{
     public static final String TAG = "MythingsFragment";
     private Button MyLent;
@@ -51,6 +45,7 @@ public class MythingsFragment extends Fragment implements HttpManager.OnHttpResp
     private Button Reserve;
     private TextView idView;
     private TextView signView;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -98,14 +93,41 @@ public class MythingsFragment extends Fragment implements HttpManager.OnHttpResp
                 }
             }
         });
+
+
         Setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(),DownloadService.class);
+//
+//                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                    //android8.0以上通过startForegroundService启动service
+//                    ((MainActivity)getActivity()).startForegroundService(intent);
+//                    Log.d(TAG,"startForegroundService");
+//                }else{
+//                    ((MainActivity)getActivity()).startService(intent); // 启动服务
+//                    Log.d(TAG,"startService");
+//                }
+//                ((MainActivity)getActivity()).getApplicationContext().bindService(intent, ((MainActivity)getActivity()).connection, BIND_AUTO_CREATE); // 绑定服务
+//
+//                DownloadService.DownloadBinder downloadBinder = ((MainActivity)getActivity()).downloadBinder;
+//                if (downloadBinder == null) {
+//                    return;
+//                String url = "http://192.168.0.103/1705.04058.pdf";
+//                downloadBinder.startDownload(url);
 
-                    Intent intent3 = new Intent(getActivity(), SettingActivity.class);
-                    startActivity(intent3);
+//
+//                    Intent intent3 = new Intent(getActivity(), SettingActivity.class);
+//                    startActivity(intent3);
+//                String path = getActivity().getCacheDir().getPath().concat("/deprecated.txt");
+//                openBook(getActivity(),path,"txt");
+//                String path = getActivity().getCacheDir().getPath().concat("/SVM.pdf");
+//                openBook(getActivity(),path,"pdf");
+//
+//                Log.d(TAG,path);
 
-            }
+        }
+
         });
         myElectronicBookshelf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,4 +224,8 @@ public class MythingsFragment extends Fragment implements HttpManager.OnHttpResp
                 break;
         }
     }
+
+
+
+
 }

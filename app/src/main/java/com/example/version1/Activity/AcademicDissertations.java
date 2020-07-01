@@ -1,15 +1,16 @@
 package com.example.version1.Activity;
 
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
+
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.Window;
 
 import com.example.version1.Model.Academic;
 import com.example.version1.R;
+import com.example.version1.Util.BaseActivity;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
 
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AcademicDissertations extends AppCompatActivity {
+public class AcademicDissertations extends BaseActivity {
     private RecyclerView academicDissertationre;
     private BaseRecyclerAdapter baseRecyclerAdapter;
     //private List<AcademicDissertation> academicDissertationList=new ArrayList<AcademicDissertation>();

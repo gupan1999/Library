@@ -17,32 +17,27 @@ package com.example.version1.manager;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.version1.MyApplication;
 
-
 import org.json.JSONException;
 
-import java.io.IOException;
-import java.net.CookieHandler;
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import apijson.StringUtil;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 /**
@@ -112,46 +107,56 @@ public class HttpManager {
      */
     public void post(final String url_, final com.alibaba.fastjson.JSONObject request
             , final int requestCode, final OnHttpResponseListener listener) {
-        new AsyncTask<Void, Void, Exception>() {
-
-            String result;
-            @Override
-            protected Exception doInBackground(Void... params) {
-
-                try {
-                    String url = StringUtil.getNoBlankString(url_);
-
-                    OkHttpClient client = getHttpClient(url);
-                    if (client == null) {
-                        return new Exception(TAG + ".post  AsyncTask.doInBackground  client == null >> return;");
-                    }
-                    String body = JSON.toJSONString(request);
-                    Log.d(TAG, "\n\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n post  url = " + url_ + "\n request = \n" + body);
-
-                    RequestBody requestBody = RequestBody.create(TYPE_JSON, body);
-
-                    result = getResponseJson(client, new Request.Builder()
-                            .addHeader(KEY_TOKEN, getToken(url)).url(StringUtil.getNoBlankString(url))
-                            .post(requestBody).build());
-                    Log.d(TAG, "\n post  result = \n" + result + "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n");
-                } catch (Exception e) {
-                    Log.e(TAG, "post  AsyncTask.doInBackground  try {  result = getResponseJson(..." +
-                            "} catch (Exception e) {\n" + e.getMessage());
-                    return e;
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Exception exception) {
-                super.onPostExecute(exception);
-                listener.onHttpResponse(requestCode, result, exception);
-            }
-
-        }.execute();
+            new PostTask(url_,request,requestCode,listener).execute();
     }
 
+    static class PostTask extends AsyncTask<Void, Void, Exception>{
+        private String url;
+        private com.alibaba.fastjson.JSONObject request;
+        private int requestCode;
+        private OnHttpResponseListener listener;
+        private String result;
+        public PostTask(String url,com.alibaba.fastjson.JSONObject request,int requestCode,OnHttpResponseListener listener){
+            this.url=url;
+            this.request=request;
+            this.requestCode=requestCode;
+            this.listener = listener;
+        }
+
+        @Override
+        protected Exception doInBackground(Void... params) {
+
+            try {
+                String url = StringUtil.getNoBlankString(this.url);
+
+                OkHttpClient client = HttpManager.getInstance().getHttpClient(url);
+                if (client == null) {
+                    return new Exception(TAG + ".post  AsyncTask.doInBackground  client == null >> return;");
+                }
+                String body = JSON.toJSONString(request);
+                Log.d(TAG, "\n\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n post  url = " + url + "\n request = \n" + body);
+
+                RequestBody requestBody = RequestBody.create(TYPE_JSON, body);
+
+                result = HttpManager.getInstance().getResponseJson(client, new Request.Builder()
+                        .addHeader(KEY_TOKEN, HttpManager.getInstance().getToken(url)).url(StringUtil.getNoBlankString(url))
+                        .post(requestBody).build());
+                Log.d(TAG, "\n post  result = \n" + result + "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n");
+            } catch (Exception e) {
+                Log.e(TAG, "post  AsyncTask.doInBackground  try {  result = getResponseJson(..." +
+                        "} catch (Exception e) {\n" + e.getMessage());
+                return e;
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Exception exception) {
+            super.onPostExecute(exception);
+            listener.onHttpResponse(requestCode, result, exception);
+        }
+    }
 
     //httpGet/httpPost 内调用方法 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -161,16 +166,16 @@ public class HttpManager {
      */
     private OkHttpClient getHttpClient(String url) {
         Log.i(TAG, "getHttpClient  url = " + url);
-        if (StringUtil.isNotEmpty(url, true) == false) {
+        if (!StringUtil.isNotEmpty(url, true) ) {
             Log.e(TAG, "getHttpClient  StringUtil.isNotEmpty(url, true) == false >> return null;");
             return null;
         }
 
-        OkHttpClient client = new OkHttpClient();
-        client.setCookieHandler(new HttpHead());
-        client.setConnectTimeout(5, TimeUnit.SECONDS);
-        client.setWriteTimeout(3, TimeUnit.SECONDS);
-        client.setReadTimeout(3, TimeUnit.SECONDS);
+        OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS)
+                .writeTimeout(3, TimeUnit.SECONDS)
+                .readTimeout(3, TimeUnit.SECONDS)
+                .cookieJar(new MyCookieJar()).build();
+
 
         return client;
     }
@@ -264,38 +269,33 @@ public class HttpManager {
     /**
      * http请求头
      */
-    public class HttpHead extends CookieHandler {
-        public HttpHead() {
+    public class MyCookieJar implements CookieJar {
+        public MyCookieJar() {
         }
 
         @Override
-        public Map<String, List<String>> get(URI uri, Map<String, List<String>> requestHeaders) throws IOException {
-            String cookie = getCookie();
-            Map<String, List<String>> map = new HashMap<String, List<String>>();
-            map.putAll(requestHeaders);
-            if (!TextUtils.isEmpty(cookie)) {
-                List<String> cList = new ArrayList<String>();
-                cList.add(cookie);
-                map.put("Cookie", cList);
-            }
-            return map;
-        }
+        public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+            for (Cookie cookie : cookies) {
 
-        @Override
-        public void put(URI uri, Map<String, List<String>> responseHeaders) throws IOException {
-            List<String> list = responseHeaders.get("Set-Cookie");
-            if (list != null) {
-                for (int i = 0; i < list.size(); i++) {
-                    String cookie = list.get(i);
-                    if (cookie.startsWith("JSESSIONID")) {
-                        saveCookie(list.get(i));
-                        break;
-                    }
+                Log.d(TAG,"cookie.value(): "+cookie.value()+" cookie.name(): "+cookie.name());
+                if (cookie.name().equals("JSESSIONID")) {
+                    saveCookie(cookie.value());
+                    break;
                 }
             }
         }
 
+        @Override
+        public List<Cookie> loadForRequest(HttpUrl url) {
+            ArrayList<Cookie> cookies = new ArrayList<>();
+            Cookie cookie = new Cookie.Builder()
+                    .hostOnlyDomain(url.host())
+                    .name("JSESSIONID").value(getCookie())
+                    .build();
+            cookies.add(cookie);
+            return cookies;
+        }
     }
-
-
 }
+
+

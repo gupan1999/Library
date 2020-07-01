@@ -2,42 +2,35 @@ package com.example.version1.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.version1.Model.Book;
 import com.example.version1.Model.Collin;
-import com.example.version1.MyApplication;
 import com.example.version1.R;
+import com.example.version1.Util.BaseActivity;
 import com.example.version1.Util.BaseRecyclerAdapter;
 import com.example.version1.Util.BaseViewHolder;
-import com.example.version1.manager.HttpManager;
 import com.example.version1.Util.HttpUtil;
 import com.example.version1.customed.CustomClickListener;
+import com.example.version1.manager.HttpManager;
 
 
-public class ResultActivity extends AppCompatActivity {
-    public static final String TAG="ResultActivity12356";
+public class ResultActivity extends BaseActivity {
+    public static final String TAG="ResultActivity";
     private RecyclerView recyclerView;
-    private BaseRecyclerAdapter adapter;
+    private BaseRecyclerAdapter<Book> adapter;
     private TextView search_nodata;
-    private TextView total;
-    private Handler handler;
-    private Button previous;
-    private Button next;
     private TextView page;
     private int curpageno;
     private int totalpage;
@@ -45,7 +38,6 @@ public class ResultActivity extends AppCompatActivity {
     private String key;
     private int type;
     private int limit;
-    private int cnt = 0;
     private HttpManager.OnHttpResponseListener nextPageListener;
     private HttpManager.OnHttpResponseListener previousPageListener;
     private HttpManager.OnHttpResponseListener detailListener;
@@ -55,15 +47,15 @@ public class ResultActivity extends AppCompatActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_result);
         recyclerView = findViewById(R.id.recyclerView3);
-        previous = findViewById(R.id.previous);
-        next = findViewById(R.id.next);
+        Button previous = findViewById(R.id.previous);
+        Button next = findViewById(R.id.next);
         page = findViewById(R.id.page);
         curpageno = 1;
         limit = getIntent().getIntExtra("limit", -1);
         key = getIntent().getStringExtra("key");
         type = getIntent().getIntExtra("type", -1);
         //initCnt();
-        cnt=getIntent().getIntExtra("total",-1);
+        int cnt=getIntent().getIntExtra("total",-1);
         totalpage = HttpUtil.page(cnt, HttpUtil.pgcnt);
         if (cnt==0){
             previous.setVisibility(View.GONE);
@@ -82,7 +74,7 @@ public class ResultActivity extends AppCompatActivity {
                         @Override
                         public void onHttpResponse(int requestCode, String resultJson, Exception e) {
 
-                            if (limit == HttpUtil.ALL_SCHOOL)
+                            if (limit == HttpUtil.OTHER_SCHOOL1)
                                 resultJson = resultJson.replace(HttpUtil.libraries[requestCode], HttpUtil.libraries[0]);
                             JSONObject response = JSON.parseObject(resultJson);
                             JSONArray List = response.getJSONArray("[]");
@@ -129,7 +121,7 @@ public class ResultActivity extends AppCompatActivity {
                         @Override
                         public void onHttpResponse(int requestCode, String resultJson, Exception e) {
                             if (resultJson != null) {
-                                if (limit == HttpUtil.ALL_SCHOOL)
+                                if (limit == HttpUtil.OTHER_SCHOOL1)
                                     resultJson = resultJson.replace(HttpUtil.libraries[requestCode], HttpUtil.libraries[0]);
                                 JSONObject response = JSON.parseObject(resultJson);
                                 JSONArray List = response.getJSONArray("[]");
@@ -148,7 +140,7 @@ public class ResultActivity extends AppCompatActivity {
                                 }
                                 adapter.notifyDataSetChanged();
                                 page.setText(pginfo);
-                            }else  Toast.makeText(MyApplication.getContext(), "访问服务器失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                            }else  Toast.makeText(ResultActivity.this, "访问服务器失败，请稍后重试", Toast.LENGTH_SHORT).show();
                         }
                     };
                     if (limit == HttpUtil.MY_SCHOOL)
@@ -221,13 +213,13 @@ public class ResultActivity extends AppCompatActivity {
 
                                         intent.putExtra("bookname", bookname);
                                         startActivity(intent);
-                                    }else Toast.makeText(MyApplication.getContext(), "访问服务器失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                                    }else Toast.makeText(ResultActivity.this, "访问服务器失败，请稍后重试", Toast.LENGTH_SHORT).show();
 
 
                                 }
                             };
-                            if(from==HttpUtil.MY_SCHOOL) HttpUtil.getColl(from,bookno,detailListener);
-                            else   Toast.makeText(MyApplication.getContext(), "您没有查看此库书籍的权限", Toast.LENGTH_SHORT).show();
+                            if(from== HttpUtil.MY_SCHOOL) HttpUtil.getColl(from,bookno,detailListener);
+                            else   Toast.makeText(ResultActivity.this, "您没有查看此库书籍的权限", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -245,7 +237,7 @@ public class ResultActivity extends AppCompatActivity {
         System.out.println(HttpUtil.bookList);
         recyclerView.setAdapter(adapter);
         search_nodata = findViewById(R.id.search_nodata);
-        total = findViewById(R.id.total);
+        TextView total = findViewById(R.id.total);
         total.setText("共 " + cnt + " 条搜索结果");
         checkNull();
     }

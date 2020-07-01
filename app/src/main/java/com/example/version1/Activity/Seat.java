@@ -1,15 +1,15 @@
 package com.example.version1.Activity;
 
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
 import com.example.version1.R;
+import com.example.version1.Util.BaseActivity;
 
-public class Seat extends AppCompatActivity {
+public class Seat extends BaseActivity {
     private TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

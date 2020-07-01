@@ -5,8 +5,9 @@ import android.os.Bundle;
 import android.view.Window;
 
 import com.example.version1.R;
+import com.example.version1.Util.BaseActivity;
 
-public class Seat2 extends AppCompatActivity {
+public class Seat2 extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

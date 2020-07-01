@@ -1,17 +1,17 @@
 package com.example.version1.Fragment;
 
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.version1.Model.Hot;
 import com.example.version1.R;
@@ -25,7 +25,7 @@ import java.util.List;
 public class HotFragment extends Fragment {
     private RecyclerView hotitemre;
     private BaseRecyclerAdapter baseRecyclerAdapter;
-    private List<Hot> hotList = new ArrayList<Hot>();
+    private List<Hot> hotList = new ArrayList<>();
     private TextView textView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
